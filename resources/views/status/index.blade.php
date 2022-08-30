@@ -59,8 +59,8 @@
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$status->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
                 @csrf 
                 
-                <a class="btn btn-danger" data-bs-toggle="modal" ><ion-icon name="trash-outline"></ion-icon></a>
-                <!-- data-bs-target="#myModalDelete{{$status->id}}" -->
+                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalDelete{{$status->id}}"><ion-icon name="trash-outline"></ion-icon></a>
+                
             </form>
         </td>
        </tr>
@@ -98,7 +98,7 @@
   </div>
 
 <!-- Start Delete Modal -->
-  <!-- <div class="modal fade" id="myModalDelete{{$status->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="myModalDelete{{$status->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -120,29 +120,12 @@
           </div>
       </div>
     </div>
-  </div> -->
+  </div>
 
 
 
        @endforeach
     </tbody>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">
-
-$('.btn-danger').on('click', function (event) {
-    event.preventDefault();
-    const url = $(this).attr('href');
-    swal({
-        title: 'Are you sure?',
-        text: 'This record and it`s details will be permanantly deleted!',
-        icon: 'warning',
-        buttons: ["Cancel", "Yes!"],
-    }).then(function(value) {
-        if (value) {
-            window.location.href = url;
-        }
-    });
-});
-</script>
 </table>
 </div>
 
