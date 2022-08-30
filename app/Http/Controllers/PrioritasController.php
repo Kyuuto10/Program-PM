@@ -25,7 +25,7 @@ class PrioritasController extends Controller
      */
     public function create()
     {
-        return view('priority.create');
+        // return view('priority.create');
     }
 
     /**
@@ -42,8 +42,8 @@ class PrioritasController extends Controller
 
         Prioritas::create($request->all());
 
-        return redirect()->route('priority.index')
-                        ->with('msg','Berhasil Menyimpan');
+        toast('Berhasil Menambah','success');
+        return redirect()->route('priority.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class PrioritasController extends Controller
      */
     public function edit(Prioritas $prioritas)
     {
-        return view('priority.edit',compact('prioritas'));
+        // return view('priority.edit',compact('prioritas'));
     }
 
     /**
@@ -83,8 +83,8 @@ class PrioritasController extends Controller
 
         $prioritas->update($request->all());
 
-        return redirect()->route('priority.index')
-                        ->with('edit','Berhasil Edit');
+        toast('Berhasil Edit','success');
+        return redirect()->route('priority.index');
     }
 
     /**
@@ -96,8 +96,8 @@ class PrioritasController extends Controller
     public function destroy(Prioritas $prioritas)
     {
         $prioritas->delete();
-
-        return redirect()->route('priority  .index')
-                        ->with('delete','Berhasil Menghapus');
+        
+        toast('Berhasil Menghapus','success');
+        return redirect()->route('priority.index');
     }
 }

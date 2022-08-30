@@ -49,6 +49,8 @@ Route::middleware(['auth','user-access:admin'])->group(function(){
 
     Route::get('/home', [HomeController::class, 'adminHome'])->name('adminHome');
 
+    Route::get('project/search','App\Http\Controllers\ProjectController@search');
+    Route::get('project/export', 'App\Http\Controllers\ProjectController@export')->name('project.export');
     Route::resource('project', ProjectController::class);
     Route::resource('teknisi', TeknisiController::class);
     Route::resource('project', ProjectController::class);

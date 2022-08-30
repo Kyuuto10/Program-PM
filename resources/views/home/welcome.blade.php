@@ -1,14 +1,12 @@
 @extends('layout.master')
 @section('content')
- <div class="card text-center">
-        <div class="card-header">
-          <!-- <strong class="card-title" style="text-align:center;">Halo</strong> -->
-
-          <div class="card-tools">
-          </div>
-        </div>
+<div style="padding:2em;">
+ <div class="card-footer text-center">
+        <!-- <div class="card-header">
+          <strong class="card-title" style="text-align:center;">Halo</strong>
+        </div> -->
         @auth
-        <div class="card-body">
+        <div class="card-body"  style="padding-top:5em;">
          Halo, Selamat Datang {{Auth::user()->name}}
         </div>
         @else
@@ -27,7 +25,7 @@
         <thead>
         <tr>
           <th>No</th>
-          <!-- <th>Tanggal</th> -->
+          <th>Tanggal</th>
           <th>Nama Instansi</th>
             <th>Nama Lokasi</th>
             <th>Teknisi</th>
@@ -51,7 +49,7 @@
           @foreach($projects as $project)
         <tr>
             <td>{{ ++$i }}</td>
-            <!-- <td>{{ $project->tanggal }}</td> -->
+            <td>{{ $project->tanggal }}</td>
             <td>{{ $project->nama_instansi }}</td>
             <td>{{ $project->nama_lokasi }}</td>
             <td>{{ $project->nama_teknisi }}</td>
@@ -70,13 +68,56 @@
             <td>
               <form action="{{route('project.show', $project->id)}}" method="post">
                 @csrf 
-                <a class="btn btn-info" href="{{route('project.show', $project->id)}}">Detail</a>
+                <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}">Detail</a>
               </form>
+
+              <div class="modal fade" id="modalShow{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Show</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form action="{{ route('project.show', $project->id) }}" method="POST" enctype="multipart/form-data" id="showForm">
+                            @csrf
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><b>Tanggal :&ensp;</b>{{$project->tanggal}}</li>
+                                        <li class="list-group-item"><b>Nama Instansi :&ensp;</b>{{$project->nama_instansi}}</li>
+                                        <li class="list-group-item"><b>Nama Lokasi :&ensp;</b>{{$project->nama_lokasi}}</li>
+                                        <li class="list-group-item"><b>Teknisi :&ensp;</b>{{$project->nama_teknisi}}</li>
+                                        <li class="list-group-item"><b>Produk :&ensp;</b>{{$project->produk}}</li>
+                                        <li class="list-group-item"><b>Warranty :&ensp;</b>{{$project->warranty}}</li>
+                                        <li class="list-group-item"><b>Priority :&ensp;</b>{{$project->priority}}</li>
+                                        <li class="list-group-item"><b>Jobdesk :&ensp;</b>{{$project->jobdesk}}</li>
+                                        <li class="list-group-item"><b>Deskripsi :&ensp;</b>{{$project->deskripsi}}</li>
+                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status}}</li>
+                                        <div style="max-height:200px;">
+                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="images/{{$project->foto}}" style="width:15%; height:15%;" tooltip="{{$project->foto}}"></li>
+                                        </div>
+                                        <li class="list-group-item"><b>Item :&ensp;</b>{{$project->item}}</li>
+                                        <li class="list-group-item"><b>Tanggal Pengiriman :&ensp;</b>{{$project->tgl_pengiriman}}</li>
+                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status1}}</li>
+                                        <li class="list-group-item"><b>Tanggal Kembali :&ensp;</b>{{$project->tgl_kembali}}</li>
+                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status2}}</li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             </td>
         </tr>
             @endforeach
         </tbody>
       </table>
+      </div>
+
+  
 
       @endif
       @endauth

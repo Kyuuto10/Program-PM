@@ -25,7 +25,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        return view('produk.create');
+        // return view('produk.create');
     }
 
     /**
@@ -42,8 +42,8 @@ class ProdukController extends Controller
 
         Produk::create($request->all());
 
-        return redirect()->route('produk.index')
-                        ->with('msg','Berhasil Menyimpan');
+        toast('Berhasil Menambah','success');
+        return redirect()->route('produk.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class ProdukController extends Controller
      */
     public function edit(Produk $produk)
     {
-       return view('produk.edit',compact('produk'));
+    //    return view('produk.edit',compact('produk'));
     }
 
     /**
@@ -83,8 +83,8 @@ class ProdukController extends Controller
 
         $produk->update($request->all());
 
-        return redirect()->route('produk.index')
-                        ->with('edit','Berhasil Edit');
+        toast('Berhasil Edit','success');
+        return redirect()->route('produk.index');
     }
 
     /**
@@ -97,7 +97,7 @@ class ProdukController extends Controller
     {
         $produk->delete();
         
-        return redirect()->route('produk.index')
-                        ->with('delete','Berhasil Hapus');
+        toast('Berhasil Menghapus','success');
+        return redirect()->route('produk.index');
     }
 }

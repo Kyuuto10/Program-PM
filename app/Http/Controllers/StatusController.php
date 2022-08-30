@@ -25,7 +25,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        return view('status.create');
+        // return view('status.create');
     }
 
     /**
@@ -41,8 +41,9 @@ class StatusController extends Controller
         ]);
 
         Status::create($request->all());
-        return redirect()->route('status.index')
-                        ->with('msg','Berhasil Menyimpan');
+
+        toast('Berhasil Menambah','success'); 
+        return redirect()->route('status.index');
     }
 
     /**
@@ -64,7 +65,7 @@ class StatusController extends Controller
      */
     public function edit(Status $status)
     {
-        return view('status.edit',compact('status'));
+        // return view('status.edit',compact('status'));
     }
 
     /**
@@ -81,8 +82,9 @@ class StatusController extends Controller
         ]);
 
         $status->update($request->all());
-        return redirect()->route('status.index')
-                        ->with('edit','Berhasil Edit');
+
+        toast('Berhasil Edit','success'); 
+        return redirect()->route('status.index');
     }
 
     /**
@@ -95,7 +97,7 @@ class StatusController extends Controller
     {
         $status->delete();
 
-        return redirect()->route('status.index')
-                        ->with('delete','Berhasil Menghapus');
+        // toast('Berhasil Menghapus','success');
+        return redirect()->route('status.index')-with('success','Berhasil Menghapus!');
     }
 }

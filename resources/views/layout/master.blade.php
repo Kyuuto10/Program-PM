@@ -9,6 +9,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Newtronic Solution</title>
+    <style>
+      .imgPreview img {
+            padding: 8px;
+            max-width: 100px;
+        } 
+    </style>
 
     <!-- ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -22,6 +28,16 @@
     <!-- My Style -->
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <!-- end my style -->
+
+    <!-- datatable -->
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script> -->
+    <!-- end datatable -->
 
     <!-- base:css -->
     <link rel="stylesheet" href="{{url('template/vendors/mdi/css/materialdesignicons.min.css')}}">
@@ -39,6 +55,11 @@
     <link rel="shortcut icon" href="{{url('template/images/nts.png')}}" />
     <!-- end icon -->
 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript">
+     var siteUrl = "{{url('/')}}";
+  </script>
+  
     <!-- Script -->
     @vite(['resources/sass/app.css','resources/js/app.js'])
 
@@ -46,22 +67,24 @@
   <body>
 
 		<!-- partial:partials/_horizontal-navbar.html -->
-    <div class="horizontal-menu">
+    <div class="horizontal-menu" style="position: fixed; width: 100%;">
       <nav class="navbar top-navbar col-lg-12 col-12 p-0">
         <div class="container">
         </div>
       </nav>
-      <nav class="bottom-navbar navbar-fixed-top">
+      
+      <nav class="bottom-navbar navbar-fixed-top" style="justify">
         <div class="container row">
             <ul class="nav page-navigation">
+            @auth
               <li class="nav-item">
-                <a class="nav-link" href="{{url('/')}}">
+                <a class="nav-link" href="{{url('/home')}}">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
                   <span class="menu-title">Dashboard</span>
                 </a>
               </li>
 
-              @auth
+              
               @if(Auth::user()->type == 'admin' || Auth::user()->type == 'manager')
               
 
@@ -95,9 +118,10 @@
               @endif
               
               <li class="nav-item">
-              <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-left"></i>
-                {{ __('Logout') }}
-              </a>
+                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();return confirm('Yakin Ingin Keluar?');"><i class="bi bi-box-arrow-left"></i>    
+                    <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
+                  </a>
+              </li>
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
               @csrf
@@ -122,6 +146,8 @@
         </div>
       </nav> 
     </div>
+
+   
 
 	@yield('content')
     <!-- partial -->
@@ -161,6 +187,5 @@
     <!-- Custom js for this page-->
     <script src="js/dashboard.js"></script>
     <!-- End custom js for this page-->
-	
   </body>
 </html>

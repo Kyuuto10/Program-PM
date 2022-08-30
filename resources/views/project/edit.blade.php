@@ -68,7 +68,7 @@
 
                     <div class="form-group">
                         <strong>Deskripsi :</strong>
-                        <textarea class="form-control @error('foto') is-invalid @enderror" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{$project->deskripsi}}"></textarea>
+                        <textarea class="form-control @error('foto') is-invalid @enderror" name="deskripsi" id="deskripsi" cols="30" rows="10" >{{$project->deskripsi}}</textarea>
                         @error('deskripsi')
                         <div class="invalid-feedback">
                             {{$message}}

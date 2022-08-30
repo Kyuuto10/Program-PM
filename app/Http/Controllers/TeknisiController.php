@@ -25,7 +25,7 @@ class TeknisiController extends Controller
      */
     public function create()
     {
-        return view('teknisi.create');
+        // return view('teknisi.create');
     }
 
     /**
@@ -42,8 +42,9 @@ class TeknisiController extends Controller
         ]);
 
         Teknisi::create($request->all());
-        return redirect()->route('teknisi.index')
-                        ->with('msg','Berhasil menambah');
+
+        toast('Berhasil Menambah','success');
+        return redirect()->route('teknisi.index');
     }
 
     /**
@@ -65,7 +66,7 @@ class TeknisiController extends Controller
      */
     public function edit(Teknisi $teknisi)
     {
-        return view('teknisi.edit',compact('teknisi'));
+        // return view('teknisi.edit',compact('teknisi'));
     }
 
     /**
@@ -83,8 +84,9 @@ class TeknisiController extends Controller
         ]);
 
         $teknisi->update($request->all());
-        return redirect()->route('teknisi.index')
-                        ->with('edit','Berhasil edit');
+
+        toast('Berhasil Edit','success');
+        return redirect()->route('teknisi.index');
     }
 
     /**
@@ -97,7 +99,7 @@ class TeknisiController extends Controller
     {
         $teknisi->delete();
 
-        return redirect()->route('teknisi.index')
-                        ->with('delete','Berhasil hapus');
+        toast('Berhasil Menghapus','success');
+        return redirect()->route('teknisi.index');
     }
 }

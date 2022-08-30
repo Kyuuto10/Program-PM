@@ -25,12 +25,12 @@ return new class extends Migration
             $table->string('jobdesk');
             $table->text('deskripsi');
             $table->string('status');
-            $table->string('foto')->nullable();
             $table->string('item');
             $table->date('tgl_pengiriman');
             $table->string('status1');
             $table->date('tgl_kembali');
             $table->string('status2');
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }

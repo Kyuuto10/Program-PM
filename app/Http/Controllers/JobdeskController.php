@@ -25,7 +25,7 @@ class JobdeskController extends Controller
      */
     public function create()
     {
-        return view('jobdesk.create');
+        // return view('jobdesk.create');
     }
 
     /**
@@ -42,8 +42,8 @@ class JobdeskController extends Controller
 
         Jobdesk::create($request->all());
 
-        return redirect()->route('jobdesk.index')
-                        ->with('msg','Berhasil Menyimpan');
+        toast('Berhasil Menambah','success');
+        return redirect()->route('jobdesk.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class JobdeskController extends Controller
      */
     public function edit(Jobdesk $jobdesk)
     {
-        return view('jobdesk.edit',compact('jobdesk'));
+        // return view('jobdesk.edit',compact('jobdesk'));
     }
 
     /**
@@ -83,8 +83,8 @@ class JobdeskController extends Controller
 
         $jobdesk->update($request->all());
 
-        return redirect()->route('jobdesk.index')
-                        ->with('edit','Berhasil Edit');
+        toast('Berhasil Edit','success');
+        return redirect()->route('jobdesk.index');
     }
 
     /**
@@ -97,7 +97,7 @@ class JobdeskController extends Controller
     {
         $jobdesk->delete();
 
-        return redirect()->route('jobdesk.index')
-                        ->with('delete','Berhasil Hapus');
+        toast('Berhasil Menghapus','success');
+        return redirect()->route('jobdesk.index');
     }
 }
