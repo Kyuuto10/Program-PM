@@ -97,7 +97,7 @@ class StatusController extends Controller
     {
         $status->delete();
 
-        // toast('Berhasil Menghapus','success');
-        return redirect()->route('status.index')-with('success','Berhasil Menghapus!');
+        toast('Berhasil Menghapus','success');
+        return redirect()->route('status.index');
     }
 }

@@ -9,7 +9,7 @@ class Foto extends Model
 {
     use HasFactory;
 
-    protected $casts = ['fotos' => 'array'];
+    protected $table = 'fotos';
     protected $fillable = [
         'foto'
     ];

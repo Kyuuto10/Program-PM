@@ -96,7 +96,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $data = $request->validate([
             'nama_instansi' => 'required',
             'nama_lokasi' => 'required',
             'nama_teknisi' => 'required',
@@ -109,14 +109,13 @@ class ProjectController extends Controller
             // 'foto.*' => 'required|image|mimes:jpeg,jpg,png,svg,gif|max:2048',
             // 'foto.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048',
             'item' => 'required',
-            'tgl_pengiriman' => 'required',
-            'status1' => 'required',
-            'tgl_kembali' => 'required|after:tgl_pengiriman',
-            'status2' => 'required'
+            
         ]); 
         
+        $image = $request->file('image');
+        $image->move(public_path('public/images',$image->getClientOriginalName()));
 
-        $data = Project::create([
+         Project::create([
             'tanggal' => Carbon::today(),
             'nama_instansi' => $request->nama_instansi,
             'nama_lokasi' => $request->nama_lokasi,
@@ -127,7 +126,8 @@ class ProjectController extends Controller
             'jobdesk' => $request->jobdesk,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
-            'foto' => $request->foto,
+            // 'foto' => implode(',',$request->foto),
+            'image' => implode(',',$request->image),
             'item' => $request->item,
             'tgl_pengiriman' => $request->tgl_pengiriman,
             'status1' => $request->status1,
@@ -136,46 +136,33 @@ class ProjectController extends Controller
             'comment' => $request->comment
             ]);
 
-            // if($request->hasfile('foto')){
-            //     foreach($request->file('foto') as $file)
-            //     {
-            //         $name = $file->getClientOriginalName();
-            //         $file->move(public_path('images'). "/images/$name");
-            //         $data['foto'] = $name;
-                
-            //     $fileModal = new Project();
-            //     $fileModal->foto = json_encode($data);
+            // if($request->file('foto')){
 
-            //     $fileModal->save();
-            //     }
-            // }
+            //     $file = $request->file('foto');
+            //     $filename = $file->getClientOriginalName();
+            //     $file->move(public_path('images')."/$filename");
+            //     $data['foto'] = $filename;
+    
+            //     $data->save();
+            // } 
+      
+    //     DB::transaction(function () use ($data) {
+    //         // looping foto
+    //         foreach ($request->file('foto') as $file) {
+    //             $name = $file->getClientOriginalName();
+    //             $file->move(public_path('images'). "/images/$name");
+    //             $data['foto'] = $name;
             
-        // if($request->file('foto')){
-
-        //     $file = $request->file('foto');            
-        //     $filename = $file->getClientOriginalName();
-        //     $file->move(public_path('images'),"/images/$filename");
-        //     $data['foto'] = $filename;
-
-        //     $fileModal->name = json_encode($data);
-        //     $fileModal->foto_path = json_encode($data);
-        // } 
-
-        DB::transaction(function () use ($data) {
-            // $data->save();
-            // looping foto
-            foreach ($request->file('foto') as $file) {
-                $name = $file->getClientOriginalName();
-                $file->move(public_path('images'). "/images/$name");
-                $data['foto'] = $name;
+    //         // simpan
+    //         $foto = new Project();
+    //         $foto->foto = json_encode($data);
+    //         }
             
-            // simpan
-            $foto = new Project();
-            $foto->foto = json_encode($data);
-            $data->save();
-            }
-        });
 
+    //     $data->save();
+            
+    // });
+        
         toast('Berhasil Menambah','success');
         return redirect()->route('project.index');
                 
@@ -236,10 +223,6 @@ class ProjectController extends Controller
             'status' => 'required',
             // 'foto' => 'image|file|max:2048',
             'item' => 'required',
-            'tgl_pengiriman' => 'required',
-            'status1' => 'required',
-            'tgl_kembali' => 'required',
-            'status2' => 'required'
         ]);
 
         // if($request->file('image')){
@@ -257,7 +240,7 @@ class ProjectController extends Controller
             'jobdesk' => $request->jobdesk,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
-            'foto' => $request->foto,
+            'image' => $request->image,
             'item' => $request->item,
             'tgl_pengiriman' => $request->tgl_pengiriman,
             'status1' => $request->status1,
@@ -274,7 +257,7 @@ class ProjectController extends Controller
             $data['foto'] = $filename;
         } 
 
-        $data->save();
+        $data->update();
 
         toast('Berhasil Edit','success');
         return redirect()->route('project.index');

@@ -39,6 +39,8 @@
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script> -->
     <!-- end datatable -->
 
+    <!-- sweet alert -->
+    @include('sweetalert::alert')
     <!-- base:css -->
     <link rel="stylesheet" href="{{url('template/vendors/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{url('template/vendors/base/vendor.bundle.base.css')}}">
@@ -50,7 +52,9 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{url('template/css/style.css')}}">
     <!-- endinject -->
-
+    <!-- Sweet Alert -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
+    <!-- End Sweet Alert -->
     <!-- icon nts -->
     <link rel="shortcut icon" href="{{url('template/images/nts.png')}}" />
     <!-- end icon -->
@@ -118,9 +122,11 @@
               @endif
               
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();return confirm('Yakin Ingin Keluar?');"><i class="bi bi-box-arrow-left"></i>    
+                <a class="nav-link show-alert-logout-box" href="{{ route('logout') }}" name="_method" title="Logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-left"></i>    
+                <!-- onclick="event.preventDefault();document.getElementById('logout-form').submit();" -->
                     <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
                   </a>
+                  
               </li>
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -187,5 +193,30 @@
     <!-- Custom js for this page-->
     <script src="js/dashboard.js"></script>
     <!-- End custom js for this page-->
-  </body>
+    <!-- sweet alert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <!-- end sweet alert -->
+    <script type="text/javascript">
+      $('.show-alert-logout-box').click(function($event){
+         var form = $(this).closest("form");
+         var name = $(this).data("name");
+         event.preventDefault();
+         swal({
+          title: "Yakin Logout ?",
+          text: "Jika anda logout, anda harus login kembali.",
+          icon: "warning",
+          type: "warning",
+          buttons: ["Tidak","Ya!"],
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: "Yakin, keluar!"
+         }).then((willLogout) => {
+            if(willLogout) {
+              form.submit();
+            }
+         });
+      });
+    </script>
+    </body>
 </html>

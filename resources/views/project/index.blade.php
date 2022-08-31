@@ -26,26 +26,26 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('project.store') }}" method="post" enctype="multipart/form-data" onSubmit="validasi()>
+            <form action="{{ route('project.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">
                     <div class="col-4"><div class="form-group">
                         <strong>Nama Instansi :</strong>
-                        <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}"  >
+                        <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}" required>
                     </div>
                 </div>
 
                     <div class="col-4"><div class="form-group">
                         <strong>Nama Lokasi :</strong>
-                        <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{old('nama_lokasi')}}"  >
+                        <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{old('nama_lokasi')}}"  required>
                     </div>
                 </div>
 
                 <div class="col-4">
                     <div class="form-group">
                        <strong>Teknisi</strong>
-                        <select class="form-select" name="nama_teknisi" id="nama_teknisi" value="{{old('nama_teknisi')}}"  >    
+                        <select class="form-select" name="nama_teknisi" id="nama_teknisi" value="{{old('nama_teknisi')}}"  required>    
                                 <option disabled selected option>{{old('nama_teknisi')}}</option>
                             @foreach($teknisis as $teknisi)
                                 <option value="{{$teknisi->nama_teknisi}}">{{$teknisi->nama_teknisi}}</option>
@@ -57,7 +57,7 @@
                 <div class="col-4">
                     <div class="form-group">
                         <strong>Produk</strong>
-                        <select class="form-select" name="produk" id="produk" value="{{old('produk')}}"  > 
+                        <select class="form-select" name="produk" id="produk" value="{{old('produk')}}" required> 
                                 <option disabled selected option>{{old('produk')}}</option>
                             @foreach($product as $produk)
                                 <option value="{{$produk->nama_produk}}">{{$produk->nama_produk}}</option>
@@ -69,7 +69,7 @@
                 <div class="col-2">
                     <div class="form-group">
                             <strong>Warranty</strong>
-                            <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}"  >
+                            <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}"  required>
                                 <option disabled selected option>{{old('warranty')}}</option>
                                 <option value="Garansi">Garansi</option>
                                 <option value="Non - Garansi">Non - Garansi</option>
@@ -80,7 +80,7 @@
                 <div class="col-2">
                     <div class="form-group">
                             <strong>Priority</strong>
-                            <select class="form-select" name="priority" id="priority" value="{{old('priority')}}"  >
+                            <select class="form-select" name="priority" id="priority" value="{{old('priority')}}"  required>
                                 <option disabled selected option>{{old('priority')}}</option>
                             @foreach($priorittas as $prioritas)
                                 <option value="{{$prioritas->jenis_prioritas}}">{{$prioritas->jenis_prioritas}}</option>
@@ -92,7 +92,7 @@
                 <div class="col-4">
                     <div class="form-group">
                             <strong>Jobdesk</strong>
-                            <select class="form-select" name="jobdesk" id="jobdesk" value="{{old('jobdesk')}}"  > 
+                            <select class="form-select" name="jobdesk" id="jobdesk" value="{{old('jobdesk')}}"  required> 
                                 <option disabled selected option>{{old('jobdesk')}}</option>
                             @foreach($jobdesks as $jobdesk)    
                                 <option value="{{$jobdesk->jenis_j}}">{{$jobdesk->jenis_j}}</option>
@@ -104,14 +104,14 @@
                 <div class="col-8">
                     <div class="form-group">
                             <strong>Deskripsi :</strong>
-                            <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{old('deskripi')}}" placeholder="Deskripsi" >{{old('deskripi')}}</textarea>
+                            <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{old('deskripi')}}" placeholder="Deskripsi" required>{{old('deskripi')}}</textarea>
                         </div>
                 </div>
 
                 <div class="col-4">
                     <div class="form-group">
                             <strong>Status</strong>
-                            <select class="form-select" name="status" id="status" value="{{old('status')}}" >
+                            <select class="form-select" name="status" id="status" value="{{old('status')}}" required>
                                 <option disabled selected option>{{old('status')}}</option>
                             @foreach($stattus as $status)
                                 <option value="{{$status->jenis_s}}">{{$status->jenis_s}}</option>
@@ -127,8 +127,8 @@
                             <div class="imgPreview"> </div>
                         </div> 
                             <strong>Foto :</strong>
-                            <input type="file" class="custom-file-input  @error('foto') is-invalid @enderror" id="foto" name="foto[]" multiple="multiple" value="{{old('foto')}}">
-                            @error('foto')
+                            <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{old('image')}}">
+                            @error('image')
                                 <div class="invalid-feedback">
                                     {{$message}}
                                 </div>
@@ -139,21 +139,21 @@
                 <div class="col-4">
                     <div class="form-group">
                             <strong>Item :</strong>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{old('item')}}">
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{old('item')}}" required>
                     </div>
                 </div>
 
                 <div class="col-3">
                     <div class="form-group">
                             <strong>Tanggal Pengiriman :</strong>
-                            <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{old('tgl_pengiriman')}}"  >
+                            <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{old('tgl_pengiriman')}}">
                         </div> 
                 </div>
 
                 <div class="col-3">
                     <div class="form-group">
                             <strong>Status</strong>
-                            <select class="form-select" name="status1" id="status1" value="{{old('status1')}}"  >
+                            <select class="form-select" name="status1" id="status1" value="{{old('status1')}}">
                                 <option disabled selected option>{{old('status1')}}</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
                                 <option value="Belum Sampai">Belum Sampai</option>
@@ -164,7 +164,7 @@
                 <div class="col-3">
                     <div class="form-group">
                             <strong>Tanggal Kembali :</strong>
-                            <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{old('tgl_kembali')}}"  >
+                            <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{old('tgl_kembali')}}">
                             @error('tgl_kembali')
                                 <div class="invalid-feedback">
                                     {{$message}}
@@ -176,7 +176,7 @@
                 <div class="col-3">
                     <div class="form-group">
                             <strong>Status</strong>
-                            <select class="form-select" name="status2" id="status2" value="{{old('status2')}}"  >
+                            <select class="form-select" name="status2" id="status2" value="{{old('status2')}}">
                                 <option disabled selected option>{{old('status2')}}</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
                                 <option value="Belum Sampai">Belum Sampai</option>
@@ -249,14 +249,7 @@
             <td>{{ $project->jobdesk }}</td>
             <td>{{ $project->deskripsi }}</td>
             <td>{{ $project->status }}</td> 
-            <td>
-                @if(is_array($project->fotos)){
-                @foreach($project->fotos as $foto)
-                    {{ $foto->foto }},
-                @endforeach
-                }
-                @endif
-            </td>
+            <td>{{ $project->image }}</td>
             <td>{{ $project->item }}</td>
             <td>{{ $project->tgl_pengiriman }}</td>
             <td>{{ $project->status1 }}</td>
@@ -386,8 +379,8 @@
                                         <div class="imgPreview"> </div>
                                     </div>
                                         <strong>Foto :</strong>
-                                        <input type="file" class="custom-file-input  @error('foto') is-invalid @enderror" id="foto" name="foto[]" multiple="multiple" value="{{$project->foto}}">
-                                        @error('foto')
+                                        <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}">
+                                        @error('image')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>
@@ -405,14 +398,14 @@
                             <div class="col-3">
                                 <div class="form-group">
                                         <strong>Tanggal Pengiriman :</strong>
-                                        <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{$project->tgl_pengiriman}}" required >
+                                        <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{$project->tgl_pengiriman}}" >
                                 </div> 
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
                                         <strong>Status</strong>
-                                        <select class="form-select" name="status1" id="status1" value="{{$project->status1}}" required >
+                                        <select class="form-select" name="status1" id="status1" value="{{$project->status1}}" >
                                             <option disabled selected option>{{$project->status1}}</option>
                                             <option value="Sudah Sampai">Sudah Sampai</option>
                                             <option value="Belum Sampai">Belum Sampai</option>
@@ -423,7 +416,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                         <strong>Tanggal Kembali :</strong>
-                                        <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{$project->tgl_kembali}}" required >
+                                        <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{$project->tgl_kembali}}" >
                                         @error('tgl_kembali')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -435,7 +428,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                         <strong>Status</strong>
-                                        <select class="form-select" name="status2" id="status2" value="{{$project->status2}}" required >
+                                        <select class="form-select" name="status2" id="status2" value="{{$project->status2}}" >
                                             <option disabled selected option>{{$project->status2}}</option>
                                             <option value="Sudah Sampai">Sudah Sampai</option>
                                             <option value="Belum Sampai">Belum Sampai</option>
@@ -486,7 +479,7 @@
                                         <li class="list-group-item"><b>Deskripsi :&ensp;</b>{{$project->deskripsi}}</li>
                                         <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status}}</li>
                                     <div style="max-height:200px;">
-                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="images/{{$project->foto}}" style="width:15%; height:15%;"></li>
+                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="{{asset('public/images'.$project->image)}}" style="width:15%; height:15%;"></li>
                                     </div>
                                         <li class="list-group-item"><b>Item :&ensp;</b>{{$project->item}}</li>
                                         <li class="list-group-item"><b>Tanggal Pengiriman :&ensp;</b>{{$project->tgl_pengiriman}}</li>
@@ -522,7 +515,7 @@
                         }
                     }
                 };
-                $('#foto').on('change', function() {
+                $('#image').on('change', function() {
                 multiImgPreview(this, 'div.imgPreview');
             });
             });    
@@ -530,34 +523,6 @@
         @endforeach
         
     </tbody>
-
-    <script type="text/javascript">
-	function validasi() {
-		var nama_instansi = document.getElementById("nama_instansi").value;
-		var nama_lokasi = document.getElementById("nama_lokasi").value;
-		var nama_teknisi = document.getElementById("nama_teknisi").value;
-        var produk = document.getElementById("produk").value;
-        var warranty = document.getElementById("warranty").value;
-        var priority = document.getElementById("priority").value;
-        var jobdesk = document.getElementById("jobdesk").value;
-        var deskripsi = document.getElementById("deskripsi").value;
-        var status = document.getElementById("status").value;
-        var item = document.getElementById("item").value;
-        var tgl_pengiriman = document.getElementById("tgl_pengiriman").value;
-        var status1 = document.getElementById("status1").value;
-        var tgl_kembali = document.getElementById("tgl_kembali").value;
-        var status2 = document.getElementById("status2").value;
-		if (nama_instansi != "" && nama_lokasi!="" && nama_teknisi !="" && 
-            produk !="" && warranty !="" && priority !="" && 
-            jobdesk !="" && deskripsi !="" && status !="" && 
-            item !="" && tgl_pengiriman !="" && status1 !="" && 
-            tgl_kembali !="" && status2 !="") {
-			return true;
-		}else{
-			alert('Anda harus mengisi data dengan lengkap !');
-		}
-	}
-</script>
 </table>
 
 

@@ -5,7 +5,7 @@
     @include('sweetalert::alert')
 
     <!-- Button trigger modal -->
-<div style="padding: 6em 2em 1em;">
+<div style="padding: 7em 2em 1em;">
 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 <ion-icon name="add-outline"></ion-icon>
   </button>
