@@ -1,20 +1,38 @@
 @extends('layout.master')
+
+<!-- @push('styles')
+    @livewireStyles
+@endpush
+
+@push('scripts')
+    @livewireStyles
+@endpush -->
+
 @section('content')
-<div >
 
 <!-- sweet alert -->
 @include('sweetalert::alert')
 
 <br>
-
 <div class="row" style="padding-top: 6em;">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left" style="padding-left: 2em;">            
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create Data</button>
-                <a class="btn btn-warning" href="{{ url('project/export') }}">Export to Excel</a>
-            </div>
+    <div class="" style="text-align:center;">
+        <h1>Form Data</h1>
+    </div>
+    <form action="GET">
+    <div class="form-group row" style="padding-left:2em;">
+        <label for="" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-8">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Search..." autofocus="true" value="{{ $search }}">
         </div>
+    </div>
+</form>
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left" style="padding-left: 2em;">            
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create Data</button>
+            <a class="btn btn-warning" href="{{ url('project/export') }}">Export to Excel</a>
+        </div>
+    </div>
 </div>
 
   <!-- Modal -->
@@ -46,7 +64,7 @@
                     <div class="form-group">
                        <strong>Teknisi</strong>
                         <select class="form-select" name="nama_teknisi" id="nama_teknisi" value="{{old('nama_teknisi')}}"  required>    
-                                <option disabled selected option>{{old('nama_teknisi')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                             @foreach($teknisis as $teknisi)
                                 <option value="{{$teknisi->nama_teknisi}}">{{$teknisi->nama_teknisi}}</option>
                             @endforeach
@@ -58,7 +76,7 @@
                     <div class="form-group">
                         <strong>Produk</strong>
                         <select class="form-select" name="produk" id="produk" value="{{old('produk')}}" required> 
-                                <option disabled selected option>{{old('produk')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                             @foreach($product as $produk)
                                 <option value="{{$produk->nama_produk}}">{{$produk->nama_produk}}</option>
                             @endforeach
@@ -70,7 +88,7 @@
                     <div class="form-group">
                             <strong>Warranty</strong>
                             <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}"  required>
-                                <option disabled selected option>{{old('warranty')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                                 <option value="Garansi">Garansi</option>
                                 <option value="Non - Garansi">Non - Garansi</option>
                             </select>
@@ -81,7 +99,7 @@
                     <div class="form-group">
                             <strong>Priority</strong>
                             <select class="form-select" name="priority" id="priority" value="{{old('priority')}}"  required>
-                                <option disabled selected option>{{old('priority')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                             @foreach($priorittas as $prioritas)
                                 <option value="{{$prioritas->jenis_prioritas}}">{{$prioritas->jenis_prioritas}}</option>
                             @endforeach
@@ -93,7 +111,7 @@
                     <div class="form-group">
                             <strong>Jobdesk</strong>
                             <select class="form-select" name="jobdesk" id="jobdesk" value="{{old('jobdesk')}}"  required> 
-                                <option disabled selected option>{{old('jobdesk')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                             @foreach($jobdesks as $jobdesk)    
                                 <option value="{{$jobdesk->jenis_j}}">{{$jobdesk->jenis_j}}</option>
                             @endforeach
@@ -112,7 +130,7 @@
                     <div class="form-group">
                             <strong>Status</strong>
                             <select class="form-select" name="status" id="status" value="{{old('status')}}" required>
-                                <option disabled selected option>{{old('status')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                             @foreach($stattus as $status)
                                 <option value="{{$status->jenis_s}}">{{$status->jenis_s}}</option>
                             @endforeach
@@ -124,10 +142,11 @@
                 <div class="col-8">
                     <div class="form-group">
                         <div class="user-image mb-3 text-center">
-                            <div class="imgPreview"> </div>
+                            <div class="imgPreview">
                         </div> 
                             <strong>Foto :</strong>
-                            <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{old('image')}}">
+                                <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" name="image" multiple value="{{old('image')}}" accept="image/*">
+                        </div>
                             @error('image')
                                 <div class="invalid-feedback">
                                     {{$message}}
@@ -154,7 +173,7 @@
                     <div class="form-group">
                             <strong>Status</strong>
                             <select class="form-select" name="status1" id="status1" value="{{old('status1')}}">
-                                <option disabled selected option>{{old('status1')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
                                 <option value="Belum Sampai">Belum Sampai</option>
                             </select>
@@ -177,7 +196,7 @@
                     <div class="form-group">
                             <strong>Status</strong>
                             <select class="form-select" name="status2" id="status2" value="{{old('status2')}}">
-                                <option disabled selected option>{{old('status2')}}</option>
+                                <option disabled selected option>--Pilih--</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
                                 <option value="Belum Sampai">Belum Sampai</option>
                             </select>
@@ -200,23 +219,15 @@
     </div>
   </div>
 
-<!-- <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <a class="btn btn-success" href="{{ route('project.create') }}"> Create New Product</a>
-            </div>
-        </div>
-    </div> -->
-
 <div class="" style="padding:2em">
 <table class="table table-bordered table-striped table-hover table-responsive data-table">
     <thead>
         <tr>
             <th>No</th>
-            <th>Tanggal</th>
-            <th>Nama Instansi</th>
-            <th>Nama Lokasi</th>
-            <th>Teknisi</th>
+            <th>@sortablelink('tanggal','Tanggal')</th>
+            <th>@sortablelink('nama_instansi','Nama Instansi')</th>
+            <th>@sortablelink('nama_lokasi','Nama Lokasi')</th>
+            <th>@sortablelink('nama_teknisi','Teknisi')</th>
             <th>Produk</th>
             <th>Warranty</th>
             <!-- <th>Priority</th>
@@ -235,10 +246,12 @@
         </tr>
     </thead>
     <tbody>
-        <?php $i=0; ?>
+        <?php 
+        $i= 1 + (($projects->currentPage()-1) * $projects->perPage())
+         ?>
         @foreach($projects as $project)
         <tr>
-            <td>{{ ++$i }}</td>
+            <td>{{ $i++ }}</td>
             <td>{{ $project->tanggal }}</td>
             <td>{{ $project->nama_instansi }}</td>
             <td>{{ $project->nama_lokasi }}</td>
@@ -264,7 +277,6 @@
                     @csrf 
                     @method('DELETE')
                 </form>
-            
 
         <!-- Start Edit Model -->
     <div class="modal fade" id="modalUpdate{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -376,10 +388,16 @@
                             <div class="col-8">
                                 <div class="form-group">
                                     <div class="user-image mb-3 text-center col-8" style="max-heigth:200%;">
-                                        <div class="imgPreview"> </div>
+                                        <div class="imgPreview"></div>
+                                        @if($project->image)
+                                        <img src="{{asset('/images/'.$project->image)}}" class="img-thumbnail">
+                                        @else
+                                        <span class="badge badge-danger">Belum ada Foto</span>
+                                        @endif
                                     </div>
-                                        <strong>Foto :</strong>
-                                        <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}">
+                                  
+                                        <strong>Foto :</strong>                                    
+                                        <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}" accept="images/*">
                                         @error('image')
                                             <div class="invalid-feedback">
                                                 {{$message}}
@@ -479,7 +497,7 @@
                                         <li class="list-group-item"><b>Deskripsi :&ensp;</b>{{$project->deskripsi}}</li>
                                         <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status}}</li>
                                     <div style="max-height:200px;">
-                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="{{asset('public/images'.$project->image)}}" style="width:15%; height:15%;"></li>
+                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="{{asset('/images/'.$project->image)}}" style="width:15%; height:15%;"></li>
                                     </div>
                                         <li class="list-group-item"><b>Item :&ensp;</b>{{$project->item}}</li>
                                         <li class="list-group-item"><b>Tanggal Pengiriman :&ensp;</b>{{$project->tgl_pengiriman}}</li>
@@ -524,13 +542,11 @@
         
     </tbody>
 </table>
-
-
 <br>
 <!-- Halaman : {{ $projects->currentPage() }} <br>
 Jumlah Data : {{ $projects->total() }} <br><br> -->
 
-{{ $projects->links() }}
+{!!$projects->appends(Request::except('page'))->render()!!}
 </div>
 <script type="text/javascript">
   $(function () {

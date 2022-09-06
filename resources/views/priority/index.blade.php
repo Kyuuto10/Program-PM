@@ -5,11 +5,16 @@
 @include('sweetalert::alert')
 
 <!-- Button trigger modal -->
-<div style="padding: 7em 2em 1em;">
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-<ion-icon name="add-outline"></ion-icon>
-  </button>
-  </div>
+<div class="row" style="padding-top: 6.5em;">
+    <div style="text-align:center;">
+      <h1>Form Priority</h1>
+    </div>
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left" style="padding-left: 2em">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><ion-icon name="add-outline"></ion-icon></button>
+        </div>
+      </div>
+</div>
 
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

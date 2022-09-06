@@ -59,7 +59,7 @@
             <!-- <td>{{ $project->jobdesk }}</td>
             <td>{{ $project->deskripsi }}</td>
             <td>{{ $project->status }}</td>
-            <td>{{ $project->foto }}</td>
+            <td>{{ $project->image }}</td>
             <td>{{ $project->item }}</td>
             <td>{{ $project->tgl_pengiriman }}</td>
             <td>{{ $project->status1 }}</td>
@@ -95,13 +95,14 @@
                                         <li class="list-group-item"><b>Deskripsi :&ensp;</b>{{$project->deskripsi}}</li>
                                         <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status}}</li>
                                         <div style="max-height:200px;">
-                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="images/{{$project->foto}}" style="width:15%; height:15%;" tooltip="{{$project->foto}}"></li>
+                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="{{asset('images/'.$project->image)}}" style="width:15%; height:15%;" tooltip="{{$project->image}}"></li>
                                         </div>
                                         <li class="list-group-item"><b>Item :&ensp;</b>{{$project->item}}</li>
                                         <li class="list-group-item"><b>Tanggal Pengiriman :&ensp;</b>{{$project->tgl_pengiriman}}</li>
                                         <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status1}}</li>
                                         <li class="list-group-item"><b>Tanggal Kembali :&ensp;</b>{{$project->tgl_kembali}}</li>
                                         <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status2}}</li>
+                                        <li class="list-group-item"><b>Komentar :&ensp;</b>{{$project->comment}}</li>
                                     </ul>
                                 </div>
                             </form>

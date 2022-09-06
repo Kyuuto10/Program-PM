@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('jobdesk');
             $table->text('deskripsi');
             $table->string('status');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('item');
             $table->date('tgl_pengiriman')->nullable();
             $table->string('status1')->nullable();

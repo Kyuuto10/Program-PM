@@ -21,6 +21,8 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- end ionicons -->
 
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
     <!-- icon bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- end icon -->
@@ -66,7 +68,6 @@
   
     <!-- Script -->
     @vite(['resources/sass/app.css','resources/js/app.js'])
-
   </head>
   <body>
 

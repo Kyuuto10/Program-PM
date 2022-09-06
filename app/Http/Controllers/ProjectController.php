@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi,Foto };
+use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi };
 use App\Models\Project;
 use App\Exports\DataExport;
 use Carbon\Carbon;
@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
-use DataTables;
 
 class ProjectController extends Controller
 {
@@ -22,38 +21,30 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+        $search = $request->query('search');
+
+        if(!empty($search)) {
+            $data = Project::sortable()
+            ->where('project.nama_instansi','like','%'. $search . '%')
+            ->orWhere('project.nama_teknisi','like','%'. $search . '%')
+            ->paginate(10)->onEachSide(2)->fragment('data');
+        }else{
+            $projects = Project::sortable()->paginate(10)->onEachSide(2)->fragment('data');
+        }
+
+
         $product = Produk::all();
         $priorittas = Prioritas::all();
         $jobdesks = Jobdesk::all();
         $stattus = Status::all();
-        $projects = Project::latest()->paginate(10);
+        // $projects = Project::sortable()->paginate(5)->onEachSide(2)->fragment('data');
         $teknisis = Teknisi::all();
 
-        foreach($projects as $project){
-        // $show = $this->show('project.show', $project->id);
-        if ($request->ajax()) {
-            $projects = Project::select('*');
-            return Datatables::of($projects)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-       
-                            $btn = "<a href='{{route('project.show')}}' class='edit btn btn-warning btn-sm'><ion-icon name='pencil-sharp'></ion-icon></a>
-                                    <a href='' class='edit btn btn-info btn-sm'><ion-icon name='search-outline'></ion-icon></a>";
-
-                            
-
-                            return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-        }
-    }
-
-        // if(request('search')){
-        //     $projects->where('nama_instansi','like','%'. request('search'). '%');
-        // }
-        return view('project.index',compact('projects','product','priorittas','jobdesks','stattus','teknisis'))
-            ->with('i',(request()->input('page', 1) - 1 ) * 5);
+        return view('project.index',compact('product','priorittas','jobdesks','stattus','teknisis'))
+            ->with([
+                'projects' => $projects,
+                'search' => $search,
+            ]);
     }
 
     public function export()
@@ -66,16 +57,6 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function search(Request $request)
-    {
-        $search = $request->search;
-
-        $projects = Project::latest()->where('nama_instansi','like','%'.$search.'%')
-                                    ->paginate(10);
-
-        return view('project.index',compact('projects'));
-    }
 
     public function create()
     {
@@ -106,34 +87,36 @@ class ProjectController extends Controller
             'jobdesk' => 'required',
             'deskripsi' => 'required',
             'status' => 'required',
+            'image' => 'image|mimes:jpg,jpeg,png,svg,gif|max:2048',
             // 'foto.*' => 'required|image|mimes:jpeg,jpg,png,svg,gif|max:2048',
             // 'foto.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048',
             'item' => 'required',
             
         ]); 
-        
-        $image = $request->file('image');
-        $image->move(public_path('public/images',$image->getClientOriginalName()));
 
-         Project::create([
-            'tanggal' => Carbon::today(),
-            'nama_instansi' => $request->nama_instansi,
-            'nama_lokasi' => $request->nama_lokasi,
-            'nama_teknisi' => $request->nama_teknisi,
-            'produk' => $request->produk,
-            'warranty' => $request->warranty,
-            'priority' => $request->priority,
-            'jobdesk' => $request->jobdesk,
-            'deskripsi' => $request->deskripsi,
-            'status' => $request->status,
-            // 'foto' => implode(',',$request->foto),
-            'image' => implode(',',$request->image),
-            'item' => $request->item,
-            'tgl_pengiriman' => $request->tgl_pengiriman,
-            'status1' => $request->status1,
-            'tgl_kembali' => $request->tgl_kembali,
-            'status2' => $request->status2,
-            'comment' => $request->comment
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('images/'),"/$imageName");
+
+        Project::create([
+                'tanggal' => Carbon::today(),
+                'nama_instansi' => $request->nama_instansi,
+                'nama_lokasi' => $request->nama_lokasi,
+                'nama_teknisi' => $request->nama_teknisi,
+                'produk' => $request->produk,
+                'warranty' => $request->warranty,
+                'priority' => $request->priority,
+                'jobdesk' => $request->jobdesk,
+                'deskripsi' => $request->deskripsi,
+                'status' => $request->status,
+                // 'foto' => implode(',',$request->foto),
+                'image' => $request->image->getClientOriginalName(),
+                'item' => $request->item,
+                'tgl_pengiriman' => $request->tgl_pengiriman,
+                'status1' => $request->status1,
+                'tgl_kembali' => $request->tgl_kembali,
+                'status2' => $request->status2,
+                'comment' => $request->comment  
             ]);
 
             // if($request->file('foto')){
@@ -221,13 +204,14 @@ class ProjectController extends Controller
             'jobdesk' => 'required',
             'deskripsi' => 'required',
             'status' => 'required',
-            // 'foto' => 'image|file|max:2048',
+            'image' => 'mimes:jpg,jpeg,png,svg,gif|max:2048',
             'item' => 'required',
         ]);
 
-        // if($request->file('image')){
-        //     $request->foto['image'] = $request->file('image')->update('images'); 
-        // }
+        // $image = $request->file('image');
+        // $imageName = $image->getClientOriginalName();
+        // $image->move(public_path('images/'),"/$imageName");
+        // $image->update('images');
 
        $project->update([
             'tanggal' => Carbon::today(),
@@ -249,15 +233,16 @@ class ProjectController extends Controller
             'comment' => $request->comment
         ]);
 
-        if($request->file('foto')){
-            $file = $request->file('foto');
-            // $random = Str::random(10);
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('images'),"/images/$filename");
-            $data['foto'] = $filename;
-        } 
+        // if($request->file('image')){
+        //     $file = $request->file('image');
+        //     $filename = $file->getClientOriginalName();
+        //     $file->move(public_path('images/'),"$filename");
+        //     $data['image'] = $filename;
+        // }else{
+        //     unset($data['image']);
+        // }
 
-        $data->update();
+        // $project->update($data);
 
         toast('Berhasil Edit','success');
         return redirect()->route('project.index');
