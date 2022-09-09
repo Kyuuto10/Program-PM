@@ -52,7 +52,8 @@ class LoginController extends Controller
         {
             if (auth()->user()->type == 'admin') {    
                 alert()->success('Berhasil Login','success');
-                return redirect()->route('adminHome')->with('success','Berhasil Login');
+                //return redirect()->route('adminHome')->with('success','Berhasil Login');
+                return redirect()->route('adminHome');
             }else if (auth()->user()->type == 'manager') {
                 return redirect()->route('managerHome');
             }else{

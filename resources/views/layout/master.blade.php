@@ -79,10 +79,6 @@
                 </a>
               </li>
 
-              
-              @if(Auth::user()->type == 'admin')
-              
-
               <li class="nav-item">
                   <a href="{{route('project.index')}}" class="nav-link">
                     <i class="mdi mdi-database menu-icon"></i>
@@ -90,8 +86,9 @@
                     <i class="menu-arrow"></i>
                   </a>
               </li>
-                
-              
+
+              @if(Auth::user()->type == 'admin')
+
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <i class="mdi mdi-settings menu-icon"></i>
@@ -119,7 +116,7 @@
               @endif
               
               <li class="nav-item">
-                <a class="nav-link show-alert-logout-box" href="{{ route('logout') }}" name="_method" title="Logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="mdi mdi-logout menu-icon"></i>    
+                <a class="nav-link show-alert-logout-box" href="" name="_method" title="Logout"><i class="mdi mdi-logout"></i>
                 <!-- onclick="event.preventDefault();document.getElementById('logout-form').submit();" -->
                     <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
                   </a>
@@ -191,12 +188,12 @@
     <!-- end sweet alert -->
     <script type="text/javascript">
       $('.show-alert-logout-box').click(function($event){
-         var form = $(this).closest("form");
-         var name = $(this).data("name");
+         /*var form = $(this).closest("form");
+         var name = $(this).data("name");*/
          event.preventDefault();
          swal({
-          title: "Yakin Logout ?",
-          text: "Jika anda logout, anda harus login kembali.",
+          title: "",
+          text: "Apakah Anda yakin akan keluar dari aplikasi ini?",
           icon: "warning",
           type: "warning",
           buttons: ["Tidak","Ya!"],
@@ -205,7 +202,7 @@
           confirmButtonText: "Yakin, keluar!"
          }).then((willLogout) => {
             if(willLogout) {
-              form.submit();
+              document.getElementById('logout-form').submit();
             }
          });
       });

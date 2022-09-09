@@ -55,7 +55,6 @@ Route::middleware(['auth','user-access:admin'])->group(function(){
     Route::get('project/export', 'App\Http\Controllers\ProjectController@export')->name('project.export');
     Route::resource('project', ProjectController::class);
     Route::resource('teknisi', TeknisiController::class);
-    Route::resource('project', ProjectController::class);
     Route::resource('status', StatusController::class);
     Route::resource('produk', ProdukController::class);
     Route::resource('jobdesk', JobdeskController::class);
