@@ -152,7 +152,7 @@
 				<footer class="footer">
           <!-- <div class="footer-wrap">
             <div class="">
-              <span class="">Copyright Â© <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
+              <span class="">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
             </div>
           </div> -->
         </footer>
