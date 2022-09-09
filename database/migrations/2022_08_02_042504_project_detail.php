@@ -32,6 +32,7 @@ return new class extends Migration
             $table->date('tgl_kembali')->nullable();
             $table->string('status2')->nullable();
             $table->string('comment')->nullable();
+            $table->string('id_user');
             $table->timestamps();
         });
     }

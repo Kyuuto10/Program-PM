@@ -6,7 +6,7 @@
         <div class="col-md-6 col-lg-5 col-xl-5">
             <div class="card">
                 <h5 class="card-title p-3">Register</h5>
-                <center><img src="{{url('img/register.gif')}}"class="img-fluid" alt="Phone image"width="123px"></center>
+                <center><img src="{{url('template/images/nts.png')}}"class="img-fluid" alt="Phone image"width="123px"></center>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

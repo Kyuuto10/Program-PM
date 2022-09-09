@@ -1,6 +1,8 @@
 <?php
 
-use App\http\Controllers\{HomeController, ProjectController, TeknisiController, StatusController, ProdukController, JobdeskController, PrioritasController, AuthController};
+use App\http\Controllers\{HomeController, ProjectController, TeknisiController,
+                         StatusController, ProdukController, JobdeskController, 
+                         PrioritasController, UserController,AuthController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,9 +27,8 @@ Auth::routes();
 
 Route::middleware(['auth','user-access:user'])->group(function(){
 
+    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     Route::get('/', [HomeController::class, 'index'])->name('home');
-
-    Route::get('/user/{id}', [ProjectController::class, 'show']);
 });
 
 // disable for a while
@@ -49,6 +50,7 @@ Route::middleware(['auth','user-access:admin'])->group(function(){
 
     Route::get('/home', [HomeController::class, 'adminHome'])->name('adminHome');
 
+    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     Route::get('project/autocomplete','App\Http\Controllers\ProjectController@autocomplete')->name('project.autocomplete');
     Route::get('project/export', 'App\Http\Controllers\ProjectController@export')->name('project.export');
     Route::resource('project', ProjectController::class);
@@ -58,6 +60,7 @@ Route::middleware(['auth','user-access:admin'])->group(function(){
     Route::resource('produk', ProdukController::class);
     Route::resource('jobdesk', JobdeskController::class);
     Route::resource('priority', PrioritasController::class);
+    Route::resource('user', UserController::class);
 });
 
 
@@ -82,15 +85,5 @@ Route::middleware(['auth','user-access:admin'])->group(function(){
 //     });
 // });
 
-// Route::resource('project', ProjectController::class);
-// Route::resource('teknisi', TeknisiController::class);
-// Route::resource('status', StatusController::class);
-// Route::resource('produk', ProdukController::class);
-// Route::resource('jobdesk', JobdeskController::class);
-// Route::resource('priority', PrioritasController::class);
-
-// Route::get('/login', [LoginController::class, 'index']);
 
 // Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

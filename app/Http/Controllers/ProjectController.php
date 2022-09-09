@@ -24,23 +24,23 @@ class ProjectController extends Controller
         $search = $request->query('search');
 
         if(!empty($search)) {
-            $data = Project::sortable()
+            $data = Project::latest()->sortable()
             ->where('project.nama_instansi','like','%'. $search . '%')
             ->orWhere('project.nama_teknisi','like','%'. $search . '%')
             ->paginate(10)->onEachSide(2)->fragment('data');
         }else{
-            $projects = Project::sortable()->paginate(10)->onEachSide(2)->fragment('data');
+            $projects = Project::latest()->sortable()->paginate(10)->onEachSide(2)->fragment('data');
         }
 
 
         $product = Produk::all();
-        $priorittas = Prioritas::all();
+        $priorities = Prioritas::all();
         $jobdesks = Jobdesk::all();
         $stattus = Status::all();
         // $projects = Project::sortable()->paginate(5)->onEachSide(2)->fragment('data');
         $teknisis = Teknisi::all();
 
-        return view('project.index',compact('product','priorittas','jobdesks','stattus','teknisis'))
+        return view('project.index',compact('product','priorities','jobdesks','stattus','teknisis','projects'))
             ->with([
                 'projects' => $projects,
                 'search' => $search,
@@ -60,13 +60,13 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $product = Produk::all();
-        $priorittas = Prioritas::all();
-        $jobdesks = Jobdesk::all();
-        $stattus = Status::all();
-        $projects = Project::all();
-        $teknisis = Teknisi::all();
-        return view('project.create',compact('product','priorittas','jobdesks','stattus','projects','teknisis'));
+        // $product = Produk::all();
+        // $priorittas = Prioritas::all();
+        // $jobdesks = Jobdesk::all();
+        // $stattus = Status::all();
+        // $projects = Project::all();
+        // $teknisis = Teknisi::all();
+        // return view('project.create',compact('product','priorittas','jobdesks','stattus','projects','teknisis'));
     }
 
     /**

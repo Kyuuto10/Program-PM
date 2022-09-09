@@ -1828,17 +1828,6 @@
                     "email": "calebporzio@gmail.com"
                 }
             ],
-            "description": "A front-end framework for Laravel.",
-            "support": {
-                "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.10.7"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/livewire",
-                    "type": "github"
-                }
-            ],
             "time": "2022-08-08T13:52:53+00:00"
         },
         {

@@ -5,7 +5,7 @@
 @include('sweetalert::alert')
 
 <!-- Button trigger modal -->
-<div class="row" style="padding-top: 6.5em;">
+<div class="row" style="padding-top: 7em;">
     <div style="text-align:center;">
       <h1>Form Jobdesk</h1>
     </div>
@@ -47,9 +47,9 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th>No</th>
-            <th>Jobdesk</th>
-            <th class="col-2">Action</th>
+            <th><b>No</b></th>
+            <th><b>Jobdesk</b></th>
+            <th class="col-2"><b>Action</b></th>
         </tr>
     </thead>
     <tbody>

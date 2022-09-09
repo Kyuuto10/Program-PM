@@ -14,8 +14,8 @@ class PrioritasController extends Controller
      */
     public function index()
     {
-        $priorittas = Prioritas::all();
-        return view('priority.index',compact('priorittas'));
+        $priorities = Prioritas::all();
+        return view('priority.index',compact('priorities'));
     }
 
     /**
@@ -63,7 +63,7 @@ class PrioritasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prioritas $prioritas)
+    public function edit()
     {
         // return view('priority.edit',compact('prioritas'));
     }
@@ -75,13 +75,13 @@ class PrioritasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prioritas $prioritas)
+    public function update(Request $request, Prioritas $priority)
     {
         $request->validate([
             'jenis_prioritas' => 'required'
         ]);
 
-        $prioritas->update($request->all());
+        $priority->update($request->all());
 
         toast('Berhasil Edit','success');
         return redirect()->route('priority.index');
@@ -93,9 +93,9 @@ class PrioritasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prioritas $prioritas)
+    public function destroy(Prioritas $priority)
     {
-        $prioritas->delete();
+        $priority->delete();
         
         toast('Berhasil Menghapus','success');
         return redirect()->route('priority.index');

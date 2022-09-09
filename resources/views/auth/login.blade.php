@@ -9,20 +9,19 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title p-3">Login</h5>
-                        <center><img src="{{url('img/login.gif')}}"class="img-fluid" alt="Phone image"width="125px"></center>
+                        <h5 class="card-title p-3" style="text-align:center;">Login</h5>
+                        <center><img src="{{url('template/images/nts.png')}}"class="img-fluid" alt="Phone image"width="125px"></center>
                         <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="row mb-3">
-
                             <div class="form-outline mb-4">
                                 <label>Email</label>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" autofocus>
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                             </div>
 
                             <!-- Password input -->
@@ -61,7 +60,7 @@
                                 @endif -->
                             </div>
                         </div>
-                    </form>
+                        </form>
                     </div>
                 </div>
                 </div>

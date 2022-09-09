@@ -1,13 +1,5 @@
 @extends('layout.master')
 
-<!-- @push('styles')
-    @livewireStyles
-@endpush
-
-@push('scripts')
-    @livewireStyles
-@endpush -->
-
 @section('content')
 
 <!-- sweet alert -->
@@ -100,8 +92,8 @@
                             <strong>Priority</strong>
                             <select class="form-select" name="priority" id="priority" value="{{old('priority')}}"  required>
                                 <option disabled selected option>--Pilih--</option>
-                            @foreach($priorittas as $prioritas)
-                                <option value="{{$prioritas->jenis_prioritas}}">{{$prioritas->jenis_prioritas}}</option>
+                            @foreach($priorities as $priority)
+                                <option value="{{$priority->jenis_prioritas}}">{{$priority->jenis_prioritas}}</option>
                             @endforeach
                             </select>
                         </div>
@@ -223,13 +215,13 @@
 <table class="table table-bordered table-striped table-hover table-responsive data-table">
     <thead>
         <tr>
-            <th>No</th>
-            <th>@sortablelink('tanggal','Tanggal')</th>
-            <th>@sortablelink('nama_instansi','Nama Instansi')</th>
-            <th>@sortablelink('nama_lokasi','Nama Lokasi')</th>
-            <th>@sortablelink('nama_teknisi','Teknisi')</th>
-            <th>Produk</th>
-            <th>Warranty</th>
+            <th><b>No</b></th>
+            <th><b>@sortablelink('tanggal','Tanggal')</b></th>
+            <th><b>@sortablelink('nama_instansi','Nama Instansi')</b></th>
+            <th><b>@sortablelink('nama_lokasi','Nama Lokasi')</b></th>
+            <th><b>@sortablelink('nama_teknisi','Teknisi')</b></th>
+            <th><b>Produk</b></th>
+            <th><b>Warranty</b></th>
             <!-- <th>Priority</th>
             <th>Jobdesk</th>
             <th>Deskripsi</th>
@@ -347,8 +339,8 @@
                                         <strong>Priority</strong>
                                         <select class="form-select" name="priority" id="priority" value="{{$project->priority}}" required >
                                             <option disabled selected option>{{$project->priority}}</option>
-                                        @foreach($priorittas as $prioritas)
-                                            <option value="{{$prioritas->jenis_prioritas}}">{{$prioritas->jenis_prioritas}}</option>
+                                        @foreach($priorities as $priority)
+                                            <option value="{{$priority->jenis_prioritas}}">{{$priority->jenis_prioritas}}</option>
                                         @endforeach
                                         </select>
                                 </div>
@@ -524,7 +516,7 @@
                 var multiImgPreview = function(input, imgPreviewPlaceholder) {
                     if (input.files) {
                         var filesAmount = input.files.length;
-                        for (i = 0; i < filesAmount; i++) {
+                        for (i = 0; i < filesAmount; $i++) {
                             var reader = new FileReader();
                             reader.onload = function(event) {
                                 $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
@@ -543,36 +535,11 @@
     </tbody>
 </table>
 <br>
-<!-- Halaman : {{ $projects->currentPage() }} <br>
-Jumlah Data : {{ $projects->total() }} <br><br> -->
+Halaman : {{ $projects->currentPage() }} <br>
+Jumlah Data : {{ $projects->total() }} <br><br>
 
 {!!$projects->appends(Request::except('page'))->render()!!}
+
 </div>
-<script type="text/javascript">
-  $(function () {
-      
-    var table = $('.data-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('project.index') }}",
-        columns: [
-                {data: 'id', name: 'id'},
-                {data: 'tanggal', name: 'tanggal'},
-                {data: 'nama_instansi', name: 'nama_instansi'},
-                {data: 'nama_lokasi', name: 'nama_lokasi'},
-                {data: 'nama_teknisi', name: 'nama_teknisi'},
-                {data: 'produk', name: 'produk'},
-                {data: 'warranty', name: 'warranty'},
-                {data: 'priority', name: 'priority'},
-                // {name: 'action'},
-                // {data: 'deskripsi', name: 'deskripsi'},
-                // {data: 'status', name: 'status'},
-                // {data: 'item', name: 'item'},
-                {data: 'action', name: 'action', orderable: false, searchable: true},
-            ]
-        });
-    });
-</script>
 
 @endsection
-

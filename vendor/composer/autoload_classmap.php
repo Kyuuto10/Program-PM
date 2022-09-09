@@ -24,7 +24,6 @@ return array(
     'App\\Http\\Controllers\\StatusController' => $baseDir . '/app/Http/Controllers/StatusController.php',
     'App\\Http\\Controllers\\TeknisiController' => $baseDir . '/app/Http/Controllers/TeknisiController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
-    'App\\Http\\Livewire\\ProjectTable' => $baseDir . '/app/Http/Livewire/ProjectTable.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\Cek_login' => $baseDir . '/app/Http/Middleware/Cek_login.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

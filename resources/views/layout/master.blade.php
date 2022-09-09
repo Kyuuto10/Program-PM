@@ -31,16 +31,6 @@
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <!-- end my style -->
 
-    <!-- datatable -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script> -->
-    <!-- end datatable -->
-
     <!-- sweet alert -->
     @include('sweetalert::alert')
     <!-- base:css -->
@@ -90,23 +80,21 @@
               </li>
 
               
-              @if(Auth::user()->type == 'admin' || Auth::user()->type == 'manager')
+              @if(Auth::user()->type == 'admin')
               
 
               <li class="nav-item">
                   <a href="{{route('project.index')}}" class="nav-link">
-                    <i class="mdi mdi-cube-outline menu-icon"></i>
+                    <i class="mdi mdi-database menu-icon"></i>
                     <span class="menu-title">Data</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
                 
-              @endif
-
-              @if(Auth::user()->type == 'admin')
+              
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <i class="mdi mdi-codepen menu-icon"></i>
+                    <i class="mdi mdi-settings menu-icon"></i>
                     <span class="menu-title">Lainnya</span>
                     <!-- <i class="menu-arrow"></i> -->
                   </a>
@@ -120,10 +108,18 @@
                       </ul>
                   </div>
               </li>
+
+              <li class="nav-item">
+                  <a href="{{route('user.index')}}" class="nav-link">
+                    <i class="mdi mdi-account menu-icon"></i>
+                    <span class="menu-title">Akun</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+              </li>
               @endif
               
               <li class="nav-item">
-                <a class="nav-link show-alert-logout-box" href="{{ route('logout') }}" name="_method" title="Logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-left"></i>    
+                <a class="nav-link show-alert-logout-box" href="{{ route('logout') }}" name="_method" title="Logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="mdi mdi-logout menu-icon"></i>    
                 <!-- onclick="event.preventDefault();document.getElementById('logout-form').submit();" -->
                     <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
                   </a>
@@ -144,18 +140,13 @@
                 @endif
                 @endauth
 
-              <!-- <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                    <span class="menu-title">Teknisi</span></a>
-              </li> -->
             </ul>
         </div>
       </nav> 
     </div>
 
-   
-
+  @include('sweetalert::alert')
+  @include('auth.alert')
 	@yield('content')
     <!-- partial -->
 		<!--  -->

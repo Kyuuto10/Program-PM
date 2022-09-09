@@ -5,7 +5,7 @@
 @include('sweetalert::alert')
 
 <!-- Button trigger modal -->
-<div class="row" style="padding-top: 6.5em;">
+<div class="row" style="padding-top: 7em;">
     <div style="text-align:center;">
       <h1>Form Priority</h1>
     </div>
@@ -47,28 +47,28 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th>No</th>
-            <th>Priority</th>
-            <th class="col-2">Action</th>
+            <th><b>No</b></th>
+            <th><b>Priority</b></th>
+            <th class="col-2"><b>Action</b></th>
         </tr>
     </thead>
     <tbody>
         <?php $i=0; ?>
-        @foreach($priorittas as $prioritas)
+        @foreach($priorities as $priority)
 
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $prioritas->jenis_prioritas }}</td>
+            <td>{{ $priority->jenis_prioritas }}</td>
             <td>
-            <form action="{{route('priority.destroy',$prioritas->id)}}" method="post">
-                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$prioritas->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
+            <form action="{{route('priority.destroy',$priority->id)}}" method="post">
+                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$priority->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
                     @csrf 
                     @method('DELETE')
-                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$prioritas->id}}"><ion-icon name="trash-outline"></ion-icon></a>
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$priority->id}}"><ion-icon name="trash-outline"></ion-icon></a>
                 </form>
 
         <!-- Start Edit Model -->
-  <div class="modal fade" id="modalUpdate{{$prioritas->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="modalUpdate{{$priority->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -77,13 +77,13 @@
       </div>
       <div class="modal-body">
 
-        <form action="{{ route('priority.update', $prioritas->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
+        <form action="{{ route('priority.update', $priority->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
           @csrf
           @method('PUT')
 
             <div class="form-group">
                 <strong>Priority :</strong>
-                <input type="text" class="form-control" id="jenis_prioritas" name="jenis_prioritas" placeholder="Priority" value="{{$prioritas->jenis_prioritas}}">
+                <input type="text" class="form-control" id="jenis_prioritas" name="jenis_prioritas" placeholder="Priority" value="{{$priority->jenis_prioritas}}">
             </div>
 
             <div class="modal-footer">
@@ -97,7 +97,7 @@
 </div>
 
 <!-- Start Delete Modal -->
-<div class="modal fade" id="modalDelete{{$prioritas->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalDelete{{$priority->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -106,8 +106,8 @@
       </div>
             <div class="modal-body">
 
-            <form action="{{ route('priority.destroy', $prioritas->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
-                <p>Yakin Hapus priority {{$prioritas->jenis_prioritas}} ?</p>
+            <form action="{{ route('priority.destroy', $priority->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
+                <p>Yakin Hapus priority {{$priority->jenis_prioritas}} ?</p>
                 <br>
                 @csrf
                 @method('DELETE')
