@@ -72,9 +72,30 @@
         <div class="container row">
             <ul class="nav page-navigation">
             @auth
+            
+            @if(Auth::user()->type == 'user')
+              <li class="nav-item">
+                <a class="nav-link" href="{{url('home/index')}}">
+                  <i class="mdi mdi-file-document-box menu-icon"></i>
+                  <span class="menu-title">Dashboard</span>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                  <a href="{{url('project/index')}}" class="nav-link">
+                    <i class="mdi mdi-database menu-icon"></i>
+                    <span class="menu-title">Data</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+              </li>
+
+              @endif
+
+              @if(Auth::user()->type == 'admin')
+
               <li class="nav-item">
                 <a class="nav-link" href="{{url('/home')}}">
-                  <i class="mdi mdi-file-document-box menu-icon"></i>
+                  <i class="mdi mdi-home menu-icon"></i>
                   <span class="menu-title">Dashboard</span>
                 </a>
               </li>
@@ -86,8 +107,6 @@
                     <i class="menu-arrow"></i>
                   </a>
               </li>
-
-              @if(Auth::user()->type == 'admin')
 
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -115,13 +134,28 @@
               </li>
               @endif
               
-              <li class="nav-item">
+              <li class="nav-item dropdown">                       
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                  <i class="mdi mdi-account-circle menu-icon"></i> 
+                  <span class="menu-title">{{ Auth::user()->name }}</span>
+                </a>
+
+                <div class="submenu">
+                  <ul class="submenu-item scrollable-menu" role="menu">
+                    <li><a class="nav-link show-alert-logout-box" href="" name="_method" title="Logout"><i class="mdi mdi-logout"></i>        
+                        <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
+                      </a></li>                      
+                  </ul>
+                </div>
+              </li>
+
+              <!-- <li class="nav-item">
                 <a class="nav-link show-alert-logout-box" href="" name="_method" title="Logout"><i class="mdi mdi-logout"></i>
-                <!-- onclick="event.preventDefault();document.getElementById('logout-form').submit();" -->
+                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                     <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
                   </a>
                   
-              </li>
+              </li> -->
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
               @csrf
@@ -142,7 +176,7 @@
       </nav> 
     </div>
 
-  @include('sweetalert::alert')
+  
   @include('auth.alert')
 	@yield('content')
     <!-- partial -->
@@ -152,7 +186,7 @@
 				<footer class="footer">
           <!-- <div class="footer-wrap">
             <div class="">
-              <span class="">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
+              <span class="">Copyright ï¿½ <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
             </div>
           </div> -->
         </footer>

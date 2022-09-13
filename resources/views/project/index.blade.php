@@ -10,11 +10,12 @@
     <div class="" style="text-align:center;">
         <h1>Form Data</h1>
     </div>
+    @if(Auth::user()->type == 'admin')
     <form action="GET">
     <div class="form-group row" style="padding-left:2em;">
         <label for="" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-8">
-            <input type="text" name="search" id="search" class="form-control" placeholder="Search..." autofocus="true" value="{{ $search }}">
+            <input type="text" name="search" id="search" class="typeahead form-control" placeholder="Search..." autofocus="true" value="{{ $search }}">
         </div>
     </div>
 </form>
@@ -45,7 +46,6 @@
                         <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}" required>
                     </div>
                 </div>
-
                     <div class="col-4"><div class="form-group">
                         <strong>Nama Lokasi :</strong>
                         <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{old('nama_lokasi')}}"  required>
@@ -58,7 +58,7 @@
                         <select class="form-select" name="nama_teknisi" id="nama_teknisi" value="{{old('nama_teknisi')}}"  required>    
                                 <option disabled selected option>--Pilih--</option>
                             @foreach($teknisis as $teknisi)
-                                <option value="{{$teknisi->nama_teknisi}}">{{$teknisi->nama_teknisi}}</option>
+                                <option value="{{$teknisi->nama_teknisi}}">{{$teknisi->id}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -211,6 +211,8 @@
     </div>
   </div>
 
+@endif
+
 <div class="" style="padding:2em">
 <table class="table table-bordered table-striped table-hover table-responsive data-table">
     <thead>
@@ -232,8 +234,10 @@
             <th>Status</th>
             <th>Tgl Kembali</th>
             <th>Status</th>
-            <th>Comment</th> -->
-            <th>Action</th>
+            <th>Comment</th>
+            <th>ID User</th>
+            <th>Date Modified</th> -->
+            <th>Action</th>            
            
         </tr>
     </thead>
@@ -260,12 +264,15 @@
             <td>{{ $project->status1 }}</td>
             <td>{{ $project->tgl_kembali }}</td>
             <td>{{ $project->status2 }}</td>
-            <td>{{ $project->comment }}</td> -->
+            <td>{{ $project->comment }}</td>
+            <td>{{ $project->id_user }}</td>
+            <td>{{ $project->date_modified }}</td> -->
             <td>
+            <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}"><ion-icon name="eye-outline"></ion-icon></a> 
+                @if(Auth::user()->type == 'admin')
                 <form action="{{route('project.destroy',$project->id)}}" method="post" enctype="multipart/form-data">
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$project->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
-                    <!-- <a href="{{route('project.show',$project->id)}}" class="btn btn-info"><ion-icon name="search-outline"></ion-icon></a> -->
-                    <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}"><ion-icon name="eye-outline"></ion-icon></a>
+                    <!-- <a href="{{route('project.show',$project->id)}}" class="btn btn-info"><ion-icon name="search-outline"></ion-icon></a> -->                    
                     @csrf 
                     @method('DELETE')
                 </form>
@@ -463,7 +470,7 @@
         </div>
     </div>
 
-    
+    @endif
 
             <div class="modal fade" id="modalShow{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
@@ -497,6 +504,8 @@
                                         <li class="list-group-item"><b>Tanggal Kembali :&ensp;</b>{{$project->tgl_kembali}}</li>
                                         <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status2}}</li>
                                         <li class="list-group-item"><b>Komentar :&ensp;</b>{{$project->comment}}</li>
+                                        <li class="list-group-item"><b>Modified by :&ensp;</b>{{$project->id_user}}</li>
+                                        <li class="list-group-item"><b>Date Modified :&ensp;</b>{{$project->date_modified}}</li>
                                     </ul>
                                 </div>
                             </form>

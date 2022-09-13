@@ -15,9 +15,9 @@
                         @csrf
                         <div class="row mb-3">
                             <div class="form-outline mb-4">
-                                <label>Email</label>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" autofocus>
-                                    @error('email')
+                                <label>Username</label>
+                                <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="off" autofocus>
+                                    @error('username')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

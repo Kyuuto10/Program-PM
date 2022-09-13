@@ -9,5 +9,5 @@ class Prioritas extends Model
 {
     use HasFactory;
     protected $table = 'prioritas';
-    protected $fillable = ['jenis_prioritas'];
+    protected $fillable = ['id','jenis_prioritas','aktif'];
 }

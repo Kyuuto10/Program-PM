@@ -31,10 +31,9 @@
                 <div class="form-group">
                     <strong>Jobdesk :</strong>
                     <input type="text" class="form-control" id="jenis_j" name="jenis_j" placeholder="Jobdesk" autocomplete="off">
-                </div>
+                </div>               
 
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><ion-icon name="close-circle-outline"></ion-icon>Close</button>  -->
+                <div class="modal-footer">                  
                     <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                 </div>
             </form>

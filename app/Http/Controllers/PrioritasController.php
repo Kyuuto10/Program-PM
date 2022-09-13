@@ -37,10 +37,21 @@ class PrioritasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'id' => 'required',
             'jenis_prioritas' => 'required'
         ]);
 
-        Prioritas::create($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        Prioritas::create([
+            'id' => $request->id,
+            'jenis_prioritas' => $request->jenis_prioritas,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Menambah','success');
         return redirect()->route('priority.index');
@@ -78,10 +89,21 @@ class PrioritasController extends Controller
     public function update(Request $request, Prioritas $priority)
     {
         $request->validate([
+            'id' => 'required',
             'jenis_prioritas' => 'required'
         ]);
 
-        $priority->update($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif =0;
+        }
+
+        $priority->update([
+            'id' => $request->id,
+            'jenis_prioritas' => $request->jenis_prioritas,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Edit','success');
         return redirect()->route('priority.index');

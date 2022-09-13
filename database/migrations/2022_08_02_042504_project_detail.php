@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('status2')->nullable();
             $table->string('comment')->nullable();
             $table->string('id_user');
+            $table->date('date_modified');
             $table->timestamps();
         });
     }

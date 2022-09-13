@@ -37,11 +37,21 @@ class TeknisiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code' => 'required|numeric',
-            'nama_teknisi' => 'required'
+            'id' => 'required|numeric',
+            'nama_teknisi' => 'required',
         ]);
 
-        Teknisi::create($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        Teknisi::create([
+            'id' => $request->id,
+            'nama_teknisi' => $request->nama_teknisi,
+            'aktif' => $aktif,
+        ]);
 
         toast('Berhasil Menambah','success');
         return redirect()->route('teknisi.index');
@@ -79,11 +89,21 @@ class TeknisiController extends Controller
     public function update(Request $request, Teknisi $teknisi)
     {
         $request->validate([
-            'code' => 'required|numeric',
-            'nama_teknisi' => 'required'
+            'id' => 'required|numeric',
+            'nama_teknisi' => 'required',
         ]);
 
-        $teknisi->update($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        $teknisi->update([
+            'id' => $request->id,
+            'nama_teknisi' => $request->nama_teknisi,
+            'aktif' => $aktif,
+        ]);
 
         toast('Berhasil Edit','success');
         return redirect()->route('teknisi.index');

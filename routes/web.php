@@ -27,8 +27,9 @@ Auth::routes();
 
 Route::middleware(['auth','user-access:user'])->group(function(){
 
-    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('home/index', [HomeController::class, 'home'])->name('home');
+    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');    
+    Route::get('project/index','App\Http\Controllers\ProjectController@index')->name('project.index');
 });
 
 // disable for a while

@@ -15,7 +15,7 @@ class Project extends Model
     protected $table = 'project_detail';
     protected $fillable = ['tanggal','nama_instansi','nama_lokasi','nama_teknisi','produk','warranty',
                             'priority','jobdesk','deskripsi','status','deskripsi','status','image','item','tgl_pengiriman','status1',
-                            'tgl_kembali','status2','comment'];
+                            'tgl_kembali','status2','comment','id_user','date_modified'];
 
 
     public $sortable = [

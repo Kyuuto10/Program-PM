@@ -23,6 +23,7 @@ return array(
     'App\\Http\\Controllers\\ProjectController' => $baseDir . '/app/Http/Controllers/ProjectController.php',
     'App\\Http\\Controllers\\StatusController' => $baseDir . '/app/Http/Controllers/StatusController.php',
     'App\\Http\\Controllers\\TeknisiController' => $baseDir . '/app/Http/Controllers/TeknisiController.php',
+    'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\Cek_login' => $baseDir . '/app/Http/Middleware/Cek_login.php',

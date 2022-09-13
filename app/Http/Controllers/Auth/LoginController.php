@@ -44,24 +44,22 @@ class LoginController extends Controller
         $input = $request->all();
      
         $this->validate($request, [
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        if(auth()->attempt(array('username' => $input['username'], 'password' => $input['password'])))
         {
-            if (auth()->user()->type == 'admin') {    
-                alert()->success('Berhasil Login','success');
-                //return redirect()->route('adminHome')->with('success','Berhasil Login');
-                return redirect()->route('adminHome');
-            }else if (auth()->user()->type == 'manager') {
-                return redirect()->route('managerHome');
+            if (auth()->user()->type == 'admin') {                    
+                toast('Berhasl Login','success');
+                return redirect()->route('adminHome');            
             }else{
+                alert()->success('Berhasil Login','success');
                 return redirect()->route('home');
             }
         }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+            toast('Email atau Password salah','error');
+            return redirect()->route('login');
         }
           
     }

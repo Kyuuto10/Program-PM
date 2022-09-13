@@ -35,8 +35,8 @@
                     </div>
 
                     <div class="form-group">
-                        <strong>Email :</strong>
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off" required>
+                        <strong>Username :</strong>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="username" autocomplete="off" required>
                     </div>
 
                     <div class="form-group">
@@ -44,9 +44,9 @@
                       <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required>
                     </div>
                                     
-                    <div class="form-check">
+                    <div class="form-group">
                         <input class="form-check-input" type="radio" name="type" value="1" required>
-                        <label class="form-check-label "for="inlineRadio1">Admin</label>
+                        <label class="form-check-label "for="inlineRadio1">Admin</label><br>
                         <input class="form-check-input" type="radio" name="type" value="0" required>
                         <label class="form-check-label "for="inlineRadio1">User</label>
                     </div>
@@ -67,7 +67,7 @@
         <tr>
             <th><b>No</b></th>
             <th><b>Nama</b></th>
-            <th><b>Email</b></th>
+            <th><b>Username</b></th>
             <th><b>Role</b></th>
             <th class="col-2"><b>Action</b></th>
         </tr>
@@ -80,7 +80,7 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $user->name }}</td>
-            <td>{{ $user->email }}</td>
+            <td>{{ $user->username }}</td>
             <td>{{ $user->type }}</td>
             <td>
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$user->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
@@ -105,8 +105,8 @@
                 </div>
 
                 <div class="form-group">
-                    <strong>Email :</strong>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{$user->email}}">
+                    <strong>Username :</strong>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="username" value="{{$user->username}}">
                 </div>
 
                 <div class="form-group">
@@ -114,15 +114,13 @@
                       <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="{{$user->password}}">
                 </div>
 
-                <div class="form-group">
-                  <div class="form-check form-check-inline">
+                <div class="form-group">                  
                           <input class="form-check-input" type="radio" name="type" value="1"
                           {{$user->type == 'admin' ? 'checked' : ''}} >
-                          <label class="form-check-label "for="type">Admin</label>
+                          <label class="form-check-label "for="type">Admin</label><br>
                           <input class="form-check-input" type="radio" name="type" value="0"
                           {{$user->type == 'user' ? 'checked' : ''}} >
-                          <label class="form-check-label "for="type">User</label>
-                  </div>
+                          <label class="form-check-label "for="type">User</label>                 
                 </div>
 
                 <div class="modal-footer">

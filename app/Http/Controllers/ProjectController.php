@@ -116,7 +116,9 @@ class ProjectController extends Controller
                 'status1' => $request->status1,
                 'tgl_kembali' => $request->tgl_kembali,
                 'status2' => $request->status2,
-                'comment' => $request->comment  
+                'comment' => $request->comment,
+                'id_user' => (auth()->user()->name),
+                'date_modified' => Carbon::today() 
             ]);
 
             // if($request->file('foto')){
@@ -159,12 +161,12 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project = Project::find(1);
-        $fotos = $project->foto;
-        foreach($fotos as $foto){
+        // $project = Project::find(1);
+        // $fotos = $project->foto;
+        // foreach($fotos as $foto){
             
-        }
-        return view('project.show',compact('project'));
+        // }
+        // return view('project.show',compact('project'));
     }
 
     /**
@@ -195,26 +197,14 @@ class ProjectController extends Controller
     {
         // ddd($request);
         $request->validate([
-            'nama_instansi' => 'required',
-            'nama_lokasi' => 'required',
-            'nama_teknisi' => 'required',
-            'produk' => 'required',
-            'warranty' => 'required',
-            'priority' => 'required',
-            'jobdesk' => 'required',
-            'deskripsi' => 'required',
-            'status' => 'required',
-            'image' => 'mimes:jpg,jpeg,png,svg,gif|max:2048',
-            'item' => 'required',
+           'image' => 'image'
         ]);
 
-        // $image = $request->file('image');
-        // $imageName = $image->getClientOriginalName();
-        // $image->move(public_path('images/'),"/$imageName");
-        // $image->update('images');
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('images/'),"/$imageName");
 
-       $project->update([
-            'tanggal' => Carbon::today(),
+       $project->update([            
             'nama_instansi' => $request->nama_instansi,
             'nama_lokasi' => $request->nama_lokasi,
             'nama_teknisi' => $request->nama_teknisi,
@@ -224,25 +214,16 @@ class ProjectController extends Controller
             'jobdesk' => $request->jobdesk,
             'deskripsi' => $request->deskripsi,
             'status' => $request->status,
-            'image' => $request->image,
+            'image' => $request->image->getClientOriginalName(),
             'item' => $request->item,
             'tgl_pengiriman' => $request->tgl_pengiriman,
             'status1' => $request->status1,
             'tgl_kembali' => $request->tgl_kembali,
             'status2' => $request->status2,
-            'comment' => $request->comment
+            'comment' => $request->comment,
+            'id_user' => (auth()->user()->name),
+            'date_modified' => Carbon::today()
         ]);
-
-        // if($request->file('image')){
-        //     $file = $request->file('image');
-        //     $filename = $file->getClientOriginalName();
-        //     $file->move(public_path('images/'),"$filename");
-        //     $data['image'] = $filename;
-        // }else{
-        //     unset($data['image']);
-        // }
-
-        // $project->update($data);
 
         toast('Berhasil Edit','success');
         return redirect()->route('project.index');

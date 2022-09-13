@@ -5,7 +5,7 @@
         @auth
         <h3><b>Selamat Datang {{Auth::user()->name}}</b></h3>
         @else
-        <h3><b>Selamat Datang</b></h3>
+        <h3><b>Selamat Datang, Silahkan Login terlebih dahulu</b></h3>
         @endauth
     </div> 
     <br>

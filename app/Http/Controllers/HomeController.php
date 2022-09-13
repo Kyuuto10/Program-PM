@@ -22,7 +22,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function home()
     {
         $projects = Project::all();
         return view('home.welcome',compact('projects'));
@@ -47,9 +47,5 @@ class HomeController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function managerHome()
-    {
-        return view('home.welcome');
-    }
+     */    
 }
