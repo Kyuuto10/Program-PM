@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi };
-use App\Models\Project;
+use App\Models\Data;
 use App\Exports\DataExport;
 use Carbon\Carbon;
 use http\Env\Response;
@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
-class ProjectController extends Controller
+class DataController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,15 +21,21 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+        $projects = DB::table('data')
+                    ->join('teknisi','data.id_teknisi','=','teknisi.id')
+                    ->join('produk','data.id_produk','=','produk.id')
+                    ->select('data.*','teknisi.nama_teknisi','produk.nama_produk')
+                    ->get();
+
         $search = $request->query('search');
 
         if(!empty($search)) {
-            $data = Project::latest()->sortable()
+            $data = Data::latest()->sortable()
             ->where('project.nama_instansi','like','%'. $search . '%')
-            ->orWhere('project.nama_teknisi','like','%'. $search . '%')
+            ->orWhere('project.id_teknisi','like','%'. $search . '%')
             ->paginate(10)->onEachSide(2)->fragment('data');
         }else{
-            $projects = Project::latest()->sortable()->paginate(10)->onEachSide(2)->fragment('data');
+            $projects = Data::latest()->sortable()->paginate(10)->onEachSide(2)->fragment('data');
         }
 
 
@@ -42,8 +48,8 @@ class ProjectController extends Controller
 
         return view('project.index',compact('product','priorities','jobdesks','stattus','teknisis','projects'))
             ->with([
-                'projects' => $projects,
-                'search' => $search,
+                'data' => $projects,
+                'search' => $search,             
             ]);
     }
 
@@ -60,13 +66,7 @@ class ProjectController extends Controller
 
     public function create()
     {
-        // $product = Produk::all();
-        // $priorittas = Prioritas::all();
-        // $jobdesks = Jobdesk::all();
-        // $stattus = Status::all();
-        // $projects = Project::all();
-        // $teknisis = Teknisi::all();
-        // return view('project.create',compact('product','priorittas','jobdesks','stattus','projects','teknisis'));
+
     }
 
     /**
@@ -76,17 +76,17 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       $data = $request->validate([
+    {   
+       $request->validate([
             'nama_instansi' => 'required',
             'nama_lokasi' => 'required',
-            'nama_teknisi' => 'required',
-            'produk' => 'required',
+            'id_teknisi' => 'required',
+            'id_produk' => 'required',
             'warranty' => 'required',
-            'priority' => 'required',
-            'jobdesk' => 'required',
+            'id_prioritas' => 'required',
+            'id_jobdesk' => 'required',
             'deskripsi' => 'required',
-            'status' => 'required',
+            'id_status' => 'required',
             'image' => 'image|mimes:jpg,jpeg,png,svg,gif|max:2048',
             // 'foto.*' => 'required|image|mimes:jpeg,jpg,png,svg,gif|max:2048',
             // 'foto.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048',
@@ -98,38 +98,27 @@ class ProjectController extends Controller
         $imageName = $image->getClientOriginalName();
         $image->move(public_path('images/'),"/$imageName");
 
-        Project::create([
+        Data::create([
                 'tanggal' => Carbon::today(),
                 'nama_instansi' => $request->nama_instansi,
                 'nama_lokasi' => $request->nama_lokasi,
-                'nama_teknisi' => $request->nama_teknisi,
-                'produk' => $request->produk,
+                'id_teknisi' => $request->id_teknisi,
+                'id_produk' => $request->id_produk,
                 'warranty' => $request->warranty,
-                'priority' => $request->priority,
-                'jobdesk' => $request->jobdesk,
+                'id_prioritas' => $request->id_prioritas,
+                'id_jobdesk' => $request->id_jobdesk,
                 'deskripsi' => $request->deskripsi,
-                'status' => $request->status,
-                // 'foto' => implode(',',$request->foto),
+                'id_status' => $request->id_status,            
                 'image' => $request->image->getClientOriginalName(),
                 'item' => $request->item,
                 'tgl_pengiriman' => $request->tgl_pengiriman,
-                'status1' => $request->status1,
+                'status_pengiriman' => $request->status_pengiriman,
                 'tgl_kembali' => $request->tgl_kembali,
-                'status2' => $request->status2,
+                'status_kembali' => $request->status_kembali,
                 'comment' => $request->comment,
                 'id_user' => (auth()->user()->name),
                 'date_modified' => Carbon::today() 
-            ]);
-
-            // if($request->file('foto')){
-
-            //     $file = $request->file('foto');
-            //     $filename = $file->getClientOriginalName();
-            //     $file->move(public_path('images')."/$filename");
-            //     $data['foto'] = $filename;
-    
-            //     $data->save();
-            // } 
+            ]); 
       
     //     DB::transaction(function () use ($data) {
     //         // looping foto
@@ -159,7 +148,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Data $project)
     {
         // $project = Project::find(1);
         // $fotos = $project->foto;
@@ -175,13 +164,13 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(Data $project)
     {
         $product = Produk::all();
         $priorittas = Prioritas::all();
         $jobdesks = Jobdesk::all();
         $stattus = Status::all();
-        $projects = Project::all();
+        $projects = Data::all();
         $teknisis = Teknisi::all();
         // return view('project.edit',compact('project','product','priorittas','jobdesks','stattus','projects','teknisis'));
     }
@@ -193,13 +182,8 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Data $project)
     {
-        // ddd($request);
-        $request->validate([
-           'image' => 'image'
-        ]);
-
         $image = $request->file('image');
         $imageName = $image->getClientOriginalName();
         $image->move(public_path('images/'),"/$imageName");
@@ -207,19 +191,19 @@ class ProjectController extends Controller
        $project->update([            
             'nama_instansi' => $request->nama_instansi,
             'nama_lokasi' => $request->nama_lokasi,
-            'nama_teknisi' => $request->nama_teknisi,
-            'produk' => $request->produk,
+            'id_teknisi' => $request->id_teknisi,
+            'id_produk' => $request->id_produk,
             'warranty' => $request->warranty,
-            'priority' => $request->priority,
-            'jobdesk' => $request->jobdesk,
+            'id_prioritas' => $request->id_prioritas,
+            'id_jobdesk' => $request->id_jobdesk,
             'deskripsi' => $request->deskripsi,
-            'status' => $request->status,
+            'id_status' => $request->id_status,
             'image' => $request->image->getClientOriginalName(),
             'item' => $request->item,
             'tgl_pengiriman' => $request->tgl_pengiriman,
-            'status1' => $request->status1,
+            'status1' => $request->status_pengiriman,
             'tgl_kembali' => $request->tgl_kembali,
-            'status2' => $request->status2,
+            'status_kembali' => $request->status_kembali,
             'comment' => $request->comment,
             'id_user' => (auth()->user()->name),
             'date_modified' => Carbon::today()

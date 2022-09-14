@@ -25,7 +25,7 @@ class TeknisiController extends Controller
      */
     public function create()
     {
-        // return view('teknisi.create');
+        
     }
 
     /**

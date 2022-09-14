@@ -40,7 +40,16 @@ class ProdukController extends Controller
             'nama_produk' => 'required'
         ]);
 
-        Produk::create($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        Produk::create([
+            'nama_produk' => $request->nama_produk,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Menambah','success');
         return redirect()->route('produk.index');
@@ -81,7 +90,16 @@ class ProdukController extends Controller
             'nama_produk' => 'required'
         ]);
 
-        $produk->update($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        $produk->update([
+            'nama_produk' => $request->nama_produk,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Edit','success');
         return redirect()->route('produk.index');

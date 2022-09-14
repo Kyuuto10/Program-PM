@@ -37,10 +37,19 @@ class StatusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_s' => 'required'
+            'nama_status' => 'required',
         ]);
 
-        Status::create($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        Status::create([
+            'nama_status' => $request->nama_status,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Menambah','success'); 
         return redirect()->route('status.index');
@@ -67,7 +76,7 @@ class StatusController extends Controller
     {
         // return view('status.edit',compact('status'));
     }
-
+ 
     /**
      * Update the specified resource in storage.
      *
@@ -78,10 +87,19 @@ class StatusController extends Controller
     public function update(Request $request, Status $status)
     {
         $request->validate([
-            'jenis_s' => 'required'
+            'nama_status' => 'required'
         ]);
 
-        $status->update($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        $status->update([
+            'nama_status' => $request->nama_status,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Edit','success'); 
         return redirect()->route('status.index');

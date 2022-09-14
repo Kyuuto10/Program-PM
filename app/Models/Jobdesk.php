@@ -9,5 +9,5 @@ class Jobdesk extends Model
 {
     use HasFactory;
     protected $table = 'jobdesk';
-    protected $fillable = ['jenis_j'];
+    protected $fillable = ['nama_jobdesk','aktif'];
 }

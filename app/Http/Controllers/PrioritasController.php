@@ -37,8 +37,7 @@ class PrioritasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id' => 'required',
-            'jenis_prioritas' => 'required'
+            'nama_prioritas' => 'required'
         ]);
 
         if($request->has('aktif')){
@@ -47,9 +46,8 @@ class PrioritasController extends Controller
             $aktif = 0;
         }
 
-        Prioritas::create([
-            'id' => $request->id,
-            'jenis_prioritas' => $request->jenis_prioritas,
+        Prioritas::create([        
+            'nama_prioritas' => $request->nama_prioritas,
             'aktif' => $aktif
         ]);
 
@@ -89,8 +87,7 @@ class PrioritasController extends Controller
     public function update(Request $request, Prioritas $priority)
     {
         $request->validate([
-            'id' => 'required',
-            'jenis_prioritas' => 'required'
+            'nama_prioritas' => 'required'
         ]);
 
         if($request->has('aktif')){
@@ -100,8 +97,7 @@ class PrioritasController extends Controller
         }
 
         $priority->update([
-            'id' => $request->id,
-            'jenis_prioritas' => $request->jenis_prioritas,
+            'nama_prioritas' => $request->nama_prioritas,
             'aktif' => $aktif
         ]);
 

@@ -29,12 +29,16 @@
                 @csrf
 
                 <div class="form-group">
-                        <strong>Nama Produk :</strong>
-                        <input type="text" class="form-control" id="nama_produk" name="nama_produk" placeholder="Nama Produk" autocomplete="off">
-                    </div>
+                    <strong>Nama Produk :</strong>
+                    <input type="text" class="form-control" id="nama_produk" name="nama_produk" placeholder="Nama Produk" autocomplete="off">
+                </div>
 
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><ion-icon name="close-circle-outline"></ion-icon>Close</button>  -->
+                <div class="form-group">
+                    <input type="checkbox" name="aktif" value="1">
+                    <label for="">Aktif</label>
+                </div>
+
+                <div class="modal-footer">                 
                     <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                   </div>
             </form>
@@ -49,6 +53,7 @@
         <tr>
             <th><b>No</b></th>
             <th><b>Produk</b></th>
+            <th><b>Aktif</b></th>
             <th class="col-2"><b>Action</b></th>
         </tr>
     </thead>
@@ -59,13 +64,15 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $produk->nama_produk }}</td>
+            <td>{{ $produk->aktif }}</td>
             <td>
-                <form action="{{route('produk.destroy',$produk->id)}}" method="post">
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$produk->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
+                <!-- <form action="{{route('produk.destroy',$produk->id)}}" method="post">
+                
                     @csrf 
                     @method('DELETE')
                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$produk->id}}"><ion-icon name="trash-outline"></ion-icon></a>
-                </form>
+                </form> -->
 
 <!-- Start Edit Model -->
 <div class="modal fade" id="modalUpdate{{$produk->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -84,6 +91,11 @@
             <div class="form-group">
                 <strong>Nama Produk :</strong>
                 <input type="text" class="form-control" id="nama_produk" name="nama_produk" placeholder="Nama Produk" value="{{$produk->nama_produk}}">
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" name="aktif" {{$produk->aktif == 1 ? 'checked' : ''}}>
+                <label for="">Aktif</label>
             </div>
 
             <div class="modal-footer">

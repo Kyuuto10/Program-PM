@@ -29,12 +29,16 @@
                 @csrf
 
                 <div class="form-group">
-                        <strong>Status :</strong>
-                        <input type="text" class="form-control" id="jenis_s" name="jenis_s" placeholder="Status" autocomplete="off">
-                    </div>
+                    <strong>Status :</strong>
+                    <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status" autocomplete="off">
+                </div>
 
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><ion-icon name="close-circle-outline"></ion-icon>Close</button>  -->
+                <div class="form-group">
+                    <input type="checkbox" name="aktif" value="1">
+                    <label for="">Aktif</label>
+                </div>
+
+                <div class="modal-footer">                  
                     <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                   </div>
             </form>
@@ -49,6 +53,7 @@
         <tr>
             <th><b>No</b></th>
             <th><b>Status</b></th>
+            <th><b>Aktif</b></th>
             <th class="col-2"><b>Action</b></th>
         </tr>
     </thead>
@@ -57,18 +62,17 @@
        @foreach($stattus as $status)
        <tr>
         <td>{{ ++$i }}</td>
-        <td>{{ $status->jenis_s }}</td>
+        <td>{{ $status->nama_status }}</td>
+        <td>{{ $status->aktif }}</td>
         <td>
-            <form action="{{route('status.destroy', $status->id)}}" method="post">
-                <!-- <a href="{{route('status.edit', $status->id)}}" type="submit" class="btn btn-warning"><ion-icon name="pencil-sharp"></ion-icon></a> -->
-                <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$status->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
+            <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$status->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
+            <!-- <form action="{{route('status.destroy', $status->id)}}" method="post">                               
                 @csrf 
                 
                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalDelete{{$status->id}}"><ion-icon name="trash-outline"></ion-icon></a>
                 
-            </form>
-        </td>
-       </tr>
+            </form> -->
+       
 
        
 
@@ -88,7 +92,12 @@
 
                 <div class="form-group">
                     <strong>Status :</strong>
-                    <input type="text" class="form-control" id="jenis_s" name="jenis_s" placeholder="Status" value="{{$status->jenis_s}}">
+                    <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status" value="{{$status->nama_status}}">
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" name="aktif" {{$status->aktif == 1 ? 'checked' : ''}}>
+                    <label for="">Aktif</label>
                 </div>
 
                 <div class="modal-footer">
@@ -113,7 +122,7 @@
           <div class="modal-body">
 
             <form action="{{ route('status.destroy', $status->id) }}" method="POST" enctype="multipart/form-data" id="deleteForm">
-              <p>Yakin Hapus Status {{$status->jenis_s}} ?</p>
+              <p>Yakin Hapus Status {{$status->nama_status}} ?</p>
               <br>
               @csrf
               @method('DELETE')
@@ -126,7 +135,8 @@
       </div>
     </div>
   </div>
-
+  </td>
+       </tr>
 
 
        @endforeach

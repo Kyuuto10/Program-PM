@@ -13,24 +13,24 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('project_detail',function(Blueprint $table){
+        Schema::create('data',function(Blueprint $table){
             $table->id();
             $table->date('tanggal');
             $table->string('nama_instansi');
             $table->string('nama_lokasi', 100);
-            $table->string('nama_teknisi');
-            $table->string('produk');
+            $table->integer('id_teknisi');
+            $table->integer('id_produk');
             $table->string('warranty');
-            $table->string('priority');
-            $table->string('jobdesk');
+            $table->integer('id_priority');
+            $table->integer('id_jobdesk');
             $table->text('deskripsi');
-            $table->string('status');
+            $table->integer('id_status');
             $table->string('image')->nullable();
             $table->string('item');
             $table->date('tgl_pengiriman')->nullable();
-            $table->string('status1')->nullable();
+            $table->string('status_pengiriman')->nullable();
             $table->date('tgl_kembali')->nullable();
-            $table->string('status2')->nullable();
+            $table->string('status_kembali')->nullable();
             $table->string('comment')->nullable();
             $table->string('id_user');
             $table->date('date_modified');
@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExist('project_detail');
+        Schema::dropIfExist('data');
     }
 };

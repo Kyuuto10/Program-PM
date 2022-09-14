@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('jobdesk',function(Blueprint $table){
             $table->id();
             $table->string('jenis_j');
+            $table->integer('aktif');
             $table->timestamps();
         });
     }

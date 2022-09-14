@@ -30,8 +30,13 @@
 
                 <div class="form-group">
                     <strong>Jobdesk :</strong>
-                    <input type="text" class="form-control" id="jenis_j" name="jenis_j" placeholder="Jobdesk" autocomplete="off">
-                </div>               
+                    <input type="text" class="form-control" id="nama_jobdesk" name="nama_jobdesk" placeholder="Jobdesk" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <input type="checkbox" name="aktif" value="1">
+                    <label for="">Aktif</label>
+                </div>
 
                 <div class="modal-footer">                  
                     <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
@@ -48,6 +53,7 @@
         <tr>
             <th><b>No</b></th>
             <th><b>Jobdesk</b></th>
+            <th><b>Aktif</b></th>
             <th class="col-2"><b>Action</b></th>
         </tr>
     </thead>
@@ -57,14 +63,16 @@
 
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $jobdesk->jenis_j }}</td>
+            <td>{{ $jobdesk->nama_jobdesk }}</td>
+            <td>{{ $jobdesk->aktif }}</td>
             <td>
-                <form action="{{route('jobdesk.destroy',$jobdesk->id)}}" method="post">
-                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$jobdesk->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
+                <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$jobdesk->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
+                <!-- <form action="{{route('jobdesk.destroy',$jobdesk->id)}}" method="post">
+                    
                     @csrf 
                     @method('DELETE')
                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$jobdesk->id}}"><ion-icon name="trash-outline"></ion-icon></a>
-                </form>
+                </form> -->
 
         <!-- Start Edit Model -->
   <div class="modal fade" id="modalUpdate{{$jobdesk->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -82,7 +90,12 @@
 
             <div class="form-group">
                 <strong>Jobdesk :</strong>
-                <input type="text" class="form-control" id="jenis_j" name="jenis_j" placeholder="jobdesk" value="{{$jobdesk->jenis_j}}">
+                <input type="text" class="form-control" id="nama_jobdesk" name="nama_jobdesk" placeholder="jobdesk" value="{{$jobdesk->nama_jobdesk}}">
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" name="aktif" id="aktif" {{$jobdesk->aktif == 1 ? 'checked' : ''}}>
+                <label for="aktif">Aktif</label>
             </div>
 
             <div class="modal-footer">
@@ -106,7 +119,7 @@
             <div class="modal-body">
 
             <form action="{{ route('jobdesk.destroy', $jobdesk->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
-                <p>Yakin Hapus Jobdesk {{$jobdesk->jenis_j}} ?</p>
+                <p>Yakin Hapus Jobdesk {{$jobdesk->nama_jobdesk}} ?</p>
                 <br>
                 @csrf
                 @method('DELETE')

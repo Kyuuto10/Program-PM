@@ -37,10 +37,19 @@ class JobdeskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_j' => 'required'
+            'nama_jobdesk' => 'required'
         ]);
 
-        Jobdesk::create($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        Jobdesk::create([
+            'nama_jobdesk' => $request->nama_jobdesk,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Menambah','success');
         return redirect()->route('jobdesk.index');
@@ -78,10 +87,19 @@ class JobdeskController extends Controller
     public function update(Request $request, Jobdesk $jobdesk)
     {
         $request->validate([
-            'jenis_j' => 'required'
+            'nama_jobdesk' => 'required'
         ]);
 
-        $jobdesk->update($request->all());
+        if($request->has('aktif')){
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        $jobdesk->update([
+            'nama_jobdesk' => $request->nama_jobdesk,
+            'aktif' => $aktif
+        ]);
 
         toast('Berhasil Edit','success');
         return redirect()->route('jobdesk.index');

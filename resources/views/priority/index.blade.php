@@ -27,15 +27,9 @@
         <div class="modal-body">
             <form action="{{ route('priority.store') }}" method="post">
                 @csrf
-
-                <div class="form-group">
-                    <strong>ID :</strong>
-                    <input type="number" class="form-control" id="id" name="id" placeholder="ID">
-                </div>
-
                 <div class="form-group">
                     <strong>Priority :</strong>
-                    <input type="text" class="form-control" id="jenis_prioritas" name="jenis_prioritas" placeholder="Priority" autocomplete="off">
+                    <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Priority" autocomplete="off">
                 </div>
 
                 <div class="form-group">
@@ -43,8 +37,7 @@
                     <label for="aktif">Aktif</label>
                 </div>
 
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><ion-icon name="close-circle-outline"></ion-icon>Close</button>  -->
+                <div class="modal-footer">                  
                     <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                 </div>
             </form>
@@ -57,17 +50,18 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th><b>ID</b></th>
+            <th><b>No</b></th>
             <th><b>Priority</b></th>
             <th><b>Aktif</b></th>
             <th class="col-2"><b>Action</b></th>
         </tr>
     </thead>
     <tbody>
+      <?php $i=0; ?>
         @foreach($priorities as $priority)
         <tr>
-            <td>{{ $priority->id }}</td>
-            <td>{{ $priority->jenis_prioritas }}</td>
+            <td>{{ ++$i }}</td>
+            <td>{{ $priority->nama_prioritas }}</td>
             <td>{{ $priority->aktif }}</td>
             <td>
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$priority->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
@@ -90,15 +84,9 @@
         <form action="{{ route('priority.update', $priority->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
           @csrf
           @method('PUT')
-
-            <div class="form-group">
-                <strong>ID :</strong>
-                <input type="number" class="form-control" id="id" name="id" placeholder="ID" value="{{$priority->id}}">
-            </div>
-
             <div class="form-group">
                 <strong>Priority :</strong>
-                <input type="text" class="form-control" id="jenis_prioritas" name="jenis_prioritas" placeholder="Priority" value="{{$priority->jenis_prioritas}}">
+                <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Priority" value="{{$priority->nama_prioritas}}">
             </div>
 
             <div class="form-group">
@@ -127,7 +115,7 @@
             <div class="modal-body">
 
             <form action="{{ route('priority.destroy', $priority->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
-                <p>Yakin Hapus priority {{$priority->jenis_prioritas}} ?</p>
+                <p>Yakin Hapus priority {{$priority->nama_prioritas}} ?</p>
                 <br>
                 @csrf
                 @method('DELETE')
