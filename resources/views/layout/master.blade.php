@@ -77,7 +77,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{url('home/index')}}">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
-                  <span class="menu-title">Dashboard</span>
+                  <span class="menu-title">Home</span>
                 </a>
               </li>
               
@@ -96,7 +96,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{url('/home')}}">
                   <i class="mdi mdi-home menu-icon"></i>
-                  <span class="menu-title">Dashboard</span>
+                  <span class="menu-title">Home</span>
                 </a>
               </li>
 
@@ -118,7 +118,7 @@
                       <ul class="submenu-item scrollable-menu" role="menu">
                           <li><a class="nav-item nav-link" href="{{route('status.index')}}">Status</a></li>
                           <li><a class="nav-item nav-link" href="{{route('produk.index')}}">Produk</a></li>
-                          <li><a class="nav-item nav-link" href="{{route('priority.index')}}">Priority</a></li>
+                          <li><a class="nav-item nav-link" href="{{route('priority.index')}}">Prioritas</a></li>
                           <li><a class="nav-item nav-link" href="{{route('jobdesk.index')}}">Jobdesk</a></li>
                           <li><a class="nav-item nav-link" href="{{route('teknisi.index')}}">Teknisi</a></li>
                       </ul>

@@ -7,7 +7,7 @@
 <!-- Button trigger modal -->
 <div class="row" style="padding-top: 7em;">
     <div style="text-align:center;">
-      <h1>Form Priority</h1>
+      <h1>Form Prioritas</h1>
     </div>
     <div class="col-lg-12 margin-tb">
         <div class="pull-left" style="padding-left: 2em">
@@ -28,8 +28,8 @@
             <form action="{{ route('priority.store') }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <strong>Priority :</strong>
-                    <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Priority" autocomplete="off">
+                    <strong>Prioritas</strong>
+                    <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Prioritas" autocomplete="off">
                 </div>
 
                 <div class="form-group">
@@ -51,7 +51,7 @@
     <thead>
         <tr>
             <th><b>No</b></th>
-            <th><b>Priority</b></th>
+            <th><b>Prioritas</b></th>
             <th><b>Aktif</b></th>
             <th class="col-2"><b>Action</b></th>
         </tr>
@@ -85,8 +85,8 @@
           @csrf
           @method('PUT')
             <div class="form-group">
-                <strong>Priority :</strong>
-                <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Priority" value="{{$priority->nama_prioritas}}">
+                <strong>Prioritas</strong>
+                <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Prioritas" value="{{$priority->nama_prioritas}}">
             </div>
 
             <div class="form-group">
@@ -115,7 +115,7 @@
             <div class="modal-body">
 
             <form action="{{ route('priority.destroy', $priority->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
-                <p>Yakin Hapus priority {{$priority->nama_prioritas}} ?</p>
+                <p>Yakin hapus prioritas {{$priority->nama_prioritas}} ?</p>
                 <br>
                 @csrf
                 @method('DELETE')
