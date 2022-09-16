@@ -14,9 +14,7 @@
     <form action="GET">
     <div class="form-group row" style="padding-left:2em;">
         <label for="" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-8">
-            <input type="text" name="search" id="search" class="typeahead form-control" placeholder="Search..." autofocus="true" value="{{ $search }}">
-        </div>
+       
     </div>
 </form>
     <div class="col-lg-12 margin-tb">
@@ -173,7 +171,7 @@
 
                 <div class="col-3">
                     <div class="form-group">
-                            <strong>Status</strong>
+                            <strong>Status Pengiriman</strong>
                             <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{old('status_pengiriman')}}">
                                 <option disabled selected option>--Pilih--</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
@@ -196,7 +194,7 @@
 
                 <div class="col-3">
                     <div class="form-group">
-                            <strong>Status</strong>
+                            <strong>Status Kembali</strong>
                             <select class="form-select" name="status_kembali" id="status_kembali" value="{{old('status_kembali')}}">
                                 <option disabled selected option>--Pilih--</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
@@ -245,29 +243,30 @@
             <th>Tgl Kembali</th>
             <th>Status Kembali</th>
             <th>Comment</th>
-            <th>ID User</th>
+            <th>Nama User</th>
             <th>Date Modified</th> -->
             <th>Action</th>            
            
         </tr>
     </thead>
     <tbody>
-        <?php 
-        $i= 1 + (($projects->currentPage()-1) * $projects->perPage())
+        <?php       
+        $i= 0;
          ?>
+         
         @foreach($projects as $project)
         <tr>
-            <td>{{ $i++ }}</td>
+            <td>{{ ++$i }}</td>
             <td>{{ $project->tanggal }}</td>
             <td>{{ $project->nama_instansi }}</td>
             <td>{{ $project->nama_lokasi }}</td>
-            <td>{{ $project->id_teknisi }}</td>
-            <td>{{ $project->id_produk }}</td>
+            <td>{{ $project->nama_teknisi }}</td>
+            <td>{{ $project->nama_produk }}</td>
             <td>{{ $project->warranty }}</td>
-            <!-- <td>{{ $project->id_prioritas }}</td>
-            <td>{{ $project->id_jobdesk }}</td>
+       <!-- <td>{{ $project->nama_prioritas }}</td>
+            <td>{{ $project->nama_jobdesk }}</td>
             <td>{{ $project->deskripsi }}</td>
-            <td>{{ $project->id_status }}</td> 
+            <td>{{ $project->nama_status }}</td> 
             <td>{{ $project->image }}</td>
             <td>{{ $project->item }}</td>
             <td>{{ $project->tgl_pengiriman }}</td>
@@ -275,7 +274,7 @@
             <td>{{ $project->tgl_kembali }}</td>
             <td>{{ $project->status_kembali }}</td>
             <td>{{ $project->comment }}</td>
-            <td>{{ $project->id_user }}</td>
+            <td>{{ $project->name }}</td>
             <td>{{ $project->date_modified }}</td> -->
             <td>
             <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}"><ion-icon name="eye-outline"></ion-icon></a> 
@@ -319,11 +318,11 @@
                             <div class="col-4">
                                 <div class="form-group">
                                 <strong>Teknisi</strong>
-                                    <select class="form-select" name="nama_teknisi" id="nama_teknisi" value="{{$project->nama_teknisi}}"  >    
+                                    <select class="form-select" name="id_teknisi" id="id_teknisi" value="{{$project->nama_teknisi}}"  >    
                                             <option disabled selected option>{{$project->nama_teknisi}}</option>
                                         @foreach($teknisis as $teknisi)
                                         @if($teknisi->aktif == 1)
-                                            <option value="{{$teknisi->nama_teknisi}}">{{$teknisi->nama_teknisi}}</option>
+                                            <option value="{{$teknisi->id}}">{{$teknisi->nama_teknisi}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -333,11 +332,11 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <strong>Produk</strong>
-                                    <select class="form-select" name="produk" id="produk" value="{{$project->produk}}"  > 
-                                            <option disabled selected option>{{$project->produk}}</option>
+                                    <select class="form-select" name="id_produk" id="id_produk" value="{{$project->nama_produk}}"  > 
+                                            <option disabled selected option>{{$project->nama_produk}}</option>
                                         @foreach($product as $produk)
                                         @if($produk->aktif == 1)
-                                            <option value="{{$produk->nama_produk}}">{{$produk->nama_produk}}</option>
+                                            <option value="{{$produk->id}}">{{$produk->nama_produk}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -358,11 +357,11 @@
                             <div class="col-2">
                                 <div class="form-group">
                                         <strong>Priority</strong>
-                                        <select class="form-select" name="priority" id="priority" value="{{$project->priority}}"  >
-                                            <option disabled selected option>{{$project->priority}}</option>
+                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}"  >
+                                            <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
                                         @if($priority->aktif == 1)
-                                            <option value="{{$priority->nama_prioritas}}">{{$priority->nama_prioritas}}</option>
+                                            <option value="{{$priority->id}}">{{$priority->nama_prioritas}}</option>
                                             @endif
                                         @endforeach
                                         </select>
@@ -372,11 +371,11 @@
                             <div class="col-4">
                                 <div class="form-group">
                                         <strong>Jobdesk</strong>
-                                        <select class="form-select" name="jobdesk" id="jobdesk" value="{{$project->jobdesk}}"  > 
-                                            <option disabled selected option>{{$project->jobdesk}}</option>
+                                        <select class="form-select" name="id_jobdesk" id="id_jobdesk" value="{{$project->nama_jobdesk}}"  > 
+                                            <option disabled selected option>{{$project->nama_jobdesk}}</option>
                                         @foreach($jobdesks as $jobdesk)   
                                         @if($jobdesk->aktif == 1) 
-                                            <option value="{{$jobdesk->nama_jobdesk}}">{{$jobdesk->nama_jobdesk}}</option>
+                                            <option value="{{$jobdesk->id}}">{{$jobdesk->nama_jobdesk}}</option>
                                             @endif
                                         @endforeach
                                         </select>
@@ -393,11 +392,11 @@
                             <div class="col-4">
                                 <div class="form-group">
                                         <strong>Status</strong>
-                                        <select class="form-select" name="status" id="status" value="{{$project->status}}" >
-                                            <option disabled selected option>{{$project->status}}</option>
+                                        <select class="form-select" name="id_status" id="id_status" value="{{$project->nama_status}}" >
+                                            <option disabled selected option>{{$project->nama_status}}</option>
                                         @foreach($stattus as $status)
                                         @if($status->aktif == 1)
-                                            <option value="{{$status->nama_status}}">{{$status->nama_status}}</option>
+                                            <option value="{{$status->id}}">{{$status->nama_status}}</option>
                                             @endif
                                         @endforeach
                                         </select>
@@ -441,7 +440,7 @@
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Status</strong>
+                                        <strong>Status Pengiriman</strong>
                                         <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{$project->status_pengiriman}}" >
                                             <option disabled selected option>{{$project->status1}}</option>
                                             <option value="Sudah Sampai">Sudah Sampai</option>
@@ -464,7 +463,7 @@
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Status</strong>
+                                        <strong>Status Kembali</strong>
                                         <select class="form-select" name="status_kembali" id="status_kembali" value="{{$project->status_kembali}}" >
                                             <option disabled selected option>{{$project->status2}}</option>
                                             <option value="Sudah Sampai">Sudah Sampai</option>
@@ -508,23 +507,23 @@
                                         <li class="list-group-item"><b>Tanggal :&ensp;</b>{{$project->tanggal}}</li>
                                         <li class="list-group-item"><b>Nama Instansi :&ensp;</b>{{$project->nama_instansi}}</li>
                                         <li class="list-group-item"><b>Nama Lokasi :&ensp;</b>{{$project->nama_lokasi}}</li>
-                                        <li class="list-group-item"><b>Teknisi :&ensp;</b>{{$project->id_teknisi}}</li>
-                                        <li class="list-group-item"><b>Produk :&ensp;</b>{{$project->id_produk}}</li>
+                                        <li class="list-group-item"><b>Teknisi :&ensp;</b>{{$project->nama_teknisi}}</li>
+                                        <li class="list-group-item"><b>Produk :&ensp;</b>{{$project->nama_produk}}</li>
                                         <li class="list-group-item"><b>Warranty :&ensp;</b>{{$project->warranty}}</li>
-                                        <li class="list-group-item"><b>Priority :&ensp;</b>{{$project->id_prioritas}}</li>
-                                        <li class="list-group-item"><b>Jobdesk :&ensp;</b>{{$project->id_jobdesk}}</li>
+                                        <li class="list-group-item"><b>Priority :&ensp;</b>{{$project->nama_prioritas}}</li>
+                                        <li class="list-group-item"><b>Jobdesk :&ensp;</b>{{$project->nama_jobdesk}}</li>
                                         <li class="list-group-item"><b>Deskripsi :&ensp;</b>{{$project->deskripsi}}</li>
-                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->id_status}}</li>
+                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->nama_status}}</li>
                                     <div style="max-height:200px;">
                                         <li class="list-group-item"><b>Foto :&ensp;</b><img src="{{asset('/images/'.$project->image)}}" style="width:15%; height:15%;"></li>
                                     </div>
                                         <li class="list-group-item"><b>Item :&ensp;</b>{{$project->item}}</li>
                                         <li class="list-group-item"><b>Tanggal Pengiriman :&ensp;</b>{{$project->tgl_pengiriman}}</li>
-                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status_pengiriman}}</li>
+                                        <li class="list-group-item"><b>Status Pengiriman :&ensp;</b>{{$project->status_pengiriman}}</li>
                                         <li class="list-group-item"><b>Tanggal Kembali :&ensp;</b>{{$project->tgl_kembali}}</li>
-                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->status_kembali}}</li>
+                                        <li class="list-group-item"><b>Status Kembali :&ensp;</b>{{$project->status_kembali}}</li>
                                         <li class="list-group-item"><b>Komentar :&ensp;</b>{{$project->comment}}</li>
-                                        <li class="list-group-item"><b>Modified by :&ensp;</b>{{$project->id_user}}</li>
+                                        <li class="list-group-item"><b>Modified by :&ensp;</b>{{$project->name}}</li>
                                         <li class="list-group-item"><b>Date Modified :&ensp;</b>{{$project->date_modified}}</li>
                                     </ul>
                                 </div>
@@ -564,10 +563,8 @@
     </tbody>
 </table>
 <br>
-Halaman : {{ $projects->currentPage() }} <br>
-Jumlah Data : {{ $projects->total() }} <br><br>
 
-{!!$projects->appends(Request::except('page'))->render()!!}
+
 
 </div>
 

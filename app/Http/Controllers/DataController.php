@@ -21,36 +21,29 @@ class DataController extends Controller
      */
     public function index(Request $request)
     {
-        $projects = DB::table('data')
-                    ->join('teknisi','data.id_teknisi','=','teknisi.id')
+        $projects = Data::join('teknisi','data.id_teknisi','=','teknisi.id')
+                    ->join('status','data.id_status','=','status.id')
                     ->join('produk','data.id_produk','=','produk.id')
-                    ->select('data.*','teknisi.nama_teknisi','produk.nama_produk')
+                    ->join('prioritas','data.id_prioritas','=','prioritas.id')
+                    ->join('jobdesk','data.id_jobdesk','=','jobdesk.id')
+                    ->join('users','data.id_user','=','users.id')
+                    ->select('data.*',
+                            'teknisi.nama_teknisi',
+                            'produk.nama_produk',
+                            'prioritas.nama_prioritas',
+                            'jobdesk.nama_jobdesk',
+                            'status.nama_status',
+                            'users.name')
                     ->get();
-
-        $search = $request->query('search');
-
-        if(!empty($search)) {
-            $data = Data::latest()->sortable()
-            ->where('project.nama_instansi','like','%'. $search . '%')
-            ->orWhere('project.id_teknisi','like','%'. $search . '%')
-            ->paginate(10)->onEachSide(2)->fragment('data');
-        }else{
-            $projects = Data::latest()->sortable()->paginate(10)->onEachSide(2)->fragment('data');
-        }
-
 
         $product = Produk::all();
         $priorities = Prioritas::all();
         $jobdesks = Jobdesk::all();
-        $stattus = Status::all();
-        // $projects = Project::sortable()->paginate(5)->onEachSide(2)->fragment('data');
+        $stattus = Status::all();        
         $teknisis = Teknisi::all();
 
         return view('project.index',compact('product','priorities','jobdesks','stattus','teknisis','projects'))
-            ->with([
-                'data' => $projects,
-                'search' => $search,             
-            ]);
+            ->with(['data' => $projects]);
     }
 
     public function export()
@@ -76,7 +69,7 @@ class DataController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {               
        $request->validate([
             'nama_instansi' => 'required',
             'nama_lokasi' => 'required',
@@ -88,8 +81,6 @@ class DataController extends Controller
             'deskripsi' => 'required',
             'id_status' => 'required',
             'image' => 'image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-            // 'foto.*' => 'required|image|mimes:jpeg,jpg,png,svg,gif|max:2048',
-            // 'foto.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048',
             'item' => 'required',
             
         ]); 
@@ -116,30 +107,12 @@ class DataController extends Controller
                 'tgl_kembali' => $request->tgl_kembali,
                 'status_kembali' => $request->status_kembali,
                 'comment' => $request->comment,
-                'id_user' => (auth()->user()->name),
+                'id_user' => (auth()->user()->id),
                 'date_modified' => Carbon::today() 
             ]); 
-      
-    //     DB::transaction(function () use ($data) {
-    //         // looping foto
-    //         foreach ($request->file('foto') as $file) {
-    //             $name = $file->getClientOriginalName();
-    //             $file->move(public_path('images'). "/images/$name");
-    //             $data['foto'] = $name;
-            
-    //         // simpan
-    //         $foto = new Project();
-    //         $foto->foto = json_encode($data);
-    //         }
-            
-
-    //     $data->save();
-            
-    // });
         
         toast('Berhasil Menambah','success');
-        return redirect()->route('project.index');
-                
+        return redirect()->route('project.index');             
     }
 
     /**
@@ -150,12 +123,7 @@ class DataController extends Controller
      */
     public function show(Data $project)
     {
-        // $project = Project::find(1);
-        // $fotos = $project->foto;
-        // foreach($fotos as $foto){
-            
-        // }
-        // return view('project.show',compact('project'));
+        
     }
 
     /**
@@ -166,13 +134,7 @@ class DataController extends Controller
      */
     public function edit(Data $project)
     {
-        $product = Produk::all();
-        $priorittas = Prioritas::all();
-        $jobdesks = Jobdesk::all();
-        $stattus = Status::all();
-        $projects = Data::all();
-        $teknisis = Teknisi::all();
-        // return view('project.edit',compact('project','product','priorittas','jobdesks','stattus','projects','teknisis'));
+        
     }
 
     /**
@@ -184,6 +146,15 @@ class DataController extends Controller
      */
     public function update(Request $request, Data $project)
     {
+        // ddd($request);
+        $request->validate([            
+            'id_teknisi' => 'required',
+            'id_produk' => 'required',            
+            'id_prioritas' => 'required',
+            'id_jobdesk' => 'required',            
+            'id_status' => 'required',                    
+        ]); 
+
         $image = $request->file('image');
         $imageName = $image->getClientOriginalName();
         $image->move(public_path('images/'),"/$imageName");
@@ -201,11 +172,11 @@ class DataController extends Controller
             'image' => $request->image->getClientOriginalName(),
             'item' => $request->item,
             'tgl_pengiriman' => $request->tgl_pengiriman,
-            'status1' => $request->status_pengiriman,
+            'status_pengiriman' => $request->status_pengiriman,
             'tgl_kembali' => $request->tgl_kembali,
             'status_kembali' => $request->status_kembali,
             'comment' => $request->comment,
-            'id_user' => (auth()->user()->name),
+            'id_user' => (auth()->user()->id),
             'date_modified' => Carbon::today()
         ]);
 

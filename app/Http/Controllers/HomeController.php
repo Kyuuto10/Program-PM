@@ -2,7 +2,7 @@
   
 namespace App\Http\Controllers;
  
-use App\Models\Project;
+use App\Models\Data;
 use Illuminate\Http\Request;
   
 class HomeController extends Controller
@@ -24,11 +24,11 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $projects = Project::all();
+        $projects = Data::all();
         return view('home.welcome',compact('projects'));
     } 
 
-    public function show(Project $project)
+    public function show(Data $project)
     {
         return view('project.show', compact('project'));
     }
