@@ -111,7 +111,7 @@
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <i class="mdi mdi-settings menu-icon"></i>
-                    <span class="menu-title">Lainnya</span>
+                    <span class="menu-title">Konfigurasi</span>
                     <!-- <i class="menu-arrow"></i> -->
                   </a>
                   <div class="submenu">

@@ -35,11 +35,11 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="checkbox" name="aktif" value="1">
-                    <label for="">Aktif</label>
+                    <input type="checkbox" name="aktif" id="aktif" value="1">
+                    <label for="aktif">Aktif</label>
                 </div>
 
-                <div class="modal-footer">                  
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                   </div>
             </form>
@@ -48,7 +48,7 @@
     </div>
   </div>
 
-<div style="padding: 2em;">
+  <div style="padding: 2em;">
 <table class="table table-bordered table-striped table-hover">
     <thead style="text-align:center;">
         <tr>
@@ -67,15 +67,12 @@
         <td style="text-align:center;">{{ $status->aktif }}</td>
         <td style="text-align:center;">
             <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$status->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
-            <!-- <form action="{{route('status.destroy', $status->id)}}" method="post">                               
+            <!-- <form action="{{route('status.destroy', $status->id)}}" method="post">
                 @csrf 
                 
                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalDelete{{$status->id}}"><ion-icon name="trash-outline"></ion-icon></a>
-                
             </form> -->
        </td>
-
-       
 
         <!-- Start Edit Model -->
   <div class="modal fade" id="modalUpdate{{$status->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -107,7 +104,6 @@
             </form>
           
           </div>
-        
       </div>
     </div>
   </div>
@@ -123,7 +119,7 @@
           <div class="modal-body">
 
             <form action="{{ route('status.destroy', $status->id) }}" method="POST" enctype="multipart/form-data" id="deleteForm">
-              <p>Yakin Hapus Status {{$status->nama_status}} ?</p>
+              <p>Yakin hapus Status {{$status->nama_status}} ?</p>
               <br>
               @csrf
               @method('DELETE')
@@ -138,7 +134,6 @@
   </div>
   
        </tr>
-
 
        @endforeach
     </tbody>
