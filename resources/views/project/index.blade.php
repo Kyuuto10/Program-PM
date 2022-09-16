@@ -321,7 +321,7 @@
                                             <option disabled selected option>{{$project->nama_teknisi}}</option>
                                         @foreach($teknisis as $teknisi)
                                         @if($teknisi->aktif == 1)
-                                            <option value="{{$teknisi->id}}">{{$teknisi->nama_teknisi}}</option>
+                                            <option value="{{$teknisi->id}}" {{ ($teknisi->id == $project->id_teknisi) ? 'selected' : ''}}>{{$teknisi->nama_teknisi}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -335,7 +335,7 @@
                                             <option disabled selected option>{{$project->nama_produk}}</option>
                                         @foreach($product as $produk)
                                         @if($produk->aktif == 1)
-                                            <option value="{{$produk->id}}">{{$produk->nama_produk}}</option>
+                                            <option value="{{$produk->id}}" {{ ($produk->id == $project->id_produk) ? 'selected' : ''}}>{{$produk->nama_produk}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -347,8 +347,8 @@
                                     <strong>Warranty</strong>
                                     <select class="form-select" name="warranty" id="warranty" value="{{$project->warranty}}"  >
                                             <option disabled selected option>{{$project->warranty}}</option>
-                                            <option value="Garansi">Garansi</option>
-                                            <option value="Non - Garansi">Non - Garansi</option>
+                                            <option value="Garansi" {{ ($project->warranty == 'Garansi') ? 'selected' : ''}}>Garansi</option>
+                                            <option value="Non - Garansi" {{ ($project->warranty == 'Non - Garansi') ? 'selected' : ''}}>Non - Garansi</option>
                                     </select>
                                 </div>
                             </div>
@@ -360,7 +360,7 @@
                                             <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
                                         @if($priority->aktif == 1)
-                                            <option value="{{$priority->id}}">{{$priority->nama_prioritas}}</option>
+                                            <option value="{{$priority->id}}" {{ ($priority->id == $project->id_prioritas) ? 'selected' : ''}}>{{$priority->nama_prioritas}}</option>
                                             @endif
                                         @endforeach
                                         </select>
@@ -374,9 +374,9 @@
                                             <option disabled selected option>{{$project->nama_jobdesk}}</option>
                                         @foreach($jobdesks as $jobdesk)   
                                         @if($jobdesk->aktif == 1) 
-                                            <option value="{{$jobdesk->id}}">{{$jobdesk->nama_jobdesk}}</option>
+                                            <option value="{{$jobdesk->id}}" {{ ($jobdesk->id == $project->id_jobdesk) ? 'selected' : ''}}>{{$jobdesk->nama_jobdesk}}</option>
                                             @endif
-                                        @endforeach
+                                        @endforeach 
                                         </select>
                                 </div>
                             </div>
@@ -395,7 +395,7 @@
                                             <option disabled selected option>{{$project->nama_status}}</option>
                                         @foreach($stattus as $status)
                                         @if($status->aktif == 1)
-                                            <option value="{{$status->id}}">{{$status->nama_status}}</option>
+                                            <option value="{{$status->id}}" {{ ($status->id == $project->id_status) ? 'selected' : ''}}>{{$status->nama_status}}</option>
                                             @endif
                                         @endforeach
                                         </select>
@@ -408,7 +408,7 @@
                                     <div class="user-image mb-3 text-center col-8" style="max-heigth:200%;">
                                         <div class="imgPreview"></div>
                                         @if($project->image)
-                                        <img src="{{asset('/images/'.$project->image)}}" class="img-thumbnail">
+                                        <img src="{{asset('/images/'.$project->image)}}" class="rounded float-left">
                                         @else
                                         <span class="badge badge-danger">Belum ada Foto</span>
                                         @endif

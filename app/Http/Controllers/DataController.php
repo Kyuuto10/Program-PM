@@ -146,7 +146,7 @@ class DataController extends Controller
      */
     public function update(Request $request, Data $project)
     {
-        // ddd($request);
+       
         $request->validate([            
             'id_teknisi' => 'required',
             'id_produk' => 'required',            
@@ -155,9 +155,13 @@ class DataController extends Controller
             'id_status' => 'required',                    
         ]); 
 
-        $image = $request->file('image');
-        $imageName = $image->getClientOriginalName();
-        $image->move(public_path('images/'),"/$imageName");
+        if($request->has('image')){
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('images/'),"/$imageName");
+        }else{
+            $image = "{{old($image)}}";
+        }
 
        $project->update([            
             'nama_instansi' => $request->nama_instansi,
