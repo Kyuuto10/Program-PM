@@ -7,7 +7,7 @@
 
 <br>
 <div class="row" style="padding-top: 6em;">
-    <div class="" style="text-align:center;">
+    <div style="text-align:center;">
         <h1>Form Data</h1>
     </div>
     @if(Auth::user()->type == 'admin')
@@ -20,8 +20,8 @@
     <div class="col-lg-12 margin-tb">
         <div class="pull-left" style="padding-left: 2em;">            
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create Data</button>
-            <a class="btn btn-warning" href="{{ url('project/export') }}">Export to Excel</a>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tambah Data</button>
+            <a class="btn btn-warning" href="{{ url('project/export') }}">Ekspor Excel</a>
         </div>
     </div>
 </div>
@@ -31,7 +31,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Tambah</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Tambah Data</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -40,12 +40,12 @@
 
                 <div class="row">
                     <div class="col-4"><div class="form-group">
-                        <strong>Nama Instansi :</strong>
+                        <strong>Nama Instansi</strong>
                         <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}" required>
                     </div>
                 </div>
                     <div class="col-4"><div class="form-group">
-                        <strong>Nama Lokasi :</strong>
+                        <strong>Nama Lokasi</strong>
                         <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{old('nama_lokasi')}}"  required>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
 
                 <div class="col-2">
                     <div class="form-group">
-                            <strong>Priority</strong>
+                            <strong>Prioritas</strong>
                             <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{old('id_prioritas')}}"  required>
                                 <option disabled selected option>--Pilih--</option>
                             @foreach($priorities as $priority)
@@ -119,7 +119,7 @@
 
                 <div class="col-8">
                     <div class="form-group">
-                            <strong>Deskripsi :</strong>
+                            <strong>Deskripsi</strong>
                             <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{old('deskripi')}}" placeholder="Deskripsi" required>{{old('deskripi')}}</textarea>
                         </div>
                 </div>
@@ -137,15 +137,13 @@
                             </select>
                         </div>
                 </div>
-
                 
                 <div class="col-8">
                     <div class="form-group">
+                        <strong>Foto</strong>
                         <div class="user-image mb-3 text-center">
-                            <div class="imgPreview">
-                        </div> 
-                            <strong>Foto :</strong>
-                                <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" name="image" multiple value="{{old('image')}}" accept="image/*">
+                            <div class="imgPreview"></div> 
+                            <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" name="image" multiple value="{{old('image')}}" accept="image/*">
                         </div>
                             @error('image')
                                 <div class="invalid-feedback">
@@ -157,14 +155,14 @@
 
                 <div class="col-4">
                     <div class="form-group">
-                            <strong>Item :</strong>
+                            <strong>Item</strong>
                             <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{old('item')}}" required>
                     </div>
                 </div>
 
                 <div class="col-3">
                     <div class="form-group">
-                            <strong>Tanggal Pengiriman :</strong>
+                            <strong>Tanggal Pengiriman</strong>
                             <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{old('tgl_pengiriman')}}">
                         </div> 
                 </div>
@@ -182,7 +180,7 @@
 
                 <div class="col-3">
                     <div class="form-group">
-                            <strong>Tanggal Kembali :</strong>
+                            <strong>Tanggal Kembali</strong>
                             <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{old('tgl_kembali')}}">
                             @error('tgl_kembali')
                                 <div class="invalid-feedback">
@@ -204,7 +202,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                            <strong>Comment <i style="opacity:0.5;">(Opsional)&ensp;</i>:</strong>
+                            <strong>Comment <i style="opacity:0.5;">(Opsional)&ensp;</i></strong>
                             <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{old('comment')}}" placeholder="Komentar">{{old('comment')}}</textarea>
                         </div>
                 </div>
@@ -223,7 +221,7 @@
 
 <div class="" style="padding:2em">
 <table class="table table-bordered table-striped table-hover table-responsive data-table">
-    <thead>
+    <thead style="text-align:center;">
         <tr>
             <th><b>No</b></th>
             <th><b>@sortablelink('tanggal','Tanggal')</b></th>
@@ -245,7 +243,7 @@
             <th>Comment</th>
             <th>Nama User</th>
             <th>Date Modified</th> -->
-            <th>Action</th>            
+            <th>Aksi</th>            
            
         </tr>
     </thead>
@@ -256,8 +254,8 @@
          
         @foreach($projects as $project)
         <tr>
-            <td>{{ ++$i }}</td>
-            <td>{{ $project->tanggal }}</td>
+            <td style="text-align:center;">{{ ++$i }}</td>
+            <td style="text-align:center;">{{ $project->tanggal }}</td>
             <td>{{ $project->nama_instansi }}</td>
             <td>{{ $project->nama_lokasi }}</td>
             <td>{{ $project->nama_teknisi }}</td>
@@ -276,8 +274,8 @@
             <td>{{ $project->comment }}</td>
             <td>{{ $project->name }}</td>
             <td>{{ $project->date_modified }}</td> -->
-            <td>
-            <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}"><ion-icon name="eye-outline"></ion-icon></a> 
+            <td style="text-align:center;">
+                <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}"><ion-icon name="eye-outline"></ion-icon></a> 
                 @if(Auth::user()->type == 'admin')
                 <form action="{{route('project.destroy',$project->id)}}" method="post" enctype="multipart/form-data">
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$project->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
@@ -285,6 +283,7 @@
                     @csrf 
                     @method('DELETE')
                 </form>
+            </td>
 
         <!-- Start Edit Model -->
     <div class="modal fade" id="modalUpdate{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -303,14 +302,14 @@
                     <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <strong>Nama Instansi :</strong>
+                                    <strong>Nama Instansi</strong>
                                     <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{$project->nama_instansi}}"  >
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
-                                    <strong>Nama Lokasi :</strong>
+                                    <strong>Nama Lokasi</strong>
                                     <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{$project->nama_lokasi}}"  >
                                 </div>
                             </div>
@@ -356,7 +355,7 @@
 
                             <div class="col-2">
                                 <div class="form-group">
-                                        <strong>Priority</strong>
+                                        <strong>Prioritas</strong>
                                         <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}"  >
                                             <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
@@ -384,7 +383,7 @@
 
                             <div class="col-8">
                                 <div class="form-group">
-                                        <strong>Deskripsi :</strong>
+                                        <strong>Deskripsi</strong>
                                         <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{$project->deskripsi}}" placeholder="Deskripsi" >{{$project->deskripsi}}</textarea>
                                 </div>
                             </div>
@@ -405,6 +404,7 @@
 
                             <div class="col-8">
                                 <div class="form-group">
+                                    <strong>Foto</strong> 
                                     <div class="user-image mb-3 text-center col-8" style="max-heigth:200%;">
                                         <div class="imgPreview"></div>
                                         @if($project->image)
@@ -412,28 +412,27 @@
                                         @else
                                         <span class="badge badge-danger">Belum ada Foto</span>
                                         @endif
-                                    </div>
-                                  
-                                        <strong>Foto :</strong>                                    
-                                        <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}" accept="images/*">
-                                        @error('image')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                        @enderror
+                                    </div>                                  
+
+                                    <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}" accept="images/*">
+                                    @error('image')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
-                                        <strong>Item :</strong>
+                                        <strong>Item</strong>
                                         <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{$project->item}}" >
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Tanggal Pengiriman :</strong>
+                                        <strong>Tanggal Pengiriman</strong>
                                         <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{$project->tgl_pengiriman}}" >
                                 </div> 
                             </div>
@@ -451,7 +450,7 @@
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Tanggal Kembali :</strong>
+                                        <strong>Tanggal Kembali</strong>
                                         <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{$project->tgl_kembali}}" >
                                         @error('tgl_kembali')
                                             <div class="invalid-feedback">
@@ -473,13 +472,13 @@
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                        <strong>Comment <i>(Opsional)&ensp;</i>:</strong>
+                                        <strong>Comment <i>(Opsional)&ensp;</i></strong>
                                         <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{$project->comment}}" placeholder="Komentar">{{$project->comment}}</textarea>
                                     </div>
                             </div> 
                             
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                                 </div>
                         </div>
 
@@ -495,7 +494,7 @@
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Show</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Detail Data</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -504,27 +503,27 @@
                             @csrf
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><b>Tanggal :&ensp;</b>{{$project->tanggal}}</li>
-                                        <li class="list-group-item"><b>Nama Instansi :&ensp;</b>{{$project->nama_instansi}}</li>
-                                        <li class="list-group-item"><b>Nama Lokasi :&ensp;</b>{{$project->nama_lokasi}}</li>
-                                        <li class="list-group-item"><b>Teknisi :&ensp;</b>{{$project->nama_teknisi}}</li>
-                                        <li class="list-group-item"><b>Produk :&ensp;</b>{{$project->nama_produk}}</li>
-                                        <li class="list-group-item"><b>Warranty :&ensp;</b>{{$project->warranty}}</li>
-                                        <li class="list-group-item"><b>Priority :&ensp;</b>{{$project->nama_prioritas}}</li>
-                                        <li class="list-group-item"><b>Jobdesk :&ensp;</b>{{$project->nama_jobdesk}}</li>
-                                        <li class="list-group-item"><b>Deskripsi :&ensp;</b>{{$project->deskripsi}}</li>
-                                        <li class="list-group-item"><b>Status :&ensp;</b>{{$project->nama_status}}</li>
+                                        <li class="list-group-item"><b>Tanggal:&ensp;</b>{{$project->tanggal}}</li>
+                                        <li class="list-group-item"><b>Nama Instansi:&ensp;</b>{{$project->nama_instansi}}</li>
+                                        <li class="list-group-item"><b>Nama Lokasi:&ensp;</b>{{$project->nama_lokasi}}</li>
+                                        <li class="list-group-item"><b>Teknisi:&ensp;</b>{{$project->nama_teknisi}}</li>
+                                        <li class="list-group-item"><b>Produk:&ensp;</b>{{$project->nama_produk}}</li>
+                                        <li class="list-group-item"><b>Warranty:&ensp;</b>{{$project->warranty}}</li>
+                                        <li class="list-group-item"><b>Priority:&ensp;</b>{{$project->nama_prioritas}}</li>
+                                        <li class="list-group-item"><b>Jobdesk:&ensp;</b>{{$project->nama_jobdesk}}</li>
+                                        <li class="list-group-item"><b>Deskripsi:&ensp;</b>{{$project->deskripsi}}</li>
+                                        <li class="list-group-item"><b>Status:&ensp;</b>{{$project->nama_status}}</li>
                                     <div style="max-height:200px;">
-                                        <li class="list-group-item"><b>Foto :&ensp;</b><img src="{{asset('/images/'.$project->image)}}" style="width:15%; height:15%;"></li>
+                                        <li class="list-group-item"><b>Foto:&ensp;</b><img src="{{asset('/images/'.$project->image)}}" style="width:15%; height:15%;"></li>
                                     </div>
-                                        <li class="list-group-item"><b>Item :&ensp;</b>{{$project->item}}</li>
-                                        <li class="list-group-item"><b>Tanggal Pengiriman :&ensp;</b>{{$project->tgl_pengiriman}}</li>
-                                        <li class="list-group-item"><b>Status Pengiriman :&ensp;</b>{{$project->status_pengiriman}}</li>
-                                        <li class="list-group-item"><b>Tanggal Kembali :&ensp;</b>{{$project->tgl_kembali}}</li>
-                                        <li class="list-group-item"><b>Status Kembali :&ensp;</b>{{$project->status_kembali}}</li>
-                                        <li class="list-group-item"><b>Komentar :&ensp;</b>{{$project->comment}}</li>
-                                        <li class="list-group-item"><b>Modified by :&ensp;</b>{{$project->name}}</li>
-                                        <li class="list-group-item"><b>Date Modified :&ensp;</b>{{$project->date_modified}}</li>
+                                        <li class="list-group-item"><b>Item:&ensp;</b>{{$project->item}}</li>
+                                        <li class="list-group-item"><b>Tanggal Pengiriman:&ensp;</b>{{$project->tgl_pengiriman}}</li>
+                                        <li class="list-group-item"><b>Status Pengiriman:&ensp;</b>{{$project->status_pengiriman}}</li>
+                                        <li class="list-group-item"><b>Tanggal Kembali:&ensp;</b>{{$project->tgl_kembali}}</li>
+                                        <li class="list-group-item"><b>Status Kembali:&ensp;</b>{{$project->status_kembali}}</li>
+                                        <li class="list-group-item"><b>Komentar:&ensp;</b>{{$project->comment}}</li>
+                                        <li class="list-group-item"><b>Modified by:&ensp;</b>{{$project->name}}</li>
+                                        <li class="list-group-item"><b>Date Modified:&ensp;</b>{{$project->date_modified}}</li>
                                     </ul>
                                 </div>
                             </form>
@@ -533,7 +532,7 @@
                 </div>
             </div>
 
-            </td>
+            
         </tr>
 
         <!-- JQuery -->

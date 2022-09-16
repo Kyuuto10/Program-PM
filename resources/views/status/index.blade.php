@@ -1,17 +1,18 @@
 @extends('layout.master')
+
 @section('content')
 
-    <!-- sweet alert -->
-    @include('sweetalert::alert')
+<!-- sweet alert -->
+@include('sweetalert::alert')
 
-    <!-- Button trigger modal -->
-<div class="row" style="padding-top: 7em;">
+<br>
+<div class="row" style="padding-top: 6em;">
     <div style="text-align:center;">
       <h1>Form Status</h1>
     </div>
     <div class="col-lg-12 margin-tb">
         <div class="pull-left" style="padding-left: 2em">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><ion-icon name="add-outline"></ion-icon></button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tambah Data</button>
         </div>
       </div>
 </div>
@@ -21,7 +22,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Tambah</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Tambah Data</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -29,7 +30,7 @@
                 @csrf
 
                 <div class="form-group">
-                    <strong>Status :</strong>
+                    <strong>Status</strong>
                     <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status" autocomplete="off">
                 </div>
 
@@ -49,22 +50,22 @@
 
 <div style="padding: 2em;">
 <table class="table table-bordered table-striped table-hover">
-    <thead>
+    <thead style="text-align:center;">
         <tr>
             <th><b>No</b></th>
             <th><b>Status</b></th>
             <th><b>Aktif</b></th>
-            <th class="col-2"><b>Action</b></th>
+            <th><b>Aksi</b></th>
         </tr>
     </thead>
     <tbody>
        <?php $i=0; ?>
        @foreach($stattus as $status)
        <tr>
-        <td>{{ ++$i }}</td>
+        <td style="text-align:center;">{{ ++$i }}</td>
         <td>{{ $status->nama_status }}</td>
-        <td>{{ $status->aktif }}</td>
-        <td>
+        <td style="text-align:center;">{{ $status->aktif }}</td>
+        <td style="text-align:center;">
             <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$status->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
             <!-- <form action="{{route('status.destroy', $status->id)}}" method="post">                               
                 @csrf 
@@ -72,7 +73,7 @@
                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalDelete{{$status->id}}"><ion-icon name="trash-outline"></ion-icon></a>
                 
             </form> -->
-       
+       </td>
 
        
 
@@ -91,7 +92,7 @@
               @method('PUT')
 
                 <div class="form-group">
-                    <strong>Status :</strong>
+                    <strong>Status</strong>
                     <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status" value="{{$status->nama_status}}">
                 </div>
 
@@ -101,7 +102,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                 </div>
             </form>
           
@@ -135,7 +136,7 @@
       </div>
     </div>
   </div>
-  </td>
+  
        </tr>
 
 
