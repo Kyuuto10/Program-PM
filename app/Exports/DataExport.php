@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Project;
+use App\Models\Data;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -13,7 +13,7 @@ class DataExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return Project::all();
+        return Data::all();
     }
 
     /**
@@ -26,7 +26,7 @@ class DataExport implements FromCollection, WithHeadings
         return [
             "id","tanggal", "nama_instansi", "nama_lokasi","nama_teknisi",
             "produk","warranty","priority","jobdesk","deskripsi","status",
-            "item","tgl_pengiriman","status1","tgl_kembali","status2",
+            "item","tgl_pengiriman","status_pengiriman","tgl_kembali","status_kembali",
             "created_at","updated_at"
         ];
     }

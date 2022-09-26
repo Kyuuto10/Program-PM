@@ -21,11 +21,10 @@ return new class extends Migration
             $table->integer('id_teknisi');
             $table->integer('id_produk');
             $table->string('warranty');
-            $table->integer('id_priority');
+            $table->integer('id_prioritas');
             $table->integer('id_jobdesk');
             $table->text('deskripsi');
             $table->integer('id_status');
-            $table->string('image')->nullable();
             $table->string('item');
             $table->date('tgl_pengiriman')->nullable();
             $table->string('status_pengiriman')->nullable();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Data;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status',function(Blueprint $table){
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_status');
-            $table->integer('aktif');
+            $table->foreignIdFor(Data::class);
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Scehma::dropIfExist('status');
+        Schema::dropIfExists('images');
     }
 };

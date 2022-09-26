@@ -51,15 +51,13 @@ class LoginController extends Controller
         if(auth()->attempt(array('username' => $input['username'], 'password' => $input['password'])))
         {
             if (auth()->user()->type == 'admin') {                    
-                toast('Berhasl Login','success');
                 return redirect()->route('adminHome');            
             }else{
                 alert()->success('Berhasil Login','success');
                 return redirect()->route('home');
             }
-        }else{
-            toast('Email atau Password salah','error');
-            return redirect()->route('login');
+        }else{            
+            return redirect()->route('login')->with('message','Username atau Password salah');
         }
           
     }

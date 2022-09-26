@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <strong>Jobdesk</strong>
-                    <input type="text" class="form-control" id="nama_jobdesk" name="nama_jobdesk" placeholder="Jobdesk" autocomplete="off">
+                    <input type="text" class="form-control" id="nama_jobdesk" name="nama_jobdesk" placeholder="Jobdesk" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
@@ -60,7 +60,7 @@
     </thead>
     <tbody>
         <?php $i=0; ?>
-        @foreach($jobdesks as $jobdesk)
+        @forelse($jobdesks as $jobdesk)
         <tr>
             <td style="text-align:center;">{{ ++$i }}</td>
             <td>{{ $jobdesk->nama_jobdesk }}</td>
@@ -134,8 +134,12 @@
 </div>
     
 </tr>
+@empty
+<tr>
+  <td colspan="12" style="text-align:center;">Tidak ada data</td>
+</tr>
 
-        @endforeach
+        @endforelse
     </tbody>
 </table>
 </div>

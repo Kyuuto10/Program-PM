@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <strong>Prioritas</strong>
-                    <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Prioritas" autocomplete="off">
+                    <input type="text" class="form-control" id="nama_prioritas" name="nama_prioritas" placeholder="Prioritas" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
@@ -60,7 +60,7 @@
     </thead>
     <tbody>
         <?php $i=0; ?>
-        @foreach($priorities as $priority)
+        @forelse($priorities as $priority)
         <tr>
             <td style="text-align:center;">{{ ++$i }}</td>
             <td>{{ $priority->nama_prioritas }}</td>
@@ -134,8 +134,12 @@
 </div>
     
 </tr>
+@empty
+<tr>
+  <td colspan="12" style="text-align:center;">Tidak ada data</td>
+</tr>
 
-        @endforeach
+        @endforelse
     </tbody>
 </table>
 </div>

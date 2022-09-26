@@ -116,11 +116,11 @@
                   </a>
                   <div class="submenu">
                       <ul class="submenu-item scrollable-menu" role="menu">
-                          <li><a class="nav-item nav-link" href="{{route('status.index')}}">Status</a></li>
-                          <li><a class="nav-item nav-link" href="{{route('produk.index')}}">Produk</a></li>
-                          <li><a class="nav-item nav-link" href="{{route('priority.index')}}">Prioritas</a></li>
-                          <li><a class="nav-item nav-link" href="{{route('jobdesk.index')}}">Jobdesk</a></li>
-                          <li><a class="nav-item nav-link" href="{{route('teknisi.index')}}">Teknisi</a></li>
+                          <a class="dropdown-item nav-link" href="{{route('status.index')}}">Status</a>
+                          <a class="dropdown-item nav-link" href="{{route('produk.index')}}">Produk</a>
+                          <a class="dropdown-item nav-link" href="{{route('priority.index')}}">Prioritas</a>
+                          <a class="dropdown-item nav-link" href="{{route('jobdesk.index')}}">Jobdesk</a>
+                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}">Teknisi</a>
                       </ul>
                   </div>
               </li>
@@ -142,9 +142,9 @@
 
                 <div class="submenu">
                   <ul class="submenu-item scrollable-menu" role="menu">
-                    <li><a class="nav-link show-alert-logout-box" href="" name="_method" title="Logout"><i class="mdi mdi-logout"></i>        
+                    <a class="dropdown-item nav-link show-alert-logout-box pull-left" href="" name="_method" title="Logout">        
                         <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
-                      </a></li>                      
+                      </a>                     
                   </ul>
                 </div>
               </li>

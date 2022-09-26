@@ -31,12 +31,12 @@
 
                 <div class="form-group">
                     <strong>ID</strong>
-                    <input type="text" class="form-control" id="id" name="id" placeholder="ID" autocomplete="off">
+                    <input type="text" class="form-control" id="id" name="id" placeholder="ID" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
                     <strong>Nama Teknisi</strong>
-                    <input type="text" class="form-control" id="nama_teknisi" name="nama_teknisi" placeholder="Nama Teknisi" autocomplete="off">
+                    <input type="text" class="form-control" id="nama_teknisi" name="nama_teknisi" placeholder="Nama Teknisi" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
@@ -64,7 +64,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($teknisis as $teknisi)
+        @forelse($teknisis as $teknisi)
         <tr>
             <td style="text-align:center;">{{ $teknisi->id }}</td>
             <td>{{ $teknisi->nama_teknisi }}</td>
@@ -113,8 +113,12 @@
                 </div>
 
         </tr>
+        @empty
+        <tr>
+          <td colspan="12" style="text-align:center;">Tidak ada data</td>
+        </tr>
 
-        @endforeach
+        @endforelse
     </tbody>
 </table>
 </div>

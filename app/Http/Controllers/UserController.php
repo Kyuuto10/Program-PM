@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -38,18 +39,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'name' => 'required',
             'username' => 'required',
             'password' => 'required|min:8',
             'type' => 'required'
-        ]);
+        ];
+
+        $message = [
+            'name.required' => 'Nama Masih Kosong',
+            'username.required' => 'Username Masih Kosong',
+            'password.required' => 'Password Masih Kosong',
+            'password.min' => 'Minimal 8 karakter',
+            'type.required' => 'Type Masih Kosong'
+        ];
+
+        // run validasi
+        $validator = Validator::make($request->all(), $rules, $message);
+
+        // cek validasi
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
 
         $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'type' => $request->type
+            'name' => $request->input('name'),
+            'username' => $request->input('username'),
+            'password' => Hash::make($request->input('password')),
+            'type' => $request->input('type')
         ]);
 
         toast('Berhasil Menambah Akun','success');

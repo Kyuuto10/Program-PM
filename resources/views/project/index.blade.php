@@ -34,183 +34,203 @@
           <h5 class="modal-title" id="staticBackdropLabel">Tambah Data</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
             <form action="{{ route('project.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
-                <div class="row">
-                    <div class="col-4"><div class="form-group">
-                        <strong>Nama Instansi</strong>
-                        <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}" required>
-                    </div>
-                </div>
-                    <div class="col-4"><div class="form-group">
-                        <strong>Nama Lokasi</strong>
-                        <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{old('nama_lokasi')}}"  required>
-                    </div>
-                </div>
+                <div class="row"> 
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Nama Instansi</strong>
+                                <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}" >
+                                @error('nama_instansi')
+                                    <div class="text-danger">* {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Nama Lokasi</strong>
+                                <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{old('nama_lokasi')}}" required>
+                                @error('nama_lokasi')
+                                    <div class="text-danger">* {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                <div class="col-4">
-                    <div class="form-group">
-                       <strong>Teknisi</strong>
-                        <select class="form-select" name="id_teknisi" id="id_teknisi" value="{{old('id_teknisi')}}"  required>    
-                                <option disabled selected option>--Pilih--</option>
-                            @foreach($teknisis as $teknisi)
-                            @if($teknisi->aktif == 1)
-                                <option value="{{$teknisi->id}}">{{$teknisi->nama_teknisi}} </option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="col-4">
-                    <div class="form-group">
-                        <strong>Produk</strong>
-                        <select class="form-select" name="id_produk" id="id_produk" value="{{old('id_produk')}}" required> 
-                                <option disabled selected option>--Pilih--</option>
-                            @foreach($product as $produk)
-                            @if($produk->aktif == 1)
-                                <option value="{{$produk->id}}">{{$produk->nama_produk}}</option>
-                                @endif
-                            @endforeach
-                        </select>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Teknisi</strong>
+                                <select class="form-select" name="id_teknisi" id="id_teknisi" value="{{old('id_teknisi')}}" required>    
+                                        <option value="">--Pilih--</option>
+                                    @foreach($teknisis as $teknisi)
+                                    @if($teknisi->aktif == 1)
+                                        <option value="{{$teknisi->id}}">{{$teknisi->nama_teknisi}} </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                @error('id_teknisi')
+                                    <div class="text-danger">* {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>                
+                        
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Produk</strong>
+                                <select class="form-select" name="id_produk" id="id_produk" value="{{old('id_produk')}}" required> 
+                                    <option value="">--Pilih--</option>
+                                @foreach($product as $produk)
+                                    @if($produk->aktif == 1)
+                                    <option value="{{$produk->id}}">{{$produk->nama_produk}}</option>
+                                    @endif
+                                @endforeach
+                                </select>
+                                @error('id_produk')
+                                    <div class="text-danger">* {{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                </div>
 
-                <div class="col-2">
-                    <div class="form-group">
-                            <strong>Warranty</strong>
-                            <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}"  required>
-                                <option disabled selected option>--Pilih--</option>
-                                <option value="Garansi">Garansi</option>
-                                <option value="Non - Garansi">Non - Garansi</option>
-                            </select>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <strong>Warranty</strong>
+                                <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}" required>
+                                    <option value="">--Pilih--</option>
+                                    <option value="Garansi">Garansi</option>
+                                    <option value="Non - Garansi">Non - Garansi</option>
+                                </select>
+                            </div>
                         </div>
-                </div>
 
-                <div class="col-2">
-                    <div class="form-group">
-                            <strong>Prioritas</strong>
-                            <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{old('id_prioritas')}}"  required>
-                                <option disabled selected option>--Pilih--</option>
-                            @foreach($priorities as $priority)
-                            @if($priority->aktif == 1)
-                                <option value="{{$priority->id}}">{{$priority->nama_prioritas}}</option>
-                                @endif
-                            @endforeach
-                            </select>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <strong>Prioritas</strong>
+                                <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{old('id_prioritas')}}" required>
+                                    <option value="">--Pilih--</option>
+                                @foreach($priorities as $priority)
+                                    @if($priority->aktif == 1)
+                                    <option value="{{$priority->id}}">{{$priority->nama_prioritas}}</option>
+                                    @endif
+                                @endforeach
+                                </select>
+                                @error('id_prioritas')
+                                    <div class="text-danger">* {{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="form-group">
-                            <strong>Jobdesk</strong>
-                            <select class="form-select" name="id_jobdesk" id="id_jobdesk" value="{{old('jobdesk')}}"  required> 
-                                <option disabled selected option>--Pilih--</option>
-                            @foreach($jobdesks as $jobdesk)   
-                            @if($jobdesk->aktif == 1) 
-                                <option value="{{$jobdesk->id}}">{{$jobdesk->nama_jobdesk}}</option>
-                                @endif
-                            @endforeach
-                            </select>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Jobdesk</strong>
+                                <select class="form-select" name="id_jobdesk" id="id_jobdesk" value="{{old('jobdesk')}}" required> 
+                                    <option value="">--Pilih--</option>
+                                @foreach($jobdesks as $jobdesk)   
+                                    @if($jobdesk->aktif == 1) 
+                                    <option value="{{$jobdesk->id}}">{{$jobdesk->nama_jobdesk}}</option>
+                                        @endif
+                                @endforeach
+                                </select>
+                                @error('id_jobdesk')
+                                    <div class="text-danger">* {{$message}}</div>
+                                @enderror
+                            </div>
                         </div>
-                </div>
 
-                <div class="col-8">
-                    <div class="form-group">
-                            <strong>Deskripsi</strong>
-                            <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{old('deskripi')}}" placeholder="Deskripsi" required>{{old('deskripi')}}</textarea>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <strong>Deskripsi</strong>
+                                <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{old('deskripi')}}" placeholder="Deskripsi">{{old('deskripi')}}</textarea>
+                            </div>
                         </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="form-group">
-                            <strong>Status</strong>
-                            <select class="form-select" name="id_status" id="id_status" value="{{old('nama_status')}}" required>
-                                <option disabled selected option>--Pilih--</option>
-                            @foreach($stattus as $status)
-                            @if($status->aktif == 1)
-                                <option value="{{$status->id}}">{{$status->nama_status}}</option>
-                                @endif
-                            @endforeach
-                            </select>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Status</strong>
+                                <select class="form-select" name="id_status" id="id_status" value="{{old('nama_status')}}" required>
+                                    <option value="">--Pilih--</option>
+                                @foreach($stattus as $status)
+                                @if($status->aktif == 1)
+                                    <option value="{{$status->id}}">{{$status->nama_status}}</option>
+                                    @endif
+                                @endforeach
+                                </select>
+                                @error('id_status')
+                                    <div class="text-danger">* {{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                </div>
-                
-                <div class="col-8">
-                    <div class="form-group">
-                        <strong>Foto</strong>
-                        <div class="user-image mb-3 text-center">
-                            <div class="imgPreview"></div> 
-                            <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" name="image" multiple value="{{old('image')}}" accept="image/*">
-                        </div>
-                            @error('image')
-                                <div class="invalid-feedback">
-                                    {{$message}}
+                        
+                        <div class="col-8">
+                            <div class="form-group">
+                                <strong>Foto</strong>
+                                <div class="user-image mb-3 text-center">
+                                    <div class="imgPreview"></div>                                                                         
+                                    <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" accept="image/*" name="image[]" multiple>
                                 </div>
-                            @enderror
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Item</strong>
+                                <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{old('item')}}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <strong>Tanggal Pengiriman</strong>
+                                <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{old('tgl_pengiriman')}}">
+                            </div> 
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <strong>Status Pengiriman</strong>
+                                <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{old('status_pengiriman')}}">
+                                    <option value="">--Pilih--</option>
+                                    <option value="Sudah Sampai">Sudah Sampai</option>
+                                    <option value="Belum Sampai">Belum Sampai</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <strong>Tanggal Kembali</strong>
+                                <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{old('tgl_kembali')}}">
+                                @error('tgl_kembali')
+                                    <div class="invalid-feedback">* {{$message}}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <strong>Status Kembali</strong>
+                                <select class="form-select" name="status_kembali" id="status_kembali" value="{{old('status_kembali')}}">
+                                    <option value="">--Pilih--</option>
+                                    <option value="Sudah Sampai">Sudah Sampai</option>
+                                    <option value="Belum Sampai">Belum Sampai</option>
+                                </select>
+                            </div> 
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <strong>Comment <i style="opacity:0.5;">(Opsional)&ensp;</i></strong>
+                                <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{old('comment')}}" placeholder="Komentar">{{old('comment')}}</textarea>
+                            </div>
+                        </div>
+      
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-4">
-                    <div class="form-group">
-                            <strong>Item</strong>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{old('item')}}" required>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="form-group">
-                            <strong>Tanggal Pengiriman</strong>
-                            <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{old('tgl_pengiriman')}}">
-                        </div> 
-                </div>
-
-                <div class="col-3">
-                    <div class="form-group">
-                            <strong>Status Pengiriman</strong>
-                            <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{old('status_pengiriman')}}">
-                                <option disabled selected option>--Pilih--</option>
-                                <option value="Sudah Sampai">Sudah Sampai</option>
-                                <option value="Belum Sampai">Belum Sampai</option>
-                            </select>
-                        </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="form-group">
-                            <strong>Tanggal Kembali</strong>
-                            <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{old('tgl_kembali')}}">
-                            @error('tgl_kembali')
-                                <div class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                            @enderror
-                        </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="form-group">
-                            <strong>Status Kembali</strong>
-                            <select class="form-select" name="status_kembali" id="status_kembali" value="{{old('status_kembali')}}">
-                                <option disabled selected option>--Pilih--</option>
-                                <option value="Sudah Sampai">Sudah Sampai</option>
-                                <option value="Belum Sampai">Belum Sampai</option>
-                            </select>
-                        </div> 
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                            <strong>Comment <i style="opacity:0.5;">(Opsional)&ensp;</i></strong>
-                            <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{old('comment')}}" placeholder="Komentar">{{old('comment')}}</textarea>
-                        </div>
-                </div>
-            </div>
-
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
-                  </div>
             </form>
         </div>
       </div>
@@ -219,7 +239,7 @@
 
 @endif
 
-<div class="" style="padding:2em">
+<div style="padding:2em">
 <table class="table table-bordered table-striped table-hover table-responsive data-table">
     <thead style="text-align:center;">
         <tr>
@@ -252,7 +272,7 @@
         $i= 0;
          ?>
          
-        @foreach($projects as $project)
+        @forelse($projects as $project)
         <tr>
             <td style="text-align:center;">{{ ++$i }}</td>
             <td style="text-align:center;">{{ $project->tanggal }}</td>
@@ -265,7 +285,7 @@
             <td>{{ $project->nama_jobdesk }}</td>
             <td>{{ $project->deskripsi }}</td>
             <td>{{ $project->nama_status }}</td> 
-            <td>{{ $project->image }}</td>
+            <td>{{ $project->image}}</td>
             <td>{{ $project->item }}</td>
             <td>{{ $project->tgl_pengiriman }}</td>
             <td>{{ $project->status_pengiriman }}</td>
@@ -356,7 +376,7 @@
                             <div class="col-2">
                                 <div class="form-group">
                                         <strong>Prioritas</strong>
-                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}"  >
+                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}" required>
                                             <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
                                         @if($priority->aktif == 1)
@@ -377,7 +397,7 @@
                                             <option value="{{$jobdesk->id}}" {{ ($jobdesk->id == $project->id_jobdesk) ? 'selected' : ''}}>{{$jobdesk->nama_jobdesk}}</option>
                                             @endif
                                         @endforeach 
-                                        </select>
+                                        </select>                                        
                                 </div>
                             </div>
 
@@ -399,19 +419,31 @@
                                             @endif
                                         @endforeach
                                         </select>
+                                        @error('id_status')
+                                            <div class="text-danger">
+                                               * {{$message}}
+                                            </div>
+                                        @enderror                                    
                                 </div>
                             </div>
 
                             <div class="col-8">
                                 <div class="form-group">
                                     <strong>Foto</strong> 
-                                    <div class="user-image mb-3 text-center col-8" style="max-heigth:200%;">
+                                    <div class="user-image mb-3 text-center col-8" style="max-heigth:100%;">
                                         <div class="imgPreview"></div>
-                                        @if($project->image)
-                                        <img src="{{asset('/images/'.$project->image)}}" class="rounded float-left">
-                                        @else
-                                        <span class="badge badge-danger">Belum ada Foto</span>
-                                        @endif
+                                        @foreach($projects as $img)     
+                                        <!-- <form action="/deleteImage/{{$img->id}}" method="post">                                   
+                                            @csrf  
+                                            @method('DELETE')
+                                            <a href="" class="btn tex-danger">X</a>            
+                                            </form>                             -->
+                                            @if($img->image)
+                                            <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                                        
+                                            @else
+                                            <span class="badge badge-danger">Belum ada Foto</span>
+                                            @endif                                        
+                                        @endforeach
                                     </div>                                  
 
                                     <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}" accept="images/*">
@@ -425,61 +457,59 @@
 
                             <div class="col-4">
                                 <div class="form-group">
-                                        <strong>Item</strong>
-                                        <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{$project->item}}" >
+                                    <strong>Item</strong>
+                                    <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{$project->item}}" >
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Tanggal Pengiriman</strong>
-                                        <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{$project->tgl_pengiriman}}" >
+                                    <strong>Tanggal Pengiriman</strong>
+                                    <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{$project->tgl_pengiriman}}" >
                                 </div> 
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Status Pengiriman</strong>
-                                        <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{$project->status_pengiriman}}" >
-                                            <option disabled selected option>{{$project->status1}}</option>
-                                            <option value="Sudah Sampai">Sudah Sampai</option>
-                                            <option value="Belum Sampai">Belum Sampai</option>
-                                        </select>
+                                    <strong>Status Pengiriman</strong>
+                                    <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{$project->status_pengiriman}}" >
+                                        <option disabled selected option>{{$project->status_pengiriman}}</option>
+                                        <option value="Sudah Sampai" {{$project->status_pengiriman == 'Sudah Sampai' ? 'selected' : ''}}>Sudah Sampai</option>
+                                        <option value="Belum Sampai" {{$project->status_pengiriman == 'Belum Sampai' ? 'selected' : ''}}>Belum Sampai</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Tanggal Kembali</strong>
-                                        <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{$project->tgl_kembali}}" >
-                                        @error('tgl_kembali')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                        @enderror
+                                    <strong>Tanggal Kembali</strong>
+                                    <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{$project->tgl_kembali}}" >
+                                    @error('tgl_kembali')
+                                        <div class="invalid-feedback">* {{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
-                                        <strong>Status Kembali</strong>
-                                        <select class="form-select" name="status_kembali" id="status_kembali" value="{{$project->status_kembali}}" >
-                                            <option disabled selected option>{{$project->status2}}</option>
-                                            <option value="Sudah Sampai">Sudah Sampai</option>
-                                            <option value="Belum Sampai">Belum Sampai</option>
-                                        </select>
+                                    <strong>Status Kembali</strong>
+                                    <select class="form-select" name="status_kembali" id="status_kembali" value="{{$project->status_kembali}}" >
+                                        <option disabled selected option>{{$project->status_kembali}}</option>
+                                        <option value="Sudah Sampai" {{$project->status_kembali == 'Sudah Sampai' ? 'selected' : ''}}>Sudah Sampai</option>
+                                        <option value="Belum Sampai" {{$project->status_kembali == 'Belum Sampai' ? 'selected' : ''}}>Belum Sampai</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                        <strong>Comment <i>(Opsional)&ensp;</i></strong>
-                                        <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{$project->comment}}" placeholder="Komentar">{{$project->comment}}</textarea>
-                                    </div>
+                                    <strong>Comment <i>(Opsional)&ensp;</i></strong>
+                                    <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{$project->comment}}" placeholder="Komentar">{{$project->comment}}</textarea>
+                                </div>
                             </div> 
                             
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
-                                </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
+                            </div>
                         </div>
 
                     </form>
@@ -487,7 +517,6 @@
             </div>
         </div>
     </div>
-
     @endif
 
             <div class="modal fade" id="modalShow{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -514,7 +543,11 @@
                                         <li class="list-group-item"><b>Deskripsi:&ensp;</b>{{$project->deskripsi}}</li>
                                         <li class="list-group-item"><b>Status:&ensp;</b>{{$project->nama_status}}</li>
                                     <div style="max-height:200px;">
-                                        <li class="list-group-item"><b>Foto:&ensp;</b><img src="{{asset('/images/'.$project->image)}}" style="width:15%; height:15%;"></li>
+                                        <li class="list-group-item"><b>Foto:&ensp;</b>
+                                            @foreach($projects as $img)
+                                                <img src="/images/{{ $img->image }}" style="width:15%; height:15%;">
+                                            @endforeach
+                                        </li>
                                     </div>
                                         <li class="list-group-item"><b>Item:&ensp;</b>{{$project->item}}</li>
                                         <li class="list-group-item"><b>Tanggal Pengiriman:&ensp;</b>{{$project->tgl_pengiriman}}</li>
@@ -533,6 +566,10 @@
             </div>
 
             
+        </tr>
+        @empty
+        <tr>
+            <td colspan="12" style="text-align:center;">Tidak ada data</td>
         </tr>
 
         <!-- JQuery -->
@@ -557,12 +594,12 @@
             });
             });    
         </script>
-        @endforeach
+        @endforelse
         
     </tbody>
 </table>
-<br>
 
+<br>
 
 
 </div>

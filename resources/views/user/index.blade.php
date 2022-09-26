@@ -31,24 +31,44 @@
 
                 <div class="form-group">
                     <strong>Nama</strong>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama" autocomplete="off" required>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama" autocomplete="off" value="{{old('name')}}" required>
+                    @error('name')
+                    <div class="text-danger">
+                      * {{$message}}
+                    </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <strong>Username</strong>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" required>
-                </div>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" value="{{old('username')}}" required>
+                    @error('username')
+                    <div class="text-danger">
+                      * {{$message}}
+                    </div>
+                    @enderror
+                </div>                
 
                 <div class="form-group">
                   <strong>Password</strong>
                   <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required>
+                  @error('password')
+                    <div class="text-danger">
+                      * {{$message}}
+                    </div>
+                  @enderror
                 </div>
 
                 <div class="form-group">
                     <input class="form-check-input" type="radio" name="type" value="1" required>
-                    <label class="form-check-label "for="inlineRadio1">Admin</label><br>
+                    <label class="form-check-label "for="inlineRadio1">Admin</label><br>                   
                     <input class="form-check-input" type="radio" name="type" value="0" required>
                     <label class="form-check-label "for="inlineRadio1">User</label>
+                    @error('type')
+                    <div class="text-danger">
+                      * {{$message}}
+                    </div>
+                    @enderror
                 </div>
 
                 <div class="modal-footer">

@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <strong>Nama Produk</strong>
-                    <input type="text" class="form-control" id="nama_produk" name="nama_produk" placeholder="Nama Produk" autocomplete="off">
+                    <input type="text" class="form-control" id="nama_produk" name="nama_produk" placeholder="Nama Produk" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
@@ -60,7 +60,7 @@
     </thead>
     <tbody>
         <?php $i=0; ?>
-        @foreach($product as $produk)
+        @forelse($product as $produk)
         <tr>
             <td style="text-align:center;">{{ ++$i }}</td>
             <td>{{ $produk->nama_produk }}</td>
@@ -134,8 +134,12 @@
 </div>
     
 </tr>
+@empty
+<tr>
+  <td colspan="12" style="text-align:center;">Tidak ada data</td>
+</tr>
 
-        @endforeach
+        @endforelse
     </tbody>
 </table>
 </div>
