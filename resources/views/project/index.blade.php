@@ -38,16 +38,16 @@
                 @csrf
 
                 <div class="row"> 
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <strong>Nama Instansi</strong>
-                                <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}" >
+                                <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{old('nama_instansi')}}" required>
                                 @error('nama_instansi')
                                     <div class="text-danger">* {{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <strong>Nama Lokasi</strong>
                                 <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{old('nama_lokasi')}}" required>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-group">
                                 <strong>Teknisi</strong>
                                 <select class="form-select" name="id_teknisi" id="id_teknisi" value="{{old('id_teknisi')}}" required>    
@@ -74,7 +74,7 @@
                             </div>
                         </div>                
                         
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-group">
                                 <strong>Produk</strong>
                                 <select class="form-select" name="id_produk" id="id_produk" value="{{old('id_produk')}}" required> 
@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-3">
                             <div class="form-group">
                                 <strong>Warranty</strong>
                                 <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}" required>
@@ -102,7 +102,7 @@
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col-3">
                             <div class="form-group">
                                 <strong>Prioritas</strong>
                                 <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{old('id_prioritas')}}" required>
@@ -119,7 +119,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <strong>Jobdesk</strong>
                                 <select class="form-select" name="id_jobdesk" id="id_jobdesk" value="{{old('jobdesk')}}" required> 
@@ -136,14 +136,7 @@
                             </div>
                         </div>
 
-                        <div class="col-8">
-                            <div class="form-group">
-                                <strong>Deskripsi</strong>
-                                <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{old('deskripi')}}" placeholder="Deskripsi">{{old('deskripi')}}</textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <strong>Status</strong>
                                 <select class="form-select" name="id_status" id="id_status" value="{{old('nama_status')}}" required>
@@ -157,28 +150,6 @@
                                 @error('id_status')
                                     <div class="text-danger">* {{ $message }}</div>
                                 @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="col-8">
-                            <div class="form-group">
-                                <strong>Foto</strong>
-                                <div class="user-image mb-3 text-center">
-                                    <div class="imgPreview"></div>                                                                         
-                                    <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" accept="image/*" name="image[]" multiple>
-                                </div>
-                                @error('image')
-                                    <div class="invalid-feedback">
-                                        {{$message}}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-4">
-                            <div class="form-group">
-                                <strong>Item</strong>
-                                <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{old('item')}}" required>
                             </div>
                         </div>
 
@@ -220,7 +191,37 @@
                                 </select>
                             </div> 
                         </div>
-                        <div class="col-4">
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <strong>Deskripsi</strong>
+                                <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{old('deskripi')}}" placeholder="Deskripsi" required>{{old('deskripi')}}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <strong>Item</strong>
+                                <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{old('item')}}" required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-6">
+                            <div class="form-group">
+                                <strong>Foto</strong>
+                                <div class="user-image mb-3 text-center">
+                                    <div class="imgPreview"></div>                                                                         
+                                    <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" accept="image/*" name="image[]" multiple>
+                                </div>
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                                
+                        <div class="col-6">
                             <div class="form-group">
                                 <strong>Comment <i style="opacity:0.5;">(Opsional)&ensp;</i></strong>
                                 <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{old('comment')}}" placeholder="Komentar">{{old('comment')}}</textarea>
@@ -244,10 +245,10 @@
     <thead style="text-align:center;">
         <tr>
             <th><b>No</b></th>
-            <th><b>@sortablelink('tanggal','Tanggal')</b></th>
-            <th><b>@sortablelink('nama_instansi','Nama Instansi')</b></th>
-            <th><b>@sortablelink('nama_lokasi','Nama Lokasi')</b></th>
-            <th><b>@sortablelink('id_teknisi','Teknisi')</b></th>
+            <th><b>Tanggal</b></th>
+            <th><b>Nama Instansi</b></th>
+            <th><b>Nama Lokasi</b></th>
+            <th><b>Teknisi</b></th>
             <th><b>Produk</b></th>
             <th><b>Warranty</b></th>
             <!-- <th>Priority</th>
@@ -263,7 +264,7 @@
             <th>Comment</th>
             <th>Nama User</th>
             <th>Date Modified</th> -->
-            <th>Aksi</th>            
+            <th><b>Aksi</b></th>            
            
         </tr>
     </thead>
@@ -320,24 +321,24 @@
                     @method('PUT')
 
                     <div class="row">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <strong>Nama Instansi</strong>
-                                    <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{$project->nama_instansi}}"  >
+                                    <input type="text" class="form-control" id="nama_instansi" name="nama_instansi" placeholder="Nama Instansi" autocomplete="off" value="{{$project->nama_instansi}}">
                                 </div>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <strong>Nama Lokasi</strong>
-                                    <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{$project->nama_lokasi}}"  >
+                                    <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" placeholder="Nama Lokasi" autocomplete="off" value="{{$project->nama_lokasi}}">
                                 </div>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="form-group">
                                 <strong>Teknisi</strong>
-                                    <select class="form-select" name="id_teknisi" id="id_teknisi" value="{{$project->nama_teknisi}}"  >    
+                                    <select class="form-select" name="id_teknisi" id="id_teknisi" value="{{$project->nama_teknisi}}">    
                                             <option disabled selected option>{{$project->nama_teknisi}}</option>
                                         @foreach($teknisis as $teknisi)
                                         @if($teknisi->aktif == 1)
@@ -348,10 +349,10 @@
                                 </div>
                             </div>
                             
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <strong>Produk</strong>
-                                    <select class="form-select" name="id_produk" id="id_produk" value="{{$project->nama_produk}}"  > 
+                                    <select class="form-select" name="id_produk" id="id_produk" value="{{$project->nama_produk}}"> 
                                             <option disabled selected option>{{$project->nama_produk}}</option>
                                         @foreach($product as $produk)
                                         @if($produk->aktif == 1)
@@ -362,10 +363,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <strong>Warranty</strong>
-                                    <select class="form-select" name="warranty" id="warranty" value="{{$project->warranty}}"  >
+                                    <select class="form-select" name="warranty" id="warranty" value="{{$project->warranty}}">
                                             <option disabled selected option>{{$project->warranty}}</option>
                                             <option value="Garansi" {{ ($project->warranty == 'Garansi') ? 'selected' : ''}}>Garansi</option>
                                             <option value="Non - Garansi" {{ ($project->warranty == 'Non - Garansi') ? 'selected' : ''}}>Non - Garansi</option>
@@ -373,10 +374,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-3">
                                 <div class="form-group">
                                         <strong>Prioritas</strong>
-                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}" required>
+                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}">
                                             <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
                                         @if($priority->aktif == 1)
@@ -386,11 +387,11 @@
                                         </select>
                                 </div>
                             </div>
-
-                            <div class="col-4">
+                            
+                            <div class="col-6">
                                 <div class="form-group">
                                         <strong>Jobdesk</strong>
-                                        <select class="form-select" name="id_jobdesk" id="id_jobdesk" value="{{$project->nama_jobdesk}}"  > 
+                                        <select class="form-select" name="id_jobdesk" id="id_jobdesk" value="{{$project->nama_jobdesk}}"> 
                                             <option disabled selected option>{{$project->nama_jobdesk}}</option>
                                         @foreach($jobdesks as $jobdesk)   
                                         @if($jobdesk->aktif == 1) 
@@ -401,17 +402,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-8">
-                                <div class="form-group">
-                                        <strong>Deskripsi</strong>
-                                        <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{$project->deskripsi}}" placeholder="Deskripsi" >{{$project->deskripsi}}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                         <strong>Status</strong>
-                                        <select class="form-select" name="id_status" id="id_status" value="{{$project->nama_status}}" >
+                                        <select class="form-select" name="id_status" id="id_status" value="{{$project->nama_status}}">
                                             <option disabled selected option>{{$project->nama_status}}</option>
                                         @foreach($stattus as $status)
                                         @if($status->aktif == 1)
@@ -427,17 +421,65 @@
                                 </div>
                             </div>
 
-                            <div class="col-8">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <strong>Tanggal Pengiriman</strong>
+                                    <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{$project->tgl_pengiriman}}">
+                                </div> 
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <strong>Status Pengiriman</strong>
+                                    <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{$project->status_pengiriman}}">
+                                        <option disabled selected option>{{$project->status_pengiriman}}</option>
+                                        <option value="Sudah Sampai" {{$project->status_pengiriman == 'Sudah Sampai' ? 'selected' : ''}}>Sudah Sampai</option>
+                                        <option value="Belum Sampai" {{$project->status_pengiriman == 'Belum Sampai' ? 'selected' : ''}}>Belum Sampai</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <strong>Tanggal Kembali</strong>
+                                    <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{$project->tgl_kembali}}">
+                                    @error('tgl_kembali')
+                                        <div class="invalid-feedback">* {{$message}}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <strong>Status Kembali</strong>
+                                    <select class="form-select" name="status_kembali" id="status_kembali" value="{{$project->status_kembali}}">
+                                        <option disabled selected option>{{$project->status_kembali}}</option>
+                                        <option value="Sudah Sampai" {{$project->status_kembali == 'Sudah Sampai' ? 'selected' : ''}}>Sudah Sampai</option>
+                                        <option value="Belum Sampai" {{$project->status_kembali == 'Belum Sampai' ? 'selected' : ''}}>Belum Sampai</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                        <strong>Deskripsi</strong>
+                                        <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" value="{{$project->deskripsi}}" placeholder="Deskripsi" >{{$project->deskripsi}}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <strong>Item</strong>
+                                    <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{$project->item}}">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
                                 <div class="form-group">
                                     <strong>Foto</strong> 
                                     <div class="user-image mb-3 text-center col-8" style="max-heigth:100%;">
                                         <div class="imgPreview"></div>
                                         @foreach($projects as $img)     
-                                        <!-- <form action="/deleteImage/{{$img->id}}" method="post">                                   
-                                            @csrf  
-                                            @method('DELETE')
-                                            <a href="" class="btn tex-danger">X</a>            
-                                            </form>                             -->
                                             @if($img->image)
                                             <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                                        
                                             @else
@@ -455,52 +497,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <strong>Item</strong>
-                                    <input type="text" class="form-control" id="item" name="item" placeholder="Nama Item" value="{{$project->item}}" >
-                                </div>
-                            </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <strong>Tanggal Pengiriman</strong>
-                                    <input type="date" class="form-control" id="tgl_pengiriman" name="tgl_pengiriman" value="{{$project->tgl_pengiriman}}" >
-                                </div> 
-                            </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <strong>Status Pengiriman</strong>
-                                    <select class="form-select" name="status_pengiriman" id="status_pengiriman" value="{{$project->status_pengiriman}}" >
-                                        <option disabled selected option>{{$project->status_pengiriman}}</option>
-                                        <option value="Sudah Sampai" {{$project->status_pengiriman == 'Sudah Sampai' ? 'selected' : ''}}>Sudah Sampai</option>
-                                        <option value="Belum Sampai" {{$project->status_pengiriman == 'Belum Sampai' ? 'selected' : ''}}>Belum Sampai</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <strong>Tanggal Kembali</strong>
-                                    <input type="date" class="form-control @error('tgl_kembali') is-invalid @enderror" id="tgl_kembali" name="tgl_kembali" value="{{$project->tgl_kembali}}" >
-                                    @error('tgl_kembali')
-                                        <div class="invalid-feedback">* {{$message}}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <strong>Status Kembali</strong>
-                                    <select class="form-select" name="status_kembali" id="status_kembali" value="{{$project->status_kembali}}" >
-                                        <option disabled selected option>{{$project->status_kembali}}</option>
-                                        <option value="Sudah Sampai" {{$project->status_kembali == 'Sudah Sampai' ? 'selected' : ''}}>Sudah Sampai</option>
-                                        <option value="Belum Sampai" {{$project->status_kembali == 'Belum Sampai' ? 'selected' : ''}}>Belum Sampai</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <strong>Comment <i>(Opsional)&ensp;</i></strong>
                                     <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{$project->comment}}" placeholder="Komentar">{{$project->comment}}</textarea>
@@ -526,7 +523,7 @@
                             <h5 class="modal-title" id="staticBackdropLabel">Detail Data</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="text-align:left;">
 
                             <form method="POST" enctype="multipart/form-data" id="showForm">
                             @csrf

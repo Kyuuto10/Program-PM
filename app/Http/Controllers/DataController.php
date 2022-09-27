@@ -37,11 +37,10 @@ class DataController extends Controller
                             'jobdesk.nama_jobdesk',
                             'status.nama_status',  
                             'images.image',                             
-                            'users.name')
+                            'users.name')                    
                     ->get();     
                     // return $projects;    
                                                  
-
         $product = Produk::all();
         $priorities = Prioritas::all();
         $jobdesks = Jobdesk::all();

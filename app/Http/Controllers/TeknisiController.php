@@ -65,7 +65,7 @@ class TeknisiController extends Controller
      */
     public function show(Teknisi $teknisi)
     {
-        return view('teknisi.show',compact('teknisi'));
+        
     }
 
     /**
@@ -89,7 +89,6 @@ class TeknisiController extends Controller
     public function update(Request $request, Teknisi $teknisi)
     {
         $request->validate([
-            'id' => 'required|numeric',
             'nama_teknisi' => 'required',
         ]);
 
@@ -100,7 +99,6 @@ class TeknisiController extends Controller
         }
 
         $teknisi->update([
-            'id' => $request->id,
             'nama_teknisi' => $request->nama_teknisi,
             'aktif' => $aktif,
         ]);
