@@ -64,7 +64,7 @@
         <tr>
             <td style="text-align:center;">{{ ++$i }}</td>
             <td>{{ $priority->nama_prioritas }}</td>
-            <td style="text-align:center;">{{ $priority->aktif }}</td>
+            <td style="text-align:center;"><input type="checkbox" name="aktif" {{$priority->aktif == 1 ? 'checked' : ''}} disabled></td>
             <td style="text-align:center;">
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$priority->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
                 <!-- <form action="{{route('priority.destroy',$priority->id)}}" method="post">

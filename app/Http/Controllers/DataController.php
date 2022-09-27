@@ -28,19 +28,35 @@ class DataController extends Controller
                     ->join('produk','data.id_produk','=','produk.id')
                     ->join('prioritas','data.id_prioritas','=','prioritas.id')
                     ->join('jobdesk','data.id_jobdesk','=','jobdesk.id')
-                    ->join('users','data.id_user','=','users.id')     
-                    ->leftJoin('images','data.id','=','images.data_id')                    
+                    ->join('users','data.id_user','=','users.id')
+                    ->leftJoin('images','data.id','=','images.data_id')
                     ->select('data.*',
                             'teknisi.nama_teknisi',
                             'produk.nama_produk',
                             'prioritas.nama_prioritas',
                             'jobdesk.nama_jobdesk',
-                            'status.nama_status',  
-                            'images.image',                             
-                            'users.name')                    
-                    ->get();     
-                    // return $projects;    
-                                                 
+                            'status.nama_status',
+                            'images.image',
+                            'users.name')
+                    //->groupBy('id')
+                    ->orderBy('data.id', 'desc')
+                    ->get();
+                    //return $projects;
+
+        /*$query = "SELECT d.*, t.nama_teknisi, pk.nama_produk, ps.nama_prioritas, j.nama_jobdesk, s.nama_status, i.image, u.name
+            FROM data AS d
+            INNER JOIN teknisi AS t ON d.id_teknisi = t.id
+            INNER JOIN produk AS pk ON d.id_produk = pk.id
+            INNER JOIN prioritas AS ps ON d.id_prioritas = ps.id
+            INNER JOIN jobdesk AS j ON d.id_jobdesk = j.id
+            INNER JOIN status AS s ON d.id_status = s.id
+            LEFT JOIN images AS i ON d.id = i.data_id
+            INNER JOIN users AS u ON d.id_user = u.id
+            -- GROUP BY d.id
+            ORDER BY d.id DESC";
+        $datas = DB::select($query);
+        return $datas;*/
+
         $product = Produk::all();
         $priorities = Prioritas::all();
         $jobdesks = Jobdesk::all();

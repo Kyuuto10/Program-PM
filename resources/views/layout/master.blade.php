@@ -55,6 +55,10 @@
   <script type="text/javascript">
      var siteUrl = "{{url('/')}}";
   </script>
+
+    <!-- Ekspor Data -->
+    <script src="{{url('template/js/jquery.min.js')}}"></script>
+    <script src="{{url('template/js/jquery.table2excel.min.js')}}"></script>
   
     <!-- Script -->
     @vite(['resources/sass/app.css','resources/js/app.js'])
@@ -110,17 +114,17 @@
 
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <i class="mdi mdi-settings menu-icon"></i>
+                    <i class="mdi mdi-settings-outline menu-icon"></i>
                     <span class="menu-title">Konfigurasi</span>
                     <!-- <i class="menu-arrow"></i> -->
                   </a>
                   <div class="submenu">
                       <ul class="submenu-item scrollable-menu" role="menu">
-                          <a class="dropdown-item nav-link" href="{{route('status.index')}}">Status</a>
-                          <a class="dropdown-item nav-link" href="{{route('produk.index')}}">Produk</a>
-                          <a class="dropdown-item nav-link" href="{{route('priority.index')}}">Prioritas</a>
-                          <a class="dropdown-item nav-link" href="{{route('jobdesk.index')}}">Jobdesk</a>
-                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}">Teknisi</a>
+                          <a class="dropdown-item nav-link" href="{{route('status.index')}}"><i class="mdi mdi-cogs"></i> Status</a>
+                          <a class="dropdown-item nav-link" href="{{route('produk.index')}}"><i class="mdi mdi-cogs"></i> Produk</a>
+                          <a class="dropdown-item nav-link" href="{{route('priority.index')}}"><i class="mdi mdi-cogs"></i> Prioritas</a>
+                          <a class="dropdown-item nav-link" href="{{route('jobdesk.index')}}"><i class="mdi mdi-cogs"></i> Jobdesk</a>
+                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}"><i class="mdi mdi-cogs"></i> Teknisi</a>
                       </ul>
                   </div>
               </li>
@@ -142,7 +146,8 @@
 
                 <div class="submenu">
                   <ul class="submenu-item scrollable-menu" role="menu">
-                    <a class="dropdown-item nav-link show-alert-logout-box pull-left" href="" name="_method" title="Logout">        
+                    <a class="dropdown-item nav-link show-alert-logout-box pull-left" href="" name="_method" title="Logout">
+                        <i class="mdi mdi-logout"></i>
                         <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
                       </a>                     
                   </ul>
@@ -166,7 +171,7 @@
               
                 @if( Route::has('login'))
               <li class="nav-item">
-                <a href="{{ route('login') }}" class="nav-link"><i class="bi bi-box-arrow-in-left"></i>Login</a>
+                <a href="{{ route('login') }}" class="nav-link"><i class="mdi mdi-login"></i>Login</a>
               </li>
                 @endif
                 @endauth

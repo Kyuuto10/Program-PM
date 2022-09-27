@@ -68,7 +68,7 @@
         <tr>
             <td style="text-align:center;">{{ $teknisi->id }}</td>
             <td>{{ $teknisi->nama_teknisi }}</td>
-            <td style="text-align:center;">{{ $teknisi->aktif }}</td>
+            <td style="text-align:center;"><input type="checkbox" name="aktif" {{$teknisi->aktif == 1 ? 'checked' : ''}} disabled></td>
             <td style="text-align:center;">
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$teknisi->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
             </td>

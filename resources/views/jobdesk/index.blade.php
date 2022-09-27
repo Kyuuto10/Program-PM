@@ -64,7 +64,7 @@
         <tr>
             <td style="text-align:center;">{{ ++$i }}</td>
             <td>{{ $jobdesk->nama_jobdesk }}</td>
-            <td style="text-align:center;">{{ $jobdesk->aktif }}</td>
+            <td style="text-align:center;"><input type="checkbox" name="aktif" {{$jobdesk->aktif == 1 ? 'checked' : ''}} disabled></td>
             <td style="text-align:center;">
                 <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$jobdesk->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
                 <!-- <form action="{{route('jobdesk.destroy',$jobdesk->id)}}" method="post">

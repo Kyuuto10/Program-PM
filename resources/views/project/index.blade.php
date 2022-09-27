@@ -21,7 +21,8 @@
         <div class="pull-left" style="padding-left: 2em;">            
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tambah Data</button>
-            <a class="btn btn-warning" href="{{ url('project/export') }}">Ekspor Excel</a>
+            <!-- <a class="btn btn-warning" href="{{ url('project/export') }}">Ekspor Excel</a> -->
+            <button id="btn_ekspor" class="btn btn-warning">Ekspor Excel</button>
         </div>
     </div>
 </div>
@@ -377,7 +378,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                         <strong>Prioritas</strong>
-                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}">
+                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}" required>
                                             <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
                                         @if($priority->aktif == 1)
@@ -598,7 +599,64 @@
 
 <br>
 
+    <table id="datas" style="display: none;">
+        <tr>
+            <th>No</th>
+            <th>Tanggal</th>
+            <th>Nama Instansi</th>
+            <th>Nama Lokasi</th>
+            <th>Teknisi</th>
+            <th>Produk</th>
+            <th>Warranty</th>
+            <th>Priority</th>
+            <th>Jobdesk</th>
+            <th>Deskripsi</th>
+            <th>Status</th>
+            <th>Item</th>
+            <th>Tanggal Pengiriman</th>
+            <th>Status Pengiriman</th>
+            <th>Tanggal Kembali</th>
+            <th>Status Kembali</th>
+            <th>Komentar</th>
+            <th>Nama User</th>
+            <th>Date Modified</th>
+        </tr>
+        <?php $i= 0; ?>
+        @foreach($projects as $project)
+        <tr>
+            <td>{{ ++$i }}</td>
+            <td>{{ $project->tanggal }}</td>
+            <td>{{ $project->nama_instansi }}</td>
+            <td>{{ $project->nama_lokasi }}</td>
+            <td>{{ $project->nama_teknisi }}</td>
+            <td>{{ $project->nama_produk }}</td>
+            <td>{{ $project->warranty }}</td>
+            <td>{{ $project->nama_prioritas }}</td>
+            <td>{{ $project->nama_jobdesk }}</td>
+            <td>{{ $project->deskripsi }}</td>
+            <td>{{ $project->nama_status }}</td>
+            <td>{{ $project->item }}</td>
+            <td>{{ $project->tgl_pengiriman }}</td>
+            <td>{{ $project->status_pengiriman }}</td>
+            <td>{{ $project->tgl_kembali }}</td>
+            <td>{{ $project->status_kembali }}</td>
+            <td>{{ $project->comment }}</td>
+            <td>{{ $project->name }}</td>
+            <td>{{ $project->date_modified }}</td>
+        </tr>
+        @endforeach
+    </table>
 
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $("#btn_ekspor").click(function(){
+            $("#datas").table2excel({
+                filename: "Data.xls"
+            });
+        });
+    });
+</script>
 
 @endsection

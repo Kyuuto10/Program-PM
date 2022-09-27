@@ -64,7 +64,7 @@
        <tr>
         <td style="text-align:center;">{{ ++$i }}</td>
         <td>{{ $status->nama_status }}</td>
-        <td style="text-align:center;">{{ $status->aktif }}</td>
+        <td style="text-align:center;"><input type="checkbox" name="aktif" {{$status->aktif == 1 ? 'checked' : ''}} disabled></td>
         <td style="text-align:center;">
             <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$status->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
             <!-- <form action="{{route('status.destroy', $status->id)}}" method="post">
