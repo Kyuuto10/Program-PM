@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -50,14 +52,27 @@ class LoginController extends Controller
 
         if(auth()->attempt(array('username' => $input['username'], 'password' => $input['password'])))
         {
-            if (auth()->user()->type == 'admin') {                    
+            if (auth()->user()->type == 'admin') {   
+                toast('Berhasil Login','success');                 
                 return redirect()->route('adminHome');         
             }else{                
+                toast('Berhasil Login','success');
                 return redirect()->route('home');
             }
         }else{            
-            return redirect()->route('login')->with('message','Username atau Password salah');
+            toast('Username atau Password salah','error');
+            return redirect()->route('login');
         }
           
+    }
+
+    public function logout()
+    {
+        Session::flush();
+
+        Auth::logout();
+
+        toast('Berhasil Logout','success');
+        return redirect('login');
     }
 }

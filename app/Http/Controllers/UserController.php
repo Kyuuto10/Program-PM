@@ -39,30 +39,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
+        $request->validate([
             'name' => 'required',
             'username' => 'required',
-            'password' => 'required|min:8',
-            'type' => 'required'
-        ];
-
-        $message = [
-            'name.required' => 'Nama Masih Kosong',
-            'username.required' => 'Username Masih Kosong',
-            'password.required' => 'Password Masih Kosong',
-            'password.min' => 'Minimal 8 karakter',
-            'type.required' => 'Type Masih Kosong'
-        ];
-
-        // run validasi
-        $validator = Validator::make($request->all(), $rules, $message);
-
-        // cek validasi
-        if($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput($request->all());
-        }
-
-        $user = User::create([
+            'password' => 'required',
+            'type' => 'required',
+        ]);
+        User::create([
             'name' => $request->input('name'),
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),

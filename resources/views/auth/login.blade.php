@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('sweetalert::alert')
+
 @if ($message = Session::get('message'))
     <div class="alert alert-danger">
         <p>{{ $message }}</p>

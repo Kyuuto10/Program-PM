@@ -3,7 +3,7 @@
 use App\http\Controllers\{HomeController, DataController, TeknisiController,
                          StatusController, ProdukController, JobdeskController, 
                          PrioritasController, UserController,AuthController};
-use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +29,7 @@ Auth::routes();
 Route::middleware(['auth','user-access:user'])->group(function(){
 
     Route::get('home/index', [HomeController::class, 'home'])->name('home');
-    Route::get('/logout', 'App\Http\Controllers\Auth\LogoutController@perform')->name('logout.perform');    
+    Route::get('/logout', [LoginController::class,'logout'])->name('logout');    
     Route::get('project/index','App\Http\Controllers\DataController@index')->name('project.index');
 });
 
@@ -40,7 +40,7 @@ Route::middleware(['auth','user-access:admin'])->group(function(){
     Route::get('/home', [HomeController::class, 'adminHome'])->name('adminHome');
 
     Route::delete('/deleteImage/{id}',[DataController::class,'deleteImage']);
-    Route::get('/logout', 'App\Http\Controllers\Auth\LogoutController@perform')->name('logout.perform');
+    Route::get('/logout', [LoginController::class,'logout'])->name('logout');
     Route::get('project/autocomplete','App\Http\Controllers\DataController@autocomplete')->name('project.autocomplete');
     Route::get('project/export', 'App\Http\Controllers\DataController@export')->name('project.export');
     Route::resource('project', DataController::class);

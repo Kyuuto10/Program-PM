@@ -1,5 +1,6 @@
 @extends('layout.master')
 @section('content')
+@include('sweetalert::alert')
 <div class="row">
     <div class="col-lg-12" style="text-align:center; padding-top:280px;">
         @auth

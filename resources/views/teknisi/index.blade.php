@@ -86,6 +86,12 @@
                         <form action="{{ route('teknisi.update', $teknisi->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
                           @csrf
                           @method('PUT')
+
+                                <div class="form-group">
+                                  <strong>ID:</strong>
+                                  <input type="number" class="form-control" value="{{ $teknisi->id }}" disabled>
+                                </div>
+
                                 <div class="form-group">
                                     <strong>Nama Teknisi</strong>
                                     <input type="text" class="form-control" id="nama_teknisi" name="nama_teknisi" placeholder="Nama Teknisi" value="{{$teknisi->nama_teknisi}}">

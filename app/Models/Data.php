@@ -19,10 +19,5 @@ class Data extends Model
     public function images(){
         return $this->hasMany(Image::class);
     }
-
-    public function scopeSearch($query, $name)
-    {
-        return $query->where('nama_instansi','LIKE',"%{$nama_instansi}%");
-    }
 }
 

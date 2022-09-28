@@ -19,10 +19,30 @@
 </form>
     <div class="col-lg-12 margin-tb">
         <div class="pull-left" style="padding-left: 2em;">            
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tambah Data</button>
-            <!-- <a class="btn btn-warning" href="{{ url('project/export') }}">Ekspor Excel</a> -->
-            <button id="btn_ekspor" class="btn btn-warning">Ekspor Excel</button>
+            <!-- Button trigger modal -->            
+                <div class="col-auto">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tambah Data</button>
+                    <!-- <a class="btn btn-warning" href="{{ url('project/export') }}">Ekspor Excel</a> -->
+                    <button id="btn_ekspor" class="btn btn-warning">Ekspor Excel</button>
+                </div> 
+                <form class="row g-3" method="GET">
+                <div class="col-auto">
+                    <select class="form-select" name="nama_instansi">
+                        <option value="" selected>Semua</option>
+                        @foreach($projects as $project)
+                        <option value="{{$project->nama_instansi}}" {{request('nama_instansi') === $project->nama_instansi ? 'selected' : null}}>
+                            {{ $project->nama_instansi}}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <input type="search" name="keyword" class="form-control" value="{{$projects}}" placeholder="Cari...">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Cari</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -35,6 +55,8 @@
           <h5 class="modal-title" id="staticBackdropLabel">Tambah Data</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+
             <form action="{{ route('project.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
@@ -233,7 +255,8 @@
                             <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                         </div>
                     </div>
-            </form>
+                </form>
+            </div>
         </div>
       </div>
     </div>
@@ -271,12 +294,12 @@
     </thead>
     <tbody>
         <?php       
-        $i= 0;
+        $i= 1 + (($projects->currentPage()- 1) * $projects->perPage());
          ?>
          
         @forelse($projects as $project)
         <tr>
-            <td style="text-align:center;">{{ ++$i }}</td>
+            <td style="text-align:center;">{{ $i++ }}</td>
             <td style="text-align:center;">{{ $project->tanggal }}</td>
             <td>{{ $project->nama_instansi }}</td>
             <td>{{ $project->nama_lokasi }}</td>
@@ -287,7 +310,7 @@
             <td>{{ $project->nama_jobdesk }}</td>
             <td>{{ $project->deskripsi }}</td>
             <td>{{ $project->nama_status }}</td> 
-            <td>{{ $project->image}}</td>
+            <td>{{ $project->image }} </td>
             <td>{{ $project->item }}</td>
             <td>{{ $project->tgl_pengiriman }}</td>
             <td>{{ $project->status_pengiriman }}</td>
@@ -295,7 +318,7 @@
             <td>{{ $project->status_kembali }}</td>
             <td>{{ $project->comment }}</td>
             <td>{{ $project->name }}</td>
-            <td>{{ $project->date_modified }}</td> -->
+            <td>{{ $project->date_modified }}</td>  -->
             <td style="text-align:center;">
                 <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}"><ion-icon name="eye-outline"></ion-icon></a> 
                 @if(Auth::user()->type == 'admin')
@@ -378,7 +401,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                         <strong>Prioritas</strong>
-                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}" required>
+                                        <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}">
                                             <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
                                         @if($priority->aktif == 1)
@@ -478,7 +501,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <strong>Foto</strong> 
-                                    <div class="user-image mb-3 text-center col-8" style="max-heigth:100%;">
+                                    <div class="user-image mb-3 text-center col-8" style="max-height: 100%;">
                                         <div class="imgPreview"></div>
                                         @foreach($projects as $img)     
                                             @if($img->image)
@@ -593,8 +616,8 @@
             });    
         </script>
         @endforelse
-        
     </tbody>
+    
 </table>
 
 <br>
@@ -647,6 +670,7 @@
         @endforeach
     </table>
 
+    {{$projects->links()}}
 </div>
 
 <script type="text/javascript">

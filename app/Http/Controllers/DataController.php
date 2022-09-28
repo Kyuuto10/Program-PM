@@ -23,13 +23,19 @@ class DataController extends Controller
      */
     public function index(Request $request)
     {
-        $projects = Data::join('teknisi','data.id_teknisi','=','teknisi.id')
+        $projects['keyword'] = $request->query('keyword');  
+
+        $query = Data::join('teknisi','data.id_teknisi','=','teknisi.id')
                     ->join('status','data.id_status','=','status.id')
                     ->join('produk','data.id_produk','=','produk.id')
                     ->join('prioritas','data.id_prioritas','=','prioritas.id')
-                    ->join('jobdesk','data.id_jobdesk','=','jobdesk.id')
+                    ->join('jobdesk','data.id_jobdesk','=','jobdesk.id')              
                     ->join('users','data.id_user','=','users.id')
                     ->leftJoin('images','data.id','=','images.data_id')
+                    ->where(function($query)use($projects){
+                        $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
+                        $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                    })
                     ->select('data.*',
                             'teknisi.nama_teknisi',
                             'produk.nama_produk',
@@ -38,10 +44,11 @@ class DataController extends Controller
                             'status.nama_status',
                             'images.image',
                             'users.name')
-                    //->groupBy('id')
-                    ->orderBy('data.id', 'desc')
-                    ->get();
-                    //return $projects;
+                    ->groupBy('id')
+                    ->orderBy('data.id','desc');
+                    
+
+        $projects = $query->paginate(10)->withQueryString();
 
         /*$query = "SELECT d.*, t.nama_teknisi, pk.nama_produk, ps.nama_prioritas, j.nama_jobdesk, s.nama_status, i.image, u.name
             FROM data AS d
@@ -56,6 +63,7 @@ class DataController extends Controller
             ORDER BY d.id DESC";
         $datas = DB::select($query);
         return $datas;*/
+
 
         $product = Produk::all();
         $priorities = Prioritas::all();
@@ -129,7 +137,7 @@ class DataController extends Controller
         // $imageName = $image->getClientOriginalName();
         // $image->move(public_path('images/'),"/$imageName");       
 
-        $new_data = Data::create([
+        $project = Data::create([
                 'tanggal' => Carbon::today(),
                 'nama_instansi' => $request->input('nama_instansi'),
                 'nama_lokasi' => $request->input('nama_lokasi'),
@@ -152,10 +160,10 @@ class DataController extends Controller
 
             if($request->has('image')){
                 foreach($request->file('image')as $image){
-                    $imageName = $new_data['nama_instansi'].'-image-'.time().rand(1,1000).'.'.$image->extension();
+                    $imageName = $project['nama_instansi'].'-image-'.time().rand(1,1000).'.'.$image->extension();
                     $image->move(public_path('images'),$imageName);
                     Image::create([
-                        'data_id'=>$new_data->id,
+                        'data_id'=>$project->id,
                         'image'=>$imageName
                     ]);
                 }
@@ -196,7 +204,7 @@ class DataController extends Controller
      */
     public function update(Request $request, Data $project)
     {
-       
+       //dd($request);
         $request->validate([            
             'id_teknisi' => 'required',
             'id_produk' => 'required',            
@@ -224,13 +232,14 @@ class DataController extends Controller
             'id_user' => (auth()->user()->id),
             'date_modified' => Carbon::today()
         ]);
+        
 
         if($request->has('image')){
             foreach($request->file('image')as $image){
-                $imageName = $project['tanggal'].'-image-'.time().rand(1,1000).'.'.$image->extension();
+                $imageName = $project['nama_instansi'].'-image-'.time().rand(1,1000).'.'.$image->extension();
                 $image->move(public_path('images'),$imageName);
-                $image->update([
-                    'data_id'=>$new_data->id,
+                Image::create([
+                    'data_id'=>$project->id,
                     'image'=>$imageName
                 ]);
             }
