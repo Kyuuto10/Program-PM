@@ -41,9 +41,8 @@ Route::middleware(['auth','user-access:admin'])->group(function(){
 
     Route::delete('/deleteImage/{id}',[DataController::class,'deleteImage']);
     Route::get('/logout', [LoginController::class,'logout'])->name('logout');
-    Route::get('project/autocomplete','App\Http\Controllers\DataController@autocomplete')->name('project.autocomplete');
     Route::get('project/export', 'App\Http\Controllers\DataController@export')->name('project.export');
-    Route::get('project/add_comment/{id}', [DataController::class,'add_comment']);
+    Route::get('project/add_comment/{id}', [DataController::class,'add_comment'])->name('project.add_comment');
     Route::resource('project', DataController::class);
     Route::resource('teknisi', TeknisiController::class);
     Route::resource('status', StatusController::class);

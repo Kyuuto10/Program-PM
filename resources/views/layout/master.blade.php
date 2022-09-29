@@ -72,7 +72,7 @@
         </div>
       </nav>
       
-      <nav class="bottom-navbar navbar-fixed-top" style="justify">
+      <nav class="bottom-navbar navbar-fixed-top">
         <div class="container row">
             <ul class="nav page-navigation">
             @auth

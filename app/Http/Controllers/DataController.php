@@ -31,7 +31,7 @@ class DataController extends Controller
                     ->join('prioritas','data.id_prioritas','=','prioritas.id')
                     ->join('jobdesk','data.id_jobdesk','=','jobdesk.id')              
                     ->join('users','data.id_user','=','users.id')
-                    ->leftJoin('images','data.id','=','images.data_id')
+                    ->leftJoin('images','data.id','=','images.data_id')                
                     ->where(function($query)use($projects){
                         $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
                         $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
@@ -42,13 +42,14 @@ class DataController extends Controller
                             'prioritas.nama_prioritas',
                             'jobdesk.nama_jobdesk',
                             'status.nama_status',
-                            'images.image',
+                            'images.image',                        
                             'users.name')
                     ->groupBy('id')
-                    ->orderBy('data.id','desc');
+                    ->orderBy('data.id','desc')
+                    ->paginate(10);
                     
 
-        $projects = $query->paginate(10)->withQueryString();
+        $projects = $query->withQueryString();
 
         /*$query = "SELECT d.*, t.nama_teknisi, pk.nama_produk, ps.nama_prioritas, j.nama_jobdesk, s.nama_status, i.image, u.name
             FROM data AS d
@@ -168,10 +169,10 @@ class DataController extends Controller
                 }
             }
 
-            if($request->has('comment')){
+            if($request->has('komentar')){
                 Comment::create([
                     'id_data'=>$project->id,
-                    'komentar'=>$request->comment,
+                    'komentar'=>$request->komentar,
                     'id_user' => (auth()->user()->id)
                 ]);
             }
@@ -255,16 +256,16 @@ class DataController extends Controller
         return redirect()->route('project.index');
     }
 
-    public function add_comment(Request $request)
+    public function add_comment(Request $request, Data $project)
     {
         Comment::create([
-            'id_data'=>$project->id,
-            'komentar'=>$request->comment,
+            'id_data'=>$request->id_data,
+            'komentar'=>$request->komentar,
             'id_user' => (auth()->user()->id)
         ]);
 
         toast('Berhasil input comment','success');
-        return redirect()->route('project.index');
+        return redirect()->route('project.index',compact('project'));
     }
 
     /**

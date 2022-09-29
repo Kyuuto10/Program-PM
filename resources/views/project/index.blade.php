@@ -247,7 +247,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <strong>Comment <i style="opacity:0.5;">(Opsional)&ensp;</i></strong>
-                                <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{old('comment')}}" placeholder="Komentar">{{old('comment')}}</textarea>
+                                <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{old('komentar')}}" placeholder="Komentar">{{old('komentar')}}</textarea>
                             </div>
                         </div>
       
@@ -316,7 +316,7 @@
             <td>{{ $project->status_pengiriman }}</td>
             <td>{{ $project->tgl_kembali }}</td>
             <td>{{ $project->status_kembali }}</td>
-            <td>{{ $project->comment }}</td>
+            <td>{{ $project->komentar }}</td>
             <td>{{ $project->name }}</td>
             <td>{{ $project->date_modified }}</td>  -->
             <td style="text-align:center;">
@@ -544,12 +544,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('project/add_comment', $project->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
+                    <form action="{{ url('project/add_comment', $project->id) }}" method="GET" enctype="multipart/form-data" id="editForm">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-6">                                
                                 <div class="form-group">
                                     <strong>Comment</strong>
-                                    <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{$project->comment}}" placeholder="Komentar">{{$project->comment}}</textarea>
+                                    <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{$project->komentar}}" placeholder="Komentar">{{$project->komentar}}</textarea>
+                                    <input type="hidden" value="{{$project->id}}" name="id_data" id="id_data">
                                 </div>
                             </div>
 

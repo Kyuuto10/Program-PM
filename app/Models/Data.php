@@ -16,7 +16,8 @@ class Data extends Model
                             'tgl_kembali','status_kembali','comment','id_user','date_modified'];
 
 
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(Image::class);
     }
 }
