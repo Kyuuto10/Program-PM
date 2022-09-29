@@ -8,7 +8,7 @@
 <br>
 <div class="row" style="padding-top: 6em;">
     <div style="text-align:center;">
-      <h1>Form Status</h1>
+      <h1>Form Status Pekerjaan</h1>
     </div>
     <div class="col-lg-12 margin-tb">
         <div class="pull-left" style="padding-left: 2em">
@@ -30,8 +30,8 @@
                 @csrf
 
                 <div class="form-group">
-                    <strong>Status</strong>
-                    <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status" autocomplete="off" required>
+                    <strong>Status Pekerjaan</strong>
+                    <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status Pekerjaan" autocomplete="off" required>
                 </div>
 
                 <div class="form-group">
@@ -53,7 +53,7 @@
     <thead style="text-align:center;">
         <tr>
             <th><b>No</b></th>
-            <th><b>Status</b></th>
+            <th><b>Status Pekerjaan</b></th>
             <th><b>Aktif</b></th>
             <th><b>Aksi</b></th>
         </tr>
@@ -89,8 +89,8 @@
               @method('PUT')
 
                 <div class="form-group">
-                    <strong>Status</strong>
-                    <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status" value="{{$status->nama_status}}">
+                    <strong>Status Pekerjaan</strong>
+                    <input type="text" class="form-control" id="nama_status" name="nama_status" placeholder="Status Pekerjaan" value="{{$status->nama_status}}">
                 </div>
 
                 <div class="form-group">
@@ -119,7 +119,7 @@
           <div class="modal-body">
 
             <form action="{{ route('status.destroy', $status->id) }}" method="POST" enctype="multipart/form-data" id="deleteForm">
-              <p>Yakin hapus Status {{$status->nama_status}} ?</p>
+              <p>Yakin hapus Status Pekerjaan {{$status->nama_status}} ?</p>
               <br>
               @csrf
               @method('DELETE')

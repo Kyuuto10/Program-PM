@@ -120,11 +120,11 @@
                   </a>
                   <div class="submenu">
                       <ul class="submenu-item scrollable-menu" role="menu">
-                          <a class="dropdown-item nav-link" href="{{route('status.index')}}"><i class="mdi mdi-cogs"></i> Status</a>
+                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}"><i class="mdi mdi-cogs"></i> Teknisi</a>
                           <a class="dropdown-item nav-link" href="{{route('produk.index')}}"><i class="mdi mdi-cogs"></i> Produk</a>
                           <a class="dropdown-item nav-link" href="{{route('priority.index')}}"><i class="mdi mdi-cogs"></i> Prioritas</a>
+                          <a class="dropdown-item nav-link" href="{{route('status.index')}}"><i class="mdi mdi-cogs"></i> Status Pekerjaan</a>
                           <a class="dropdown-item nav-link" href="{{route('jobdesk.index')}}"><i class="mdi mdi-cogs"></i> Jobdesk</a>
-                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}"><i class="mdi mdi-cogs"></i> Teknisi</a>
                       </ul>
                   </div>
               </li>

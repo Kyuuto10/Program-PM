@@ -161,7 +161,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <strong>Status</strong>
+                                <strong>Status Pekerjaan</strong>
                                 <select class="form-select" name="id_status" id="id_status" value="{{old('nama_status')}}" required>
                                     <option value="">--Pilih--</option>
                                 @foreach($stattus as $status)
@@ -278,7 +278,7 @@
             <!-- <th>Priority</th>
             <th>Jobdesk</th>
             <th>Deskripsi</th>
-            <th>Status</th>
+            <th>Status Pekerjaan</th>
             <th>Foto</th>
             <th>Item</th>
             <th>Tgl Pengiriman</th>
@@ -428,7 +428,7 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                        <strong>Status</strong>
+                                        <strong>Status Pekerjaan</strong>
                                         <select class="form-select" name="id_status" id="id_status" value="{{$project->nama_status}}">
                                             <option disabled selected option>{{$project->nama_status}}</option>
                                         @foreach($stattus as $status)
@@ -562,7 +562,7 @@
                                         <li class="list-group-item"><b>Priority:&ensp;</b>{{$project->nama_prioritas}}</li>
                                         <li class="list-group-item"><b>Jobdesk:&ensp;</b>{{$project->nama_jobdesk}}</li>
                                         <li class="list-group-item"><b>Deskripsi:&ensp;</b>{{$project->deskripsi}}</li>
-                                        <li class="list-group-item"><b>Status:&ensp;</b>{{$project->nama_status}}</li>
+                                        <li class="list-group-item"><b>Status Pekerjaan:&ensp;</b>{{$project->nama_status}}</li>
                                     <div style="max-height:200px;">
                                         <li class="list-group-item"><b>Foto:&ensp;</b>
                                             @foreach($projects as $img)
@@ -634,7 +634,7 @@
             <th>Priority</th>
             <th>Jobdesk</th>
             <th>Deskripsi</th>
-            <th>Status</th>
+            <th>Status Pekerjaan</th>
             <th>Item</th>
             <th>Tanggal Pengiriman</th>
             <th>Status Pengiriman</th>
