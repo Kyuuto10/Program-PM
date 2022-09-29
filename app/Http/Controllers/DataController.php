@@ -31,7 +31,7 @@ class DataController extends Controller
                     ->join('prioritas','data.id_prioritas','=','prioritas.id')
                     ->join('jobdesk','data.id_jobdesk','=','jobdesk.id')              
                     ->join('users','data.id_user','=','users.id')
-                    ->leftJoin('images','data.id','=','images.data_id')                
+                    //->leftJoin('images','data.id','=','images.data_id')
                     ->where(function($query)use($projects){
                         $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
                         $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
@@ -42,12 +42,11 @@ class DataController extends Controller
                             'prioritas.nama_prioritas',
                             'jobdesk.nama_jobdesk',
                             'status.nama_status',
-                            'images.image',                        
+                            //'images.image',
                             'users.name')
                     ->groupBy('id')
                     ->orderBy('data.id','desc')
                     ->paginate(10);
-                    
 
         $projects = $query->withQueryString();
 
@@ -65,14 +64,15 @@ class DataController extends Controller
         $datas = DB::select($query);
         return $datas;*/
 
-
         $product = Produk::all();
         $priorities = Prioritas::all();
         $jobdesks = Jobdesk::all();
-        $stattus = Status::all();        
+        $stattus = Status::all();
         $teknisis = Teknisi::all();
+        $images = Image::all();
+        $comments = Comment::all();
 
-        return view('project.index',compact('product','priorities','jobdesks','stattus','teknisis','projects'))
+        return view('project.index',compact('product','priorities','jobdesks','stattus','teknisis','projects','images','comments'))
         ->with([
             'data' => $projects 
         ]);
@@ -259,8 +259,8 @@ class DataController extends Controller
     public function add_comment(Request $request, Data $project)
     {
         Comment::create([
-            'id_data'=>$request->id_data,
-            'komentar'=>$request->komentar,
+            'id_data' => $request->id_data,
+            'komentar' => $request->komentar,
             'id_user' => (auth()->user()->id)
         ]);
 

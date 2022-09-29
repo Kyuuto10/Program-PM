@@ -546,7 +546,7 @@
                 <div class="modal-body">
                     <form action="{{ url('project/add_comment', $project->id) }}" method="GET" enctype="multipart/form-data" id="editForm">
                         <div class="row">
-                            <div class="col-6">                                
+                            <div class="col-6">
                                 <div class="form-group">
                                     <strong>Comment</strong>
                                     <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{$project->komentar}}" placeholder="Komentar">{{$project->komentar}}</textarea>
@@ -588,19 +588,28 @@
                                         <li class="list-group-item"><b>Jobdesk:&ensp;</b>{{$project->nama_jobdesk}}</li>
                                         <li class="list-group-item"><b>Deskripsi:&ensp;</b>{{$project->deskripsi}}</li>
                                         <li class="list-group-item"><b>Status Pekerjaan:&ensp;</b>{{$project->nama_status}}</li>
-                                    <div style="max-height:200px;">
-                                        <li class="list-group-item"><b>Foto:&ensp;</b>
-                                            @foreach($projects as $img)
-                                                <img src="/images/{{ $img->image }}" style="width:15%; height:15%;">
-                                            @endforeach
-                                        </li>
-                                    </div>
+                                        <div style="max-height:200px;">
+                                            <li class="list-group-item"><b>Foto:&ensp;</b>
+                                                @foreach($images as $img)
+                                                    @if($img->data_id == $project->id)
+                                                    <img src="/images/{{ $img->image }}" style="width:15%; height:15%;"> &nbsp;&nbsp; 
+                                                    @endif
+                                                @endforeach
+                                            </li>
+                                        </div>
                                         <li class="list-group-item"><b>Item:&ensp;</b>{{$project->item}}</li>
                                         <li class="list-group-item"><b>Tanggal Pengiriman:&ensp;</b>{{$project->tgl_pengiriman}}</li>
                                         <li class="list-group-item"><b>Status Pengiriman:&ensp;</b>{{$project->status_pengiriman}}</li>
                                         <li class="list-group-item"><b>Tanggal Kembali:&ensp;</b>{{$project->tgl_kembali}}</li>
                                         <li class="list-group-item"><b>Status Kembali:&ensp;</b>{{$project->status_kembali}}</li>
-                                        <li class="list-group-item"><b>Komentar:&ensp;</b>{{$project->comment}}</li>
+                                        <li class="list-group-item"><b>Komentar:&ensp;</b>
+                                            <br>
+                                            @foreach($comments as $komen)
+                                                @if($komen->id_data == $project->id)
+                                                {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->komentar }}<br>
+                                                @endif
+                                            @endforeach
+                                        </li>
                                         <li class="list-group-item"><b>Modified by:&ensp;</b>{{$project->name}}</li>
                                         <li class="list-group-item"><b>Date Modified:&ensp;</b>{{$project->date_modified}}</li>
                                     </ul>
