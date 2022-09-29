@@ -328,6 +328,10 @@
                     @csrf 
                     @method('DELETE')
                 </form>
+
+                <form action="{{route('project.destroy',$project->id)}}" method="post" enctype="multipart/form-data">
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComment{{$project->id}}"><ion-icon name="chatbox-ellipses-outline"></ion-icon></a>
+                </form>
             </td>
 
         <!-- Start Edit Model -->
@@ -521,18 +525,38 @@
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <strong>Comment <i>(Opsional)&ensp;</i></strong>
-                                    <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{$project->comment}}" placeholder="Komentar">{{$project->comment}}</textarea>
-                                </div>
-                            </div> 
-                            
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                             </div>
                         </div>
 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalComment{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Input Comment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('project/add_comment', $project->id) }}" method="POST" enctype="multipart/form-data" id="editForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <strong>Comment</strong>
+                                    <textarea class="form-control" name="comment" id="comment" cols="10" rows="5" value="{{$project->comment}}" placeholder="Komentar">{{$project->comment}}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

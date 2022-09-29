@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi,Image };
+use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi,Image,Comment };
 use App\Models\Data;
 use App\Exports\DataExport;
 use Carbon\Carbon;
@@ -153,7 +153,6 @@ class DataController extends Controller
                 'status_pengiriman' => $request->status_pengiriman,
                 'tgl_kembali' => $request->tgl_kembali,
                 'status_kembali' => $request->status_kembali,
-                'comment' => $request->comment,
                 'id_user' => (auth()->user()->id),
                 'date_modified' => Carbon::today() 
             ]); 
@@ -167,6 +166,14 @@ class DataController extends Controller
                         'image'=>$imageName
                     ]);
                 }
+            }
+
+            if($request->has('comment')){
+                Comment::create([
+                    'id_data'=>$project->id,
+                    'komentar'=>$request->comment,
+                    'id_user' => (auth()->user()->id)
+                ]);
             }
         
         toast('Berhasil Menambah','success');
@@ -228,7 +235,6 @@ class DataController extends Controller
             'status_pengiriman' => $request->status_pengiriman,
             'tgl_kembali' => $request->tgl_kembali,
             'status_kembali' => $request->status_kembali,
-            'comment' => $request->comment,
             'id_user' => (auth()->user()->id),
             'date_modified' => Carbon::today()
         ]);
@@ -246,6 +252,18 @@ class DataController extends Controller
         }
 
         toast('Berhasil Edit','success');
+        return redirect()->route('project.index');
+    }
+
+    public function add_comment(Request $request)
+    {
+        Comment::create([
+            'id_data'=>$project->id,
+            'komentar'=>$request->comment,
+            'id_user' => (auth()->user()->id)
+        ]);
+
+        toast('Berhasil input comment','success');
         return redirect()->route('project.index');
     }
 
