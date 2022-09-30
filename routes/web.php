@@ -1,8 +1,8 @@
 <?php
 
-use App\http\Controllers\{HomeController, DataController, TeknisiController,
+use App\http\Controllers\{DataController, TeknisiController,
                          StatusController, ProdukController, JobdeskController, 
-                         PrioritasController, UserController,AuthController};
+                         PrioritasController, UserController};
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,19 +28,23 @@ Auth::routes();
 
 Route::middleware(['auth','user-access:user'])->group(function(){
 
-    Route::get('home/index', [HomeController::class, 'home'])->name('home');
-    Route::get('/logout', [LoginController::class,'logout'])->name('logout');    
-    Route::get('project/index','App\Http\Controllers\DataController@index')->name('project.index');
+    //Route::get('home/index', [HomeController::class, 'home'])->name('home');
+
+    Route::get('/logout', [LoginController::class,'logout'])->name('logout'); 
+    Route::get('project/add_comment/{id}', [DataController::class,'add_comment'])->name('project.add_comment');   
+    Route::get('project/export', 'App\Http\Controllers\DataController@export')->name('project.export');
+    Route::resource('project', DataController::class);
 });
 
 // Route admin
 
 Route::middleware(['auth','user-access:admin'])->group(function(){
 
-    Route::get('/home', [HomeController::class, 'adminHome'])->name('adminHome');
+    //Route::get('/home', [HomeController::class, 'adminHome'])->name('adminHome');
 
     Route::delete('/deleteImage/{id}',[DataController::class,'deleteImage']);
     Route::get('/logout', [LoginController::class,'logout'])->name('logout');
+    Route::post('project/multiFilter', [DataController::class,'multiFilter'])->name('project.multiFilter');
     Route::get('project/export', 'App\Http\Controllers\DataController@export')->name('project.export');
     Route::get('project/add_comment/{id}', [DataController::class,'add_comment'])->name('project.add_comment');
     Route::resource('project', DataController::class);

@@ -31,8 +31,6 @@
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <!-- end my style -->
 
-    <!-- sweet alert -->
-    @include('sweetalert::alert')
     <!-- base:css -->
     <link rel="stylesheet" href="{{url('template/vendors/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{url('template/vendors/base/vendor.bundle.base.css')}}">
@@ -75,34 +73,7 @@
       <nav class="bottom-navbar navbar-fixed-top">
         <div class="container row">
             <ul class="nav page-navigation">
-            @auth
-            
-            @if(Auth::user()->type == 'user')
-              <li class="nav-item">
-                <a class="nav-link" href="{{url('home/index')}}">
-                  <i class="mdi mdi-file-document-box menu-icon"></i>
-                  <span class="menu-title">Home</span>
-                </a>
-              </li>
-              
-              <li class="nav-item">
-                  <a href="{{url('project/index')}}" class="nav-link">
-                    <i class="mdi mdi-database menu-icon"></i>
-                    <span class="menu-title">Data</span>
-                    <i class="menu-arrow"></i>
-                  </a>
-              </li>
-
-              @endif
-
-              @if(Auth::user()->type == 'admin')
-
-              <li class="nav-item">
-                <a class="nav-link" href="{{url('/home')}}">
-                  <i class="mdi mdi-home menu-icon"></i>
-                  <span class="menu-title">Home</span>
-                </a>
-              </li>
+            @auth              
 
               <li class="nav-item">
                   <a href="{{route('project.index')}}" class="nav-link">
@@ -111,6 +82,8 @@
                     <i class="menu-arrow"></i>
                   </a>
               </li>
+
+              @if(Auth::user()->type == 'admin')
 
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

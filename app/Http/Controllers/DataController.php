@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi,Image,Comment };
+use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi,Image,Comment,User };
 use App\Models\Data;
 use App\Exports\DataExport;
 use Carbon\Carbon;
@@ -34,7 +34,7 @@ class DataController extends Controller
                     //->leftJoin('images','data.id','=','images.data_id')
                     ->where(function($query)use($projects){
                         $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
-                        $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                        //$query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
                     })
                     ->select('data.*',
                             'teknisi.nama_teknisi',
@@ -46,7 +46,7 @@ class DataController extends Controller
                             'users.name')
                     ->groupBy('id')
                     ->orderBy('data.id','desc')
-                    ->paginate(10);
+                    ->paginate(10);        
 
         $projects = $query->withQueryString();
 
@@ -71,13 +71,38 @@ class DataController extends Controller
         $teknisis = Teknisi::all();
         $images = Image::all();
         $comments = Comment::all();
+        $users = User::all();
 
-        return view('project.index',compact('product','priorities','jobdesks','stattus','teknisis','projects','images','comments'))
+        return view('project.index',compact('users','product','priorities','jobdesks','stattus','teknisis','projects','images','comments'))
         ->with([
             'data' => $projects 
         ]);
 
     }
+
+    // public function multiFilter(Request $request)
+    // {
+    //     $projects = DB::table('data')->get();
+    //     $product = DB::table('produk')->get();
+    //     $priorities = DB::table('prioritas')->get();
+    //     $jobdesks = DB::table('jobdesk')->get();
+    //     $stattus = DB::table('status')->get();
+    //     $teknisis = DB::table('teknisi')->get();
+    //     $images = DB::table('images')->get();
+    //     $comments = DB::table('comment')->get();
+    //     $users = DB::table('users')->get();
+
+    //     if($request->nama_instansi)
+    //     {
+    //         $result = Data::where('nama_instansi','LIKE','%'.$request->nama_instansi.'%');
+    //     }
+    //     if($request->nama_produk)
+    //     {
+    //         $result = Produk::where('nama_instansi','LIKE','%'.$request->nama_produk.'%');
+    //     }
+
+    //     return view('project.index',compact('users','product','priorities','jobdesks','stattus','teknisis','projects','images','comments'));
+    // }
 
     public function export()
     {

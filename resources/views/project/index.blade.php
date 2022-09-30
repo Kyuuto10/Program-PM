@@ -10,7 +10,7 @@
     <div style="text-align:center;">
         <h1>Form Data</h1>
     </div>
-    @if(Auth::user()->type == 'admin')
+    @if(Auth::user()->type == 'admin' || Auth::user()->type == 'user')
     <form action="GET">
     <div class="form-group row" style="padding-left:2em;">
         <label for="" class="col-sm-2 col-form-label"></label>
@@ -19,30 +19,32 @@
 </form>
     <div class="col-lg-12 margin-tb">
         <div class="pull-left" style="padding-left: 2em;">            
-            <!-- Button trigger modal -->            
+            <!-- Button trigger modal -->   
+                    
                 <div class="col-auto">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tambah Data</button>
                     <!-- <a class="btn btn-warning" href="{{ url('project/export') }}">Ekspor Excel</a> -->
                     <button id="btn_ekspor" class="btn btn-warning">Ekspor Excel</button>
                 </div> 
-                <form class="row g-3" method="GET">
+
+            <form class="row" method="GET">             
                 <div class="col-auto">
-                    <select class="form-select" name="nama_instansi">
+                    <select class="form-select" name="id_produk">
                         <option value="" selected>Semua</option>
-                        @foreach($projects as $project)
-                        <option value="{{$project->nama_instansi}}" {{request('nama_instansi') === $project->nama_instansi ? 'selected' : null}}>
-                            {{ $project->nama_instansi}}
+                        @foreach($product as $produk)
+                        <option value="{{$produk->nama_produk}}">
+                            {{ $produk->nama_produk}}
                         </option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-auto">
-                    <input type="search" name="keyword" class="form-control" value="{{$projects}}" placeholder="Cari...">
+                    <input type="search" name="keyword" class="form-control" value="{{ ($projects['keyword']) }}" placeholder="Cari...">
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary mb-3">Cari</button>
                 </div>
-            </form>
+            </form>            
         </div>
     </div>
 </div>
@@ -321,17 +323,13 @@
             <td>{{ $project->date_modified }}</td>  -->
             <td style="text-align:center;">
                 <a class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalShow{{$project->id}}"><ion-icon name="eye-outline"></ion-icon></a> 
-                @if(Auth::user()->type == 'admin')
+                @if(Auth::user()->type == 'admin' || Auth::user()->type == 'user')
                 <form action="{{route('project.destroy',$project->id)}}" method="post" enctype="multipart/form-data">
-                <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$project->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>
-                    <!-- <a href="{{route('project.show',$project->id)}}" class="btn btn-info"><ion-icon name="search-outline"></ion-icon></a> -->                    
+                    <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$project->id}}"><ion-icon name="pencil-sharp"></ion-icon></a>                                       
                     @csrf 
                     @method('DELETE')
                 </form>
-
-                <form action="{{route('project.destroy',$project->id)}}" method="post" enctype="multipart/form-data">
                     <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComment{{$project->id}}"><ion-icon name="chatbox-ellipses-outline"></ion-icon></a>
-                </form>
             </td>
 
         <!-- Start Edit Model -->
@@ -507,13 +505,13 @@
                                     <strong>Foto</strong> 
                                     <div class="user-image mb-3 text-center col-8" style="max-height: 100%;">
                                         <div class="imgPreview"></div>
-                                        @foreach($projects as $img)     
-                                            @if($img->image)
+                                        @foreach($images as $img)     
+                                            @if($img->data_id == $project->id)
                                             <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                                        
-                                            @else
-                                            <span class="badge badge-danger">Belum ada Foto</span>
-                                            @endif                                        
+                                            @endif
                                         @endforeach
+                                            
+                                           <!-- <span class="badge badge-danger">Belum ada Foto</span>  -->                                                                                                                                                                      
                                     </div>                                  
 
                                     <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}" accept="images/*">
@@ -588,7 +586,7 @@
                                         <li class="list-group-item"><b>Jobdesk:&ensp;</b>{{$project->nama_jobdesk}}</li>
                                         <li class="list-group-item"><b>Deskripsi:&ensp;</b>{{$project->deskripsi}}</li>
                                         <li class="list-group-item"><b>Status Pekerjaan:&ensp;</b>{{$project->nama_status}}</li>
-                                        <div style="max-height:200px;">
+                                        <div style="max-height:400px;">
                                             <li class="list-group-item"><b>Foto:&ensp;</b>
                                                 @foreach($images as $img)
                                                     @if($img->data_id == $project->id)
@@ -606,7 +604,7 @@
                                             <br>
                                             @foreach($comments as $komen)
                                                 @if($komen->id_data == $project->id)
-                                                {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->komentar }}<br>
+                                                {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->komentar }}<br>                                        
                                                 @endif
                                             @endforeach
                                         </li>
@@ -697,14 +695,19 @@
             <td>{{ $project->status_pengiriman }}</td>
             <td>{{ $project->tgl_kembali }}</td>
             <td>{{ $project->status_kembali }}</td>
-            <td>{{ $project->comment }}</td>
+            <td>@foreach($comments as $komen)
+                    @if($komen->id_data == $project->id)
+                        {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->komentar }}
+                    @endif
+                @endforeach
+            </td>
             <td>{{ $project->name }}</td>
             <td>{{ $project->date_modified }}</td>
         </tr>
         @endforeach
     </table>
 
-    {{$projects->links()}}
+    {{ $projects->appends(request()->except('page'))->links() }}
 </div>
 
 <script type="text/javascript">

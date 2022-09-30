@@ -54,10 +54,10 @@ class LoginController extends Controller
         {
             if (auth()->user()->type == 'admin') {   
                 toast('Berhasil Login','success');                 
-                return redirect()->route('adminHome');         
+                return redirect()->route('project.index');         
             }else{                
                 toast('Berhasil Login','success');
-                return redirect()->route('home');
+                return redirect()->route('project.index');
             }
         }else{            
             toast('Username atau Password salah','error');

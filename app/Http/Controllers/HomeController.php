@@ -27,11 +27,6 @@ class HomeController extends Controller
         $projects = Data::all();
         return view('home.welcome',compact('projects'));
     } 
-
-    public function show(Data $project)
-    {
-        return view('project.show', compact('project'));
-    }
   
     /**
      * Show the application dashboard.
