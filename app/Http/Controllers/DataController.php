@@ -194,7 +194,7 @@ class DataController extends Controller
                 }
             }
 
-            if($request->has('komentar')){
+            if(isset($request->komentar)){
                 Comment::create([
                     'id_data'=>$project->id,
                     'komentar'=>$request->komentar,

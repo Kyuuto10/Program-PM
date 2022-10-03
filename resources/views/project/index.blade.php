@@ -248,7 +248,7 @@
                                 
                         <div class="col-6">
                             <div class="form-group">
-                                <strong>Comment <i style="opacity:0.5;">(Opsional)&ensp;</i></strong>
+                                <strong>Komentar <i style="opacity:0.5;">(Opsional)&ensp;</i></strong>
                                 <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{old('komentar')}}" placeholder="Komentar">{{old('komentar')}}</textarea>
                             </div>
                         </div>
@@ -287,7 +287,7 @@
             <th>Status Pengiriman</th>
             <th>Tgl Kembali</th>
             <th>Status Kembali</th>
-            <th>Comment</th>
+            <th>Komentar</th>
             <th>Nama User</th>
             <th>Date Modified</th> -->
             <th><b>Aksi</b></th>            
@@ -542,15 +542,15 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Input Comment</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Masukkan Komentar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ url('project/add_comment', $project->id) }}" method="GET" enctype="multipart/form-data" id="editForm">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <strong>Comment</strong>
+                                    <strong>Komentar</strong>
                                     <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{$project->komentar}}" placeholder="Komentar">{{$project->komentar}}</textarea>
                                     <input type="hidden" value="{{$project->id}}" name="id_data" id="id_data">
                                 </div>
