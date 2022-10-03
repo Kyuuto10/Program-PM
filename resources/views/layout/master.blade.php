@@ -50,9 +50,9 @@
     <!-- end icon -->
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript">
-     var siteUrl = "{{url('/')}}";
-  </script>
+    <script type="text/javascript">
+       var siteUrl = "{{url('/')}}";
+    </script>
 
     <!-- Ekspor Data -->
     <script src="{{url('template/js/jquery.min.js')}}"></script>

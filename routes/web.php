@@ -26,7 +26,7 @@ Auth::routes();
 
 // Route user
 
-Route::middleware(['auth','user-access:user'])->group(function(){
+Route::middleware(['preventBackHistory','auth','user-access:user'])->group(function(){
 
     //Route::get('home/index', [HomeController::class, 'home'])->name('home');
 
@@ -38,7 +38,7 @@ Route::middleware(['auth','user-access:user'])->group(function(){
 
 // Route admin
 
-Route::middleware(['auth','user-access:admin'])->group(function(){
+Route::middleware(['preventBackHistory','auth','user-access:admin'])->group(function(){
 
     //Route::get('/home', [HomeController::class, 'adminHome'])->name('adminHome');
 
