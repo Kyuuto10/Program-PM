@@ -504,17 +504,9 @@
                                 <div class="form-group">
                                     <strong>Foto</strong> 
                                     <div class="user-image mb-3 text-center col-8" style="max-height: 100%;">
-                                        <div class="imgPreview"></div>
-                                        @foreach($images as $img)     
-                                            @if($img->data_id == $project->id)
-                                            <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                                        
-                                            @endif
-                                        @endforeach
-                                            
-                                           <!-- <span class="badge badge-danger">Belum ada Foto</span>  -->                                                                                                                                                                      
-                                    </div>                                  
+                                                                       
 
-                                    <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image" multiple="multiple" value="{{$project->image}}" accept="images/*">
+                                    <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image[]" value="{{$project->image}}" accept="images/*" multiple>
                                     @error('image')
                                         <div class="invalid-feedback">
                                             {{$message}}
@@ -529,6 +521,18 @@
                         </div>
 
                     </form>
+                    <div class="imgPreview"></div>
+                                        @foreach($images as $img)
+                                        <form action="{{ url('project/deleteImage', $img->id) }}" method="POST">
+                                            @csrf 
+                                            @method('DELETE')                                                                                        
+                                                @if($img->data_id == $project->id)
+                                                <button class="btn btn-danger">X</button>
+                                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                                        
+                                                @endif
+                                        </form>
+                                        @endforeach                                                                                       
+                                        </div>   
                 </div>
             </div>
         </div>
