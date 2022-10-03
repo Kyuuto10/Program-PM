@@ -70,7 +70,9 @@ class DataController extends Controller
         $stattus = Status::all();
         $teknisis = Teknisi::all();
         $images = Image::all();
-        $comments = Comment::all();
+        $comments = Comment::join('users','comment.id_user','=','users.id')
+                    ->select('comment.*','users.name')
+                    ->get();
         $users = User::all();
 
         return view('project.index',compact('users','product','priorities','jobdesks','stattus','teknisis','projects','images','comments'))

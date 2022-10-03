@@ -608,7 +608,7 @@
                                             <br>
                                             @foreach($comments as $komen)
                                                 @if($komen->id_data == $project->id)
-                                                {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->komentar }}<br>                                        
+                                                    {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }} &nbsp;&nbsp; {{ $komen->komentar }}<br>
                                                 @endif
                                             @endforeach
                                         </li>
@@ -701,7 +701,7 @@
             <td>{{ $project->status_kembali }}</td>
             <td>@foreach($comments as $komen)
                     @if($komen->id_data == $project->id)
-                        {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->komentar }}
+                        {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }} &nbsp;&nbsp; {{ $komen->komentar }}<br>
                     @endif
                 @endforeach
             </td>
