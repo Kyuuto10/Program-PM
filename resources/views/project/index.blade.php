@@ -235,7 +235,7 @@
                             <div class="form-group">
                                 <strong>Foto</strong>
                                 <div class="user-image mb-3 text-center">
-                                    <div class="imgPreview"></div>                                                                         
+                                    <div class="imgPreview"></div>                                                                       
                                     <input type="file" class="form-control  @error('image') is-invalid @enderror" id="image" accept="image/*" name="image[]" multiple>
                                 </div>
                                 @error('image')
@@ -503,15 +503,14 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <strong>Foto</strong> 
-                                    <div class="user-image mb-3 text-center col-8" style="max-height: 100%;">
-                                                                       
-
+                                    <div class="user-image mb-3 text-center col-8" style="max-height: 100%;">                                                                                                       
                                     <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image[]" value="{{$project->image}}" accept="images/*" multiple>
                                     @error('image')
                                         <div class="invalid-feedback">
                                             {{$message}}
                                         </div>
                                     @enderror
+                                    </div>
                                 </div>
                             </div>
 
@@ -526,13 +525,17 @@
                                         <form action="{{ url('project/deleteImage', $img->id) }}" method="POST">
                                             @csrf 
                                             @method('DELETE')                                                                                        
-                                                @if($img->data_id == $project->id)
-                                                <button class="btn btn-danger">X</button>
-                                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                                        
+                                                @if($img->data_id == $project->id)                                                
+                                                <input type="checkbox" name="multi_delete[]" value="{{ $img->id }}">                                                                                                
+                                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                               
+                                                <button class="col-auto btn btn-danger" onclick="return confirm('Yakin Hapus Foto?');">X</button>         
                                                 @endif
-                                        </form>
-                                        @endforeach                                                                                       
-                                        </div>   
+                                        @endforeach     
+                                            <div class="pull-left mt-2">
+                                            <button class="btn btn-danger" onclick="return confirm('Yakin Hapus Foto?');">X</button>                             
+                                            </div>
+                                        </form>                                                                                         
+                       
                 </div>
             </div>
         </div>

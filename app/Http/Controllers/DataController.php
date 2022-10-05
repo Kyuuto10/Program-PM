@@ -302,14 +302,17 @@ class DataController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function deleteImage(Request $request)
+    public function deleteImage(Request $request, $id)
     {
-        //dd($request);
-        $image = Image::find($request->id);
-        if(File::exists("images/".$image->image)){
-            File::delete("images/".$image->image);
+        $images = Image::findOrFail($id);        
+        foreach($images as $img){
+            if(File::exists('images/'.$img)){
+                File::delete('images/'.$img);                
+            }
         }
-        Image::where("id", $image->id)->delete();
+
+        Image::whereIn('id', $request->input('multi_delete'))->delete();
+        
         return back();
     }
 

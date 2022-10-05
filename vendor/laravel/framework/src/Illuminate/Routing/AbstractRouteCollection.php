@@ -118,7 +118,8 @@ abstract class AbstractRouteCollection implements Countable, IteratorAggregate, 
         throw new MethodNotAllowedHttpException(
             $others,
             sprintf(
-                'The %s method is not supported for this route. Supported methods: %s.',
+                // 'The %s method is not supported for this route. Supported methods: %s.',
+                'The %s method is not supported for this route. Supported methods: %s',
                 $method,
                 implode(', ', $others)
             )
