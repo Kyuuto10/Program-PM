@@ -45,10 +45,12 @@
                 </div>
 
                 <div class="form-group">
+                    <strong>Role</strong><br>
                     <input class="form-check-input" type="radio" name="type" value="1" required>
-                    <label class="form-check-label "for="inlineRadio1">Admin</label><br>                   
+                    <label class="form-check-label "for="inlineRadio1">Admin</label>
+                    <br>
                     <input class="form-check-input" type="radio" name="type" value="0" required>
-                    <label class="form-check-label "for="inlineRadio1">User</label>                   
+                    <label class="form-check-label "for="inlineRadio1">User</label>
                 </div>
 
                 <div class="modal-footer">                  
@@ -112,11 +114,13 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="{{$user->password}}">
             </div>
 
-            <div class="form-group">                  
+            <div class="form-group">
+                <strong>Role</strong><br>
                 <input class="form-check-input" type="radio" name="type" value="1" {{$user->type == 'admin' ? 'checked' : ''}} >
-                <label class="form-check-label "for="type">Admin</label><br>
+                <label class="form-check-label "for="type">Admin</label>
+                <br>
                 <input class="form-check-input" type="radio" name="type" value="0" {{$user->type == 'user' ? 'checked' : ''}} >
-                <label class="form-check-label "for="type">User</label>                 
+                <label class="form-check-label "for="type">User</label>
             </div>
 
             <div class="modal-footer">

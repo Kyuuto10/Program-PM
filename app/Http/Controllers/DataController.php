@@ -24,7 +24,8 @@ class DataController extends Controller
      */
     public function index(Request $request)
     {
-        $projects['nama_instansi'] = request('nama_instansi');
+        //$projects['nama_instansi'] = request('nama_instansi');
+        $projects['filter'] = request('filter');
         $projects['keyword'] = $request->query('keyword');  
 
         $query = Data::join('teknisi','data.id_teknisi','=','teknisi.id')
@@ -35,14 +36,21 @@ class DataController extends Controller
                     ->join('users','data.id_user','=','users.id')
                     //->leftJoin('images','data.id','=','images.data_id')
                     ->where(function($query)use($projects){
-                        $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
+                        /*$query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
                         $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
-                        $query->orWhere('nama_teknisi','LIKE','%'.$projects['keyword'].'%');
+                        $query->orWhere('nama_teknisi','LIKE','%'.$projects['keyword'].'%');*/
+                        if($projects['filter'] == "nama_instansi"){
+                            $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "nama_lokasi"){
+                            $query->where('nama_lokasi','LIKE','%'.$projects['keyword'].'%');
+                        }else{
+                            $query->where('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                        }
                     })
-                    ->when(request('nama_instansi'),function($query)use($projects){
+                    /*->when(request('nama_instansi'),function($query)use($projects){
                             $query->where('nama_instansi',$projects['nama_instansi']); 
                             
-                    })
+                    })*/
                     ->select('data.*',
                             'teknisi.nama_teknisi',
                             'produk.nama_produk',

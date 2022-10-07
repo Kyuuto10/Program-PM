@@ -88,7 +88,7 @@
                           @method('PUT')
 
                                 <div class="form-group">
-                                  <strong>ID:</strong>
+                                  <strong>ID</strong>
                                   <input type="number" class="form-control" value="{{ $teknisi->id }}" disabled>
                                 </div>
 
