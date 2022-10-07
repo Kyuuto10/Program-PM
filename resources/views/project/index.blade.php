@@ -18,33 +18,38 @@
     </div>
 </form>
     <div class="col-lg-12 margin-tb">
-        <div class="pull-left" style="padding-left: 2em;">            
-            <!-- Button trigger modal -->   
-                    
+        <div class="pull-left" style="padding-left: 2em;">   
+
+            <!-- Button trigger modal -->                       
                 <div class="col-auto">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Tambah Data</button>
                     <!-- <a class="btn btn-warning" href="{{ url('project/export') }}">Ekspor Excel</a> -->
                     <button id="btn_ekspor" class="btn btn-warning">Ekspor Excel</button>
                 </div> 
 
-            <form class="row" method="GET">             
+            <form class="row" method="GET"> 
                 <div class="col-auto">
-                    <select class="form-select" name="id_produk">
+                    <select class="form-select" name="nama_instansi" value="{{ ($projects['nama_instansi']) }}">
                         <option value="" selected>Semua</option>
-                        @foreach($product as $produk)
-                        <option value="{{$produk->nama_produk}}">
-                            {{ $produk->nama_produk}}
-                        </option>
+                        @foreach($projects as $project)
+                            @if($project->nama_instansi == $project->id)
+                            <option value="{{$project->nama_instansi}}" >
+                                {{ $project->nama_instansi}}
+                            </option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
+
                 <div class="col-auto">
                     <input type="search" name="keyword" class="form-control" value="{{ ($projects['keyword']) }}" placeholder="Cari...">
                 </div>
+
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary mb-3">Cari</button>
                 </div>
-            </form>            
+            </form>  
+
         </div>
     </div>
 </div>
@@ -152,7 +157,7 @@
                                 @foreach($jobdesks as $jobdesk)   
                                     @if($jobdesk->aktif == 1) 
                                     <option value="{{$jobdesk->id}}">{{$jobdesk->nama_jobdesk}}</option>
-                                        @endif
+                                    @endif
                                 @endforeach
                                 </select>
                                 @error('id_jobdesk')
@@ -167,7 +172,7 @@
                                 <select class="form-select" name="id_status" id="id_status" value="{{old('nama_status')}}" required>
                                     <option value="">--Pilih--</option>
                                 @foreach($stattus as $status)
-                                @if($status->aktif == 1)
+                                    @if($status->aktif == 1)
                                     <option value="{{$status->id}}">{{$status->nama_status}}</option>
                                     @endif
                                 @endforeach
@@ -521,20 +526,22 @@
 
                     </form>
                     <div class="imgPreview"></div>
-                                        @foreach($images as $img)
-                                        <form action="{{ url('project/deleteImage', $img->id) }}" method="POST">
-                                            @csrf 
-                                            @method('DELETE')                                                                                        
-                                                @if($img->data_id == $project->id)                                                
-                                                <input type="checkbox" name="multi_delete[]" value="{{ $img->id }}">                                                                                                
-                                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:150px;">                               
-                                                <button class="col-auto btn btn-danger" onclick="return confirm('Yakin Hapus Foto?');">X</button>         
-                                                @endif
-                                        @endforeach     
-                                            <div class="pull-left mt-2">
-                                            <button class="btn btn-danger" onclick="return confirm('Yakin Hapus Foto?');">X</button>                             
-                                            </div>
-                                        </form>                                                                                         
+                        @foreach($images as $img)
+                        <form action="{{ url('project/deleteImage', $img->id) }}" method="POST">
+                            @csrf 
+                            @method('DELETE')                                                                                        
+                                @if($img->data_id == $project->id)                                                
+                                <input type="checkbox" name="multi_delete[]" id="check" value="{{ $img->id }}">                                                                                                
+                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:185px;">                                                                               
+                                <a href="{{ url('project/download', $img->id) }}" class="btn btn-primary"><ion-icon name="download-outline"></ion-icon></a>&emsp;                                         
+                                @endif                                                
+                        @endforeach     
+                            <div class="pull-left mt-2">
+                                <button class="btn btn-danger" onclick="return confirm('Yakin Hapus Foto?');"><ion-icon name="trash-outline"></ion-icon></button>                                
+                            </div>
+                        </form>   
+                                        
+                                                                                                                
                        
                 </div>
             </div>
@@ -597,7 +604,7 @@
                                             <li class="list-group-item"><b>Foto:&ensp;</b>
                                                 @foreach($images as $img)
                                                     @if($img->data_id == $project->id)
-                                                    <img src="/images/{{ $img->image }}" style="width:15%; height:15%;"> &nbsp;&nbsp; 
+                                                    <img src="/images/{{ $img->image }}" style="width:15%; height:15%;"> &nbsp;&nbsp;                                              
                                                     @endif
                                                 @endforeach
                                             </li>
@@ -611,7 +618,7 @@
                                             <br>
                                             @foreach($comments as $komen)
                                                 @if($komen->id_data == $project->id)
-                                                    {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }} &nbsp;&nbsp; {{ $komen->komentar }}<br>
+                                                    {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }}: &nbsp;&nbsp; {{ $komen->komentar }}<br>
                                                 @endif
                                             @endforeach
                                         </li>
@@ -631,6 +638,10 @@
         <tr>
             <td colspan="12" style="text-align:center;">Tidak ada data</td>
         </tr>
+
+        <script>
+            $('#selectAll').functi
+        </script>
 
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

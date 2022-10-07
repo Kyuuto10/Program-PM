@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DataController extends Controller
 {
@@ -23,6 +24,7 @@ class DataController extends Controller
      */
     public function index(Request $request)
     {
+        $projects['nama_instansi'] = request('nama_instansi');
         $projects['keyword'] = $request->query('keyword');  
 
         $query = Data::join('teknisi','data.id_teknisi','=','teknisi.id')
@@ -34,7 +36,12 @@ class DataController extends Controller
                     //->leftJoin('images','data.id','=','images.data_id')
                     ->where(function($query)use($projects){
                         $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
-                        //$query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                        $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                        $query->orWhere('nama_teknisi','LIKE','%'.$projects['keyword'].'%');
+                    })
+                    ->when(request('nama_instansi'),function($query)use($projects){
+                            $query->where('nama_instansi',$projects['nama_instansi']); 
+                            
                     })
                     ->select('data.*',
                             'teknisi.nama_teknisi',
@@ -293,6 +300,12 @@ class DataController extends Controller
 
         toast('Berhasil input comment','success');
         return redirect()->route('project.index',compact('project'));
+    }
+
+    public function download(Image $id)
+    {
+        $download = Image::all()->find($id);
+        return response()->download('images/'.$download->image); 
     }
 
     /**

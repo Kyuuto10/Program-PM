@@ -42,7 +42,8 @@ Route::middleware(['preventBackHistory','auth','user-access:admin'])->group(func
 
     //Route::get('/home', [HomeController::class, 'adminHome'])->name('adminHome');
 
-    Route::delete('project/deleteImage/{id}',[DataController::class,'deleteImage']);    
+    Route::delete('project/deleteImage/{id}',[DataController::class,'deleteImage']); 
+    Route::get('project/download/{id}', [DataController::class,'download']);   
     Route::get('/logout', [LoginController::class,'logout'])->name('logout');
     Route::post('project/multiFilter', [DataController::class,'multiFilter'])->name('project.multiFilter');
     Route::get('project/export', 'App\Http\Controllers\DataController@export')->name('project.export');
