@@ -13,7 +13,10 @@
       .imgPreview img {
             padding: 8px;
             max-width: 100px;
-        } 
+        }           
+        .container span{
+          color: #fff;
+        }
     </style>
 
     <!-- ionicons -->
@@ -70,14 +73,14 @@
         </div>
       </nav>
       
-      <nav class="bottom-navbar navbar-fixed-top">
-        <div class="container row">
+      <nav class="bottom-navbar navbar-fixed-top" style="background-color: #063970;">
+        <div class="container ">
             <ul class="nav page-navigation">
             @auth              
 
               <li class="nav-item">
                   <a href="{{route('project.index')}}" class="nav-link">
-                    <i class="mdi mdi-database menu-icon"></i>
+                    <i class="mdi mdi-database menu-icon" style="color: #fff;"></i>
                     <span class="menu-title">Data</span>
                     <i class="menu-arrow"></i>
                   </a>
@@ -87,13 +90,13 @@
 
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <i class="mdi mdi-settings-outline menu-icon"></i>
+                    <i class="mdi mdi-settings-outline menu-icon" style="color: #fff;"></i>
                     <span class="menu-title">Konfigurasi</span>
                     <!-- <i class="menu-arrow"></i> -->
                   </a>
                   <div class="submenu">
                       <ul class="submenu-item scrollable-menu" role="menu">
-                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}"><i class="mdi mdi-cogs"></i> Teknisi</a>
+                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}" st><i class="mdi mdi-cogs"></i> Teknisi</a>
                           <a class="dropdown-item nav-link" href="{{route('produk.index')}}"><i class="mdi mdi-cogs"></i> Produk</a>
                           <a class="dropdown-item nav-link" href="{{route('priority.index')}}"><i class="mdi mdi-cogs"></i> Prioritas</a>
                           <a class="dropdown-item nav-link" href="{{route('status.index')}}"><i class="mdi mdi-cogs"></i> Status Pekerjaan</a>
@@ -104,16 +107,15 @@
 
               <li class="nav-item">
                   <a href="{{route('user.index')}}" class="nav-link">
-                    <i class="mdi mdi-account menu-icon"></i>
-                    <span class="menu-title">Akun</span>
-                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-account menu-icon" style="color: #fff;"></i>
+                    <span class="menu-title">Akun</span>                    
                   </a>
               </li>
               @endif
               
               <li class="nav-item dropdown">                       
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                  <i class="mdi mdi-account-circle menu-icon"></i> 
+                  <i class="mdi mdi-account-circle menu-icon" style="color: #fff;"></i> 
                   <span class="menu-title">{{ Auth::user()->name }}</span>
                 </a>
 
@@ -121,7 +123,7 @@
                   <ul class="submenu-item scrollable-menu" role="menu">
                     <a class="dropdown-item nav-link show-alert-logout-box pull-left" href="" name="_method" title="Logout">
                         <i class="mdi mdi-logout"></i>
-                        <span class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</span>
+                        <label class="menu-title" style="padding-top:1em;">{{ __('Logout') }}</label>
                       </a>                     
                   </ul>
                 </div>
@@ -143,8 +145,8 @@
               @else
               
                 @if( Route::has('login'))
-              <li class="nav-item">
-                <a href="{{ route('login') }}" class="nav-link"><i class="mdi mdi-login"></i>Login</a>
+              <li class="nav-item" >
+                <a href="{{ route('login') }}" class="nav-link" style="color:#fff;"><i class="mdi mdi-login" style="color:#fff;"></i>Login</a>
               </li>
                 @endif
                 @endauth

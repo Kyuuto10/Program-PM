@@ -43,8 +43,44 @@ class DataController extends Controller
                             $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
                         }else if($projects['filter'] == "nama_lokasi"){
                             $query->where('nama_lokasi','LIKE','%'.$projects['keyword'].'%');
-                        }else{
+                        }else if($projects['filter'] == "produk"){
                             $query->where('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "teknisi"){
+                            $query->where('nama_teknisi','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "tanggal"){
+                            $query->where('tanggal','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "warranty"){
+                            $query->where('warranty','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "prioritas"){
+                            $query->where('nama_prioritas','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "jobdesk"){
+                            $query->where('nama_jobdesk','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "status"){
+                            $query->where('nama_status','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "item"){
+                            $query->where('item','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "tgl_pengiriman"){
+                            $query->where('tgl_pengiriman','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "status_pengiriman"){
+                            $query->where('status_pengiriman','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "tgl_kembali"){
+                            $query->where('tgl_kembali','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "status_kembali"){
+                            $query->where('status_kembali','LIKE','%'.$projects['keyword'].'%');
+                        }else if($projects['filter'] == "semua"){
+                            $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('nama_lokasi','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('nama_teknisi','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('warranty','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('nama_prioritas','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('nama_jobdesk','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('nama_status','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('item','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('tgl_pengiriman','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('status_pengiriman','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('tgl_kembali','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('status_kembali','LIKE','%'.$projects['keyword'].'%');
                         }
                     })
                     /*->when(request('nama_instansi'),function($query)use($projects){
@@ -327,6 +363,10 @@ class DataController extends Controller
     {
         $id = $request->input('multi_delete');
 
+        if($id == 0){
+            toast('Pilih Foto Dulu');
+            return back();
+        }else{
         //hapus foto di folder
         foreach($id as $id_img){
             $images = DB::select('SELECT image FROM images WHERE id = '.$id_img);
@@ -336,10 +376,12 @@ class DataController extends Controller
                 }
             }
         }
+    }
 
         //hapus foto di database
         Image::whereIn('id', $id)->delete();
 
+        toast('Foto dihapus','success');
         return back();
     }
 

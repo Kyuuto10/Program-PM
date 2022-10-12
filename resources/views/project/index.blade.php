@@ -5,6 +5,19 @@
 <!-- sweet alert -->
 @include('sweetalert::alert')
 
+<script>
+    function changeType() {
+        var input = document.getElementById("input");
+        var selectBox = document.getElementById("selectBox");        
+
+        if(selectBox.value == "tanggal" || selectBox.value == "tgl_pengiriman" || selectBox.value == "tgl_kembali"){
+            input.type = "date";
+        }else{
+            input.type = "search";
+        }
+    }
+</script>
+
 <br>
 <div class="row" style="padding-top: 6em;">
     <div style="text-align:center;">
@@ -29,31 +42,31 @@
                 </div> 
                 <div class="col-lg-2"></div>
                 <div class="col-lg-6">
-                    <form class="row" method="GET">
-                        <!-- <div class="col-auto">
-                            <select class="form-select" name="nama_instansi" value="{{ ($projects['nama_instansi']) }}">
-                                <option value="" selected>Semua</option>
-                                @foreach($projects as $project)
-                                    @if($project->nama_instansi == $project->id)
-                                    <option value="{{$project->nama_instansi}}" >
-                                        {{ $project->nama_instansi}}
-                                    </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div> -->
-
-                        <div class="col-auto">
-                            <select class="form-select" name="filter" value="{{ ($projects['filter']) }}" style="width:200px;">
-                                <option value="semua" selected>Semua</option>
-                                <option value="tanggal">Tanggal</option>
-                                <option value="nama_instansi">Nama Instansi</option>
-                                <option value="nama_lokasi">Nama Lokasi</option>
-                            </select>
+                    <form class="row" method="GET">                        
+                        <div class="col-auto" >
+                            <div style="width: 200px; height:150px;">
+                                <select class="form-select" name="filter" id="selectBox" value="{{ ($projects['filter']) }}" onfocus="this.size=5;" onblur="this.size=1;" onchange="changeType();this.size=1;this.blur();">
+                                    <option value="semua" selected>Semua</option>
+                                    <option value="tanggal">Tanggal</option>
+                                    <option value="nama_instansi">Nama Instansi</option>
+                                    <option value="nama_lokasi">Nama Lokasi</option>
+                                    <option value="teknisi">Teknisi</option>
+                                    <option value="produk">Produk</option>
+                                    <option value="warranty">Warranty</option>
+                                    <option value="prioritas">Prioritas</option>
+                                    <option value="jobdesk">Jobdesk</option>
+                                    <option value="status">Status Pekerjaan</option>
+                                    <option value="item">Item</option>
+                                    <option value="tgl_pengiriman">Tanggal Pengiriman</option>
+                                    <option value="status_pengiriman">Status Pengiriman</option>
+                                    <option value="tgl_kembali">Tanggal Kembali</option>
+                                    <option value="status_kembali">Status Kembali</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="col-auto">
-                            <input type="search" name="keyword" class="form-control" value="{{ ($projects['keyword']) }}" placeholder="Cari..." style="width:250px;">
+                            <input type="search" id="input" name="keyword" class="form-control" value="{{ ($projects['keyword']) }}" placeholder="Cari..." style="width:250px;">
                         </div>
 
                         <div class="col-auto">
@@ -140,7 +153,7 @@
                                 <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}" required>
                                     <option value="">--Pilih--</option>
                                     <option value="Garansi">Garansi</option>
-                                    <option value="Non - Garansi">Non - Garansi</option>
+                                    <option value="Non-Garansi">Non - Garansi</option>
                                 </select>
                             </div>
                         </div>
@@ -385,7 +398,7 @@
                                     <select class="form-select" name="id_teknisi" id="id_teknisi" value="{{$project->nama_teknisi}}">    
                                             <option disabled selected option>{{$project->nama_teknisi}}</option>
                                         @foreach($teknisis as $teknisi)
-                                        @if($teknisi->aktif == 1)
+                                            @if($teknisi->aktif == 1)
                                             <option value="{{$teknisi->id}}" {{ ($teknisi->id == $project->id_teknisi) ? 'selected' : ''}}>{{$teknisi->nama_teknisi}}</option>
                                             @endif
                                         @endforeach
@@ -399,7 +412,7 @@
                                     <select class="form-select" name="id_produk" id="id_produk" value="{{$project->nama_produk}}"> 
                                             <option disabled selected option>{{$project->nama_produk}}</option>
                                         @foreach($product as $produk)
-                                        @if($produk->aktif == 1)
+                                            @if($produk->aktif == 1)
                                             <option value="{{$produk->id}}" {{ ($produk->id == $project->id_produk) ? 'selected' : ''}}>{{$produk->nama_produk}}</option>
                                             @endif
                                         @endforeach
@@ -413,7 +426,7 @@
                                     <select class="form-select" name="warranty" id="warranty" value="{{$project->warranty}}">
                                             <option disabled selected option>{{$project->warranty}}</option>
                                             <option value="Garansi" {{ ($project->warranty == 'Garansi') ? 'selected' : ''}}>Garansi</option>
-                                            <option value="Non - Garansi" {{ ($project->warranty == 'Non - Garansi') ? 'selected' : ''}}>Non - Garansi</option>
+                                            <option value="Non-Garansi" {{ ($project->warranty == 'Non-Garansi') ? 'selected' : ''}}>Non-Garansi</option>
                                     </select>
                                 </div>
                             </div>
@@ -424,7 +437,7 @@
                                         <select class="form-select" name="id_prioritas" id="id_prioritas" value="{{$project->nama_prioritas}}">
                                             <option disabled selected option>{{$project->nama_prioritas}}</option>
                                         @foreach($priorities as $priority)
-                                        @if($priority->aktif == 1)
+                                            @if($priority->aktif == 1)
                                             <option value="{{$priority->id}}" {{ ($priority->id == $project->id_prioritas) ? 'selected' : ''}}>{{$priority->nama_prioritas}}</option>
                                             @endif
                                         @endforeach
@@ -438,7 +451,7 @@
                                         <select class="form-select" name="id_jobdesk" id="id_jobdesk" value="{{$project->nama_jobdesk}}"> 
                                             <option disabled selected option>{{$project->nama_jobdesk}}</option>
                                         @foreach($jobdesks as $jobdesk)   
-                                        @if($jobdesk->aktif == 1) 
+                                            @if($jobdesk->aktif == 1) 
                                             <option value="{{$jobdesk->id}}" {{ ($jobdesk->id == $project->id_jobdesk) ? 'selected' : ''}}>{{$jobdesk->nama_jobdesk}}</option>
                                             @endif
                                         @endforeach 
@@ -452,7 +465,7 @@
                                         <select class="form-select" name="id_status" id="id_status" value="{{$project->nama_status}}">
                                             <option disabled selected option>{{$project->nama_status}}</option>
                                         @foreach($stattus as $status)
-                                        @if($status->aktif == 1)
+                                            @if($status->aktif == 1)
                                             <option value="{{$status->id}}" {{ ($status->id == $project->id_status) ? 'selected' : ''}}>{{$status->nama_status}}</option>
                                             @endif
                                         @endforeach
@@ -522,7 +535,7 @@
                                 <div class="form-group">
                                     <strong>Foto</strong> 
                                     <div class="user-image mb-3 text-center col-8" style="max-height: 100%;">                                                                                                       
-                                    <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="image" name="image[]" value="{{$project->image}}" accept="images/*" multiple>
+                                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image[]" value="{{$project->image}}" accept="images/*" multiple>
                                     @error('image')
                                         <div class="invalid-feedback">
                                             {{$message}}
@@ -544,13 +557,13 @@
                             @csrf
                             @method('DELETE')
                                 @if($img->data_id == $project->id)
-                                <input type="checkbox" name="multi_delete[]" id="check" value="{{ $img->id }}">
-                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:185px;">
-                                <a href="{{ url('project/download', $img->id) }}" class="btn btn-primary"><ion-icon name="download-outline"></ion-icon></a>&emsp;
+                                <input type="checkbox" name="multi_delete[]" value="{{ $img->id }}">
+                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:145px;">
+                                <a href="{{ url('project/download', $img->id) }}" class="btn btn-primary"><ion-icon name="download-outline"></ion-icon>Unduh</a>&emsp;
                                 @endif
-                                @endforeach
+                        @endforeach
                             <div class="pull-left mt-2">
-                                <button class="btn btn-danger" onclick="return confirm('Yakin hapus foto?');"><ion-icon name="trash-outline"></ion-icon></button>
+                                <button class="btn btn-danger" onclick="return confirm('Yakin hapus foto?');"><ion-icon name="trash-outline"></ion-icon>Hapus</button>                                
                             </div>
                         </form>
                 </div>
