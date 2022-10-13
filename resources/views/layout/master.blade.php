@@ -96,7 +96,7 @@
                   </a>
                   <div class="submenu">
                       <ul class="submenu-item scrollable-menu" role="menu">
-                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}" st><i class="mdi mdi-cogs"></i> Teknisi</a>
+                          <a class="dropdown-item nav-link" href="{{route('teknisi.index')}}"><i class="mdi mdi-cogs"></i> Teknisi</a>
                           <a class="dropdown-item nav-link" href="{{route('produk.index')}}"><i class="mdi mdi-cogs"></i> Produk</a>
                           <a class="dropdown-item nav-link" href="{{route('priority.index')}}"><i class="mdi mdi-cogs"></i> Prioritas</a>
                           <a class="dropdown-item nav-link" href="{{route('status.index')}}"><i class="mdi mdi-cogs"></i> Status Pekerjaan</a>
@@ -145,7 +145,7 @@
               @else
               
                 @if( Route::has('login'))
-              <li class="nav-item" >
+              <li class="nav-item">
                 <a href="{{ route('login') }}" class="nav-link" style="color:#fff;"><i class="mdi mdi-login" style="color:#fff;"></i>Login</a>
               </li>
                 @endif

@@ -255,8 +255,8 @@ class DataController extends Controller
                 ]);
             }
         
-        toast('Berhasil Menambah','success');
-        return redirect()->route('project.index');             
+        toast('Berhasil tambah data','success');
+        return redirect()->route('project.index');
     }
 
     /**
@@ -330,7 +330,7 @@ class DataController extends Controller
             }
         }
 
-        toast('Berhasil Edit','success');
+        toast('Berhasil edit data','success');
         return redirect()->route('project.index');
     }
 
@@ -342,7 +342,7 @@ class DataController extends Controller
             'id_user' => (auth()->user()->id)
         ]);
 
-        toast('Berhasil input comment','success');
+        toast('Berhasil tambah komentar','success');
         return redirect()->route('project.index',compact('project'));
     }
 
@@ -364,7 +364,7 @@ class DataController extends Controller
         $id = $request->input('multi_delete');
 
         if($id == 0){
-            toast('Pilih Foto Dulu');
+            toast('Silakan pilih foto terlebih dahulu');
             return back();
         }else{
         //hapus foto di folder
@@ -381,7 +381,7 @@ class DataController extends Controller
         //hapus foto di database
         Image::whereIn('id', $id)->delete();
 
-        toast('Foto dihapus','success');
+        toast('Berhasil hapus foto','success');
         return back();
     }
 

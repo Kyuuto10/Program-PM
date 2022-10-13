@@ -6,9 +6,24 @@
 @include('sweetalert::alert')
 
 <script>
+    var input = document.getElementById("input"),
+        selectBox = document.getElementById("selectBox");
+
+    //function onLoad() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if(urlParams.has('filter')){
+            selectBox.value = urlParams.get('filter');
+            input.value = urlParams.get('input');
+        }else{
+            selectBox.value = "semua";
+            input.value = "";
+        }
+    //}
+
     function changeType() {
-        var input = document.getElementById("input");
-        var selectBox = document.getElementById("selectBox");        
+        var input = document.getElementById("input"),
+            selectBox = document.getElementById("selectBox");
 
         if(selectBox.value == "tanggal" || selectBox.value == "tgl_pengiriman" || selectBox.value == "tgl_kembali"){
             input.type = "date";
@@ -42,11 +57,11 @@
                 </div> 
                 <div class="col-lg-2"></div>
                 <div class="col-lg-6">
-                    <form class="row" method="GET">                        
-                        <div class="col-auto" >
-                            <div style="width: 200px; height:150px;">
-                                <select class="form-select" name="filter" id="selectBox" value="{{ ($projects['filter']) }}" onfocus="this.size=5;" onblur="this.size=1;" onchange="changeType();this.size=1;this.blur();">
-                                    <option value="semua" selected>Semua</option>
+                    <form class="row" method="GET">
+                        <div class="col-auto">
+                            <div style="width: 200px;">
+                                <select class="form-select" name="filter" id="selectBox" value="{{ ($projects['filter']) }}" onblur="this.size=1;" onchange="changeType();this.size=1;this.blur();">
+                                    <option value="semua">Semua</option>
                                     <option value="tanggal">Tanggal</option>
                                     <option value="nama_instansi">Nama Instansi</option>
                                     <option value="nama_lokasi">Nama Lokasi</option>
@@ -153,7 +168,7 @@
                                 <select class="form-select" name="warranty" id="warranty" value="{{old('warranty')}}" required>
                                     <option value="">--Pilih--</option>
                                     <option value="Garansi">Garansi</option>
-                                    <option value="Non-Garansi">Non - Garansi</option>
+                                    <option value="Non-Garansi">Non Garansi</option>
                                 </select>
                             </div>
                         </div>
@@ -426,7 +441,7 @@
                                     <select class="form-select" name="warranty" id="warranty" value="{{$project->warranty}}">
                                             <option disabled selected option>{{$project->warranty}}</option>
                                             <option value="Garansi" {{ ($project->warranty == 'Garansi') ? 'selected' : ''}}>Garansi</option>
-                                            <option value="Non-Garansi" {{ ($project->warranty == 'Non-Garansi') ? 'selected' : ''}}>Non-Garansi</option>
+                                            <option value="Non-Garansi" {{ ($project->warranty == 'Non-Garansi') ? 'selected' : ''}}>Non Garansi</option>
                                     </select>
                                 </div>
                             </div>
@@ -563,7 +578,7 @@
                                 @endif
                         @endforeach
                             <div class="pull-left mt-2">
-                                <button class="btn btn-danger" onclick="return confirm('Yakin hapus foto?');"><ion-icon name="trash-outline"></ion-icon>Hapus</button>                                
+                                <button class="btn btn-danger" onclick="return confirm('Yakin hapus foto?');"><ion-icon name="trash-outline"></ion-icon>Hapus</button>
                             </div>
                         </form>
                 </div>
