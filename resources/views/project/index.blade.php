@@ -57,10 +57,26 @@
                 </div> 
                 <div class="col-lg-2"></div>
                 <div class="col-lg-6">
+
+<script>
+    $(document).on("change", ".seletOption", function() {
+        var selected = $(this).find('option:selected').text();
+        var $form = $(this).closest("form");
+        var remarks = $form.find(".remarks").val();
+
+        $form.find('.remarks').toggle(selected != 'Tanggal' && selected != 'Tanggal Pengiriman' && selected != 'Tanggal Kembali' 
+                                    && selected != 'Warranty' && selected != 'Status Pengiriman' && selected != 'Status Kembali');
+        $form.find('.date').toggle(selected == 'Tanggal' || selected == 'Tanggal Pengiriman' || selected == 'Tanggal Kembali');
+        $form.find('.jaminan').toggle(selected == 'Warranty');
+        $form.find('.status').toggle(selected == 'Status Pengiriman' || selected == 'Status Kembali');
+    });
+</script>
+
+
                     <form class="row" method="GET">
                         <div class="col-auto">
                             <div style="width: 200px;">
-                                <select class="form-select" name="filter" id="selectBox" value="{{ ($projects['filter']) }}" onblur="this.size=1;" onchange="changeType();this.size=1;this.blur();">
+                                <select class="form-select seletOption" name="filter" id="selectBox" value="{{ ($projects['filter']) }}" onblur="this.size=1;" onchange="changeType();this.size=1;this.blur();">
                                     <option value="semua">Semua</option>
                                     <option value="tanggal">Tanggal</option>
                                     <option value="nama_instansi">Nama Instansi</option>
@@ -81,7 +97,18 @@
                         </div>
 
                         <div class="col-auto">
-                            <input type="search" id="input" name="keyword" class="form-control" value="{{ ($projects['keyword']) }}" placeholder="Cari..." style="width:250px;">
+                            <input type="search" id="input" name="keyword" class="form-control remarks" value="{{ ($projects['keyword']) }}" placeholder="Cari..." style="width:250px;">
+                            <input type="date" class="form-control date" style="display: none;" name="date" value="{{ ($projects['date']) }}">
+                            <select class="form-select jaminan" name="select" id="" style="display: none;" value="{{ ($projects['select']) }}">
+                                <option value="">Pilih</option>
+                                <option value="Garansi">Garansi</option>
+                                <option value="Non-Garansi">Non-Garansi</option>
+                            </select>
+                            <select class="form-select status" name="status" id="" style="display: none;" value="{{ ($projects['status']) }}">
+                                <option disabled>Pilih</option>
+                                <option value="Sudah Sampai">Sudah Sampai</option>
+                                <option value="Belum Sampai">Belum Sampai</option>
+                            </select>
                         </div>
 
                         <div class="col-auto">

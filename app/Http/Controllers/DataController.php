@@ -26,6 +26,9 @@ class DataController extends Controller
     {
         //$projects['nama_instansi'] = request('nama_instansi');
         $projects['filter'] = request('filter');
+        $projects['date'] = $request->query('date');
+        $projects['select'] = $request->query('select');
+        $projects['status'] = $request->query('status');    
         $projects['keyword'] = $request->query('keyword');  
 
         $query = Data::join('teknisi','data.id_teknisi','=','teknisi.id')
@@ -48,9 +51,9 @@ class DataController extends Controller
                         }else if($projects['filter'] == "teknisi"){
                             $query->where('nama_teknisi','LIKE','%'.$projects['keyword'].'%');
                         }else if($projects['filter'] == "tanggal"){
-                            $query->where('tanggal','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('tanggal','LIKE','%'.$projects['date'].'%');
                         }else if($projects['filter'] == "warranty"){
-                            $query->where('warranty','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('warranty','=',$projects['select']);
                         }else if($projects['filter'] == "prioritas"){
                             $query->where('nama_prioritas','LIKE','%'.$projects['keyword'].'%');
                         }else if($projects['filter'] == "jobdesk"){
@@ -62,25 +65,20 @@ class DataController extends Controller
                         }else if($projects['filter'] == "tgl_pengiriman"){
                             $query->where('tgl_pengiriman','LIKE','%'.$projects['keyword'].'%');
                         }else if($projects['filter'] == "status_pengiriman"){
-                            $query->where('status_pengiriman','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('status_pengiriman','=',$projects['status']);
                         }else if($projects['filter'] == "tgl_kembali"){
                             $query->where('tgl_kembali','LIKE','%'.$projects['keyword'].'%');
                         }else if($projects['filter'] == "status_kembali"){
-                            $query->where('status_kembali','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('status_kembali','=',$projects['status']);
                         }else if($projects['filter'] == "semua"){
                             $query->where('nama_instansi','LIKE','%'.$projects['keyword'].'%');
                             $query->orWhere('nama_lokasi','LIKE','%'.$projects['keyword'].'%');
                             $query->orWhere('nama_teknisi','LIKE','%'.$projects['keyword'].'%');
-                            $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');
-                            $query->orWhere('warranty','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('nama_produk','LIKE','%'.$projects['keyword'].'%');                            
                             $query->orWhere('nama_prioritas','LIKE','%'.$projects['keyword'].'%');
                             $query->orWhere('nama_jobdesk','LIKE','%'.$projects['keyword'].'%');
                             $query->orWhere('nama_status','LIKE','%'.$projects['keyword'].'%');
-                            $query->orWhere('item','LIKE','%'.$projects['keyword'].'%');
-                            $query->orWhere('tgl_pengiriman','LIKE','%'.$projects['keyword'].'%');
-                            $query->orWhere('status_pengiriman','LIKE','%'.$projects['keyword'].'%');
-                            $query->orWhere('tgl_kembali','LIKE','%'.$projects['keyword'].'%');
-                            $query->orWhere('status_kembali','LIKE','%'.$projects['keyword'].'%');
+                            $query->orWhere('item','LIKE','%'.$projects['keyword'].'%');                           
                         }
                     })
                     /*->when(request('nama_instansi'),function($query)use($projects){

@@ -56,7 +56,7 @@
                         <div class="row mb-3">
                             <div class="form-outline mb-4">
                                 <label><b>Username</b></label>
-                                <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" autocomplete="off" placeholder="Masukkan Username" value="{{old('username')}} " autofocus>
+                                <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" autocomplete="off" placeholder="Masukkan Username" value="{{old('username')}}" autofocus>
                                     @error('username')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
