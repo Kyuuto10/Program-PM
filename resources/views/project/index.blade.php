@@ -6,6 +6,9 @@
 @include('sweetalert::alert')
 
 <script>
+    var host = window.location.protocol + "//" + window.location.host;
+    window.history.pushState('', '', host+"/project");
+
     var input = document.getElementById("input"),
         selectBox = document.getElementById("selectBox");
 
@@ -98,13 +101,13 @@
 
                         <div class="col-auto">
                             <input type="search" id="input" name="keyword" class="form-control remarks" value="{{ ($projects['keyword']) }}" placeholder="Cari..." style="width:250px;">
-                            <input type="date" class="form-control date" style="display: none;" name="date" value="{{ ($projects['date']) }}">
-                            <select class="form-select jaminan" name="select" id="" style="display: none;" value="{{ ($projects['select']) }}">
+                            <input type="date" class="form-control date" style="display: none; width:250px;" name="date" value="{{ ($projects['date']) }}">
+                            <select class="form-select jaminan" name="select" id="" style="display: none; width:250px;" value="{{ ($projects['select']) }}">
                                 <option value="">Pilih</option>
                                 <option value="Garansi">Garansi</option>
-                                <option value="Non-Garansi">Non-Garansi</option>
+                                <option value="Non-Garansi">Non Garansi</option>
                             </select>
-                            <select class="form-select status" name="status" id="" style="display: none;" value="{{ ($projects['status']) }}">
+                            <select class="form-select status" name="status" id="" style="display: none; width:250px;" value="{{ ($projects['status']) }}">
                                 <option disabled>Pilih</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
                                 <option value="Belum Sampai">Belum Sampai</option>
