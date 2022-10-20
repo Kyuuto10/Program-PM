@@ -10,4 +10,9 @@ class Comment extends Model
     use HasFactory;
     protected $table = 'comment';
     protected $fillable = ['id_data','komentar','id_user'];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

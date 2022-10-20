@@ -2,7 +2,7 @@
 
 use App\http\Controllers\{DataController, TeknisiController,
                          StatusController, ProdukController, JobdeskController, 
-                         PrioritasController, UserController};
+                         PrioritasController, UserController, CommentController};
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +48,7 @@ Route::middleware(['preventBackHistory','auth','user-access:admin'])->group(func
     Route::post('project/multiFilter', [DataController::class,'multiFilter'])->name('project.multiFilter');
     Route::get('project/export', 'App\Http\Controllers\DataController@export')->name('project.export');
     Route::get('project/add_comment/{id}', [DataController::class,'add_comment'])->name('project.add_comment');
+    Route::post('project/uploadImage/{id}',[CommentController::class,'uploadImage'])->name('project.uploadImage');
     Route::resource('project', DataController::class);
     Route::resource('teknisi', TeknisiController::class);
     Route::resource('status', StatusController::class);

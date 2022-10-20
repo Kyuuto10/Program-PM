@@ -24,16 +24,16 @@
         }
     //}
 
-    function changeType() {
-        var input = document.getElementById("input"),
-            selectBox = document.getElementById("selectBox");
+    // function changeType() {
+    //     var input = document.getElementById("input"),
+    //         selectBox = document.getElementById("selectBox");
 
-        if(selectBox.value == "tanggal" || selectBox.value == "tgl_pengiriman" || selectBox.value == "tgl_kembali"){
-            input.type = "date";
-        }else{
-            input.type = "search";
-        }
-    }
+    //     if(selectBox.value == "tanggal" || selectBox.value == "tgl_pengiriman" || selectBox.value == "tgl_kembali"){
+    //         input.type = "date";
+    //     }else{
+    //         input.type = "search";
+    //     }
+    // }
 </script>
 
 <br>
@@ -61,6 +61,7 @@
                 <div class="col-lg-2"></div>
                 <div class="col-lg-6">
 
+<!-- Fungsi ubah type input -->
 <script>
     $(document).on("change", ".seletOption", function() {
         var selected = $(this).find('option:selected').text();
@@ -75,7 +76,7 @@
     });
 </script>
 
-
+                    <!-- Form Search Data -->
                     <form class="row" method="GET">
                         <div class="col-auto">
                             <div style="width: 200px;">
@@ -125,7 +126,7 @@
     </div>
 </div>
 
-  <!-- Modal -->
+  <!-- Modal Tambah Data -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -616,6 +617,8 @@
         </div>
     </div>
 
+    <!-- Input komentar dan foto -->
+
     <div class="modal fade" id="modalComment{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -623,28 +626,40 @@
                     <h5 class="modal-title" id="staticBackdropLabel">Masukkan Komentar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ url('project/add_comment', $project->id) }}" method="GET" enctype="multipart/form-data" id="editForm">
-                        <div class="row">
+                <div class="modal-body">                    
+                    <form action="{{ route('project.uploadImage',$project->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf                        
                             <div class="col-12">
                                 <div class="form-group">
                                     <strong>Komentar</strong>
-                                    <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{$project->komentar}}" placeholder="Komentar">{{$project->komentar}}</textarea>
+                                    <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{$project->komentar}}" placeholder="Komentar" required>{{$project->komentar}}</textarea>
+                                    
+                                    <input type="hidden" value="{{$project->id}}" name="id_data" id="id_data">                                    
+                                    
+                                </div>
+                            </div> 
+
+                        <div class="col-12">
+                                <div class="form-group">
+                                    <strong>Foto</strong>
+                                    <input type="file" class="form-control" name="image[]" accept="image/*" multiple>
+                                    
                                     <input type="hidden" value="{{$project->id}}" name="id_data" id="id_data">
+                                    
                                 </div>
                             </div>
-
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
+                                <button type="submit" class="btn btn-primary" id="submit"><ion-icon name="checkmark-outline"></ion-icon> Submit</button>
                             </div>
-                        </div>
                     </form>
+                            
                 </div>
             </div>
         </div>
     </div>
     @endif
 
+            <!-- Modal Show -->
             <div class="modal fade" id="modalShow{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
@@ -668,14 +683,6 @@
                                         <li class="list-group-item"><b>Jobdesk:&ensp;</b>{{$project->nama_jobdesk}}</li>
                                         <li class="list-group-item"><b>Deskripsi:&ensp;</b>{{$project->deskripsi}}</li>
                                         <li class="list-group-item"><b>Status Pekerjaan:&ensp;</b>{{$project->nama_status}}</li>
-                                        <li class="list-group-item"><b>Foto:&ensp;</b>
-                                            <br>
-                                            @foreach($images as $img)
-                                                @if($img->data_id == $project->id)
-                                                <img src="/images/{{ $img->image }}" style="width:15%; height:15%;"> &nbsp;&nbsp;
-                                                @endif
-                                            @endforeach
-                                        </li>
                                         <li class="list-group-item"><b>Item:&ensp;</b>{{$project->item}}</li>
                                         <li class="list-group-item"><b>Tanggal Pengiriman:&ensp;</b>{{$project->tgl_pengiriman}}</li>
                                         <li class="list-group-item"><b>Status Pengiriman:&ensp;</b>{{$project->status_pengiriman}}</li>
@@ -683,9 +690,20 @@
                                         <li class="list-group-item"><b>Status Kembali:&ensp;</b>{{$project->status_kembali}}</li>
                                         <li class="list-group-item"><b>Komentar:&ensp;</b>
                                             <br>
+                                            
                                             @foreach($comments as $komen)
                                                 @if($komen->id_data == $project->id)
-                                                    {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }}: &nbsp;&nbsp; {{ $komen->komentar }}<br>
+                                                <div style="max-height: 100%;">                                               
+                                                    {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }}: &nbsp;&nbsp; {{ $komen->komentar }} &nbsp;&nbsp; @foreach($images as $img) @if($komen->id == $img->comment_id)<img src="{{ asset('images/'.$img->image) }}" style="width:7%; height:7%;"> @endif @endforeach &nbsp;&nbsp; <br>
+                                                    </div>  
+                                                @endif
+                                            @endforeach
+                                        </li>
+                                        <li class="list-group-item"><b>Semua Foto:&ensp;</b>
+                                            <br>
+                                            @foreach($images as $img)
+                                                @if($img->data_id == $project->id)
+                                                <img src="/images/{{ $img->image }}" style="width:15%; height:15%;"> &nbsp;&nbsp;
                                                 @endif
                                             @endforeach
                                         </li>
@@ -735,6 +753,7 @@
 
 <br>
 
+    <!-- tabel expor data -->
     <table id="datas" style="display: none;">
         <tr>
             <th>No</th>
@@ -791,6 +810,7 @@
     {{ $projects->appends(request()->except('page'))->links() }}
 </div>
 
+<!-- Fungsi expor data -->
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $("#btn_ekspor").click(function(){

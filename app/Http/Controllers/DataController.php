@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class DataController extends Controller
 {
@@ -334,14 +335,43 @@ class DataController extends Controller
 
     public function add_comment(Request $request, Data $project)
     {
+        //dd($request);
+        // $image = array();
+        // if($files = $request->file('image')) {
+        //     foreach($files as $file) {
+        //         $name = $project['nama_instansi'].'-image-'.time().rand(1,1000).'.'.$file->extension();
+        //         $file->move(public_path('images'),$name);
+        //         $image[] = $name;
+        //     }
+        // }
+
+        // $images = $request->file('image');
+        // if($request->hasFile('image')){
+        //     foreach($images as $img){                
+        //         $imageName = $project['nama_instansi'].'-'.$img->getClientOriginalName();
+        //         $img->move(base_path().'/images/',$imageName);
+        //         $arr[] = $imageName;
+        //     }
+        //     $image = implode(",", $arr);
+        // }else{
+        //     $image = '';
+        // }        
+
         Comment::create([
             'id_data' => $request->id_data,
-            'komentar' => $request->komentar,
+            'komentar' => $request->komentar,              
+            // 'image' => $image,         
+            // 'image' => implode("|",$image),
             'id_user' => (auth()->user()->id)
-        ]);
+        ]);    
 
         toast('Berhasil tambah komentar','success');
         return redirect()->route('project.index',compact('project'));
+    }
+
+    public function uploadImage(Request $request)
+    {
+
     }
 
     public function download(Image $id)
