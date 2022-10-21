@@ -642,21 +642,23 @@
 
                     </form>
                     <div class="imgPreview"></div>
+                    <?php $foto = 0; ?>
                         @foreach($images as $img)
                         <form action="{{ url('project/deleteImage', $img->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                                 @if($img->data_id == $project->id)
+                                <?php $foto = 1; ?>
                                 <input type="checkbox" name="multi_delete[]" value="{{ $img->id }}">
                                 <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:145px;">
                                 <a href="{{ url('project/download', $img->id) }}" class="btn btn-primary"><ion-icon name="download-outline"></ion-icon>Unduh</a>&emsp;
                                 @endif
                         @endforeach
-                        @if(!empty($img->id))
+                    <?php if($foto == 1){ ?>
                             <div class="pull-left mt-2">
                                 <button class="btn btn-danger" onclick="return confirm('Yakin hapus foto?');"><ion-icon name="trash-outline"></ion-icon>Hapus</button>
                             </div>
-                            @endif
+                    <?php } ?>
                         </form>
                 </div>
             </div>
@@ -678,18 +680,15 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <strong>Komentar</strong>
-                                    <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{$project->komentar}}" placeholder="Komentar" required>{{$project->komentar}}</textarea>
-                                    
-                                    <input type="hidden" value="{{$project->id}}" name="id_data" id="id_data">                                    
-                                    
+                                    <textarea class="form-control" name="komentar" id="komentar" cols="10" rows="5" value="{{$project->komentar}}" placeholder="Komentar" required>{{$project->komentar}}</textarea>                                    
+                                    <input type="hidden" value="{{$project->id}}" name="id_data" id="id_data">                                                                        
                                 </div>
                             </div> 
 
                         <div class="col-12">
                                 <div class="form-group">
                                     <strong>Foto</strong>
-                                    <input type="file" class="form-control" name="image[]" accept="image/*" multiple>
-                                    
+                                    <input type="file" class="form-control" name="image[]" accept="image/*" multiple>                                    
                                     <input type="hidden" value="{{$project->id}}" name="id_data" id="id_data">
                                     
                                 </div>
