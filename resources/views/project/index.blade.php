@@ -69,10 +69,17 @@
         var remarks = $form.find(".remarks").val();
 
         $form.find('.remarks').toggle(selected != 'Tanggal' && selected != 'Tanggal Pengiriman' && selected != 'Tanggal Kembali' 
-                                    && selected != 'Warranty' && selected != 'Status Pengiriman' && selected != 'Status Kembali');
+                                    && selected != 'Warranty' && selected != 'Status Pengiriman' && selected != 'Status Kembali'
+                                    && selected != 'Teknisi' && selected != 'Produk' && selected != 'Prioritas'
+                                    && selected != 'Jobdesk' && selected != 'Status Pekerjaan');
         $form.find('.date').toggle(selected == 'Tanggal' || selected == 'Tanggal Pengiriman' || selected == 'Tanggal Kembali');
         $form.find('.jaminan').toggle(selected == 'Warranty');
         $form.find('.status').toggle(selected == 'Status Pengiriman' || selected == 'Status Kembali');
+        $form.find('.select-teknisi').toggle(selected == 'Teknisi');
+        $form.find('.select-produk').toggle(selected == 'Produk');
+        $form.find('.select-prioritas').toggle(selected == 'Prioritas');
+        $form.find('.select-status-pekerjaan').toggle(selected == 'Status Pekerjaan');
+        $form.find('.select-jobdesk').toggle(selected == 'Jobdesk');
     });
 </script>
 
@@ -103,15 +110,52 @@
                         <div class="col-auto">
                             <input type="search" id="input" name="keyword" class="form-control remarks" value="{{ ($projects['keyword']) }}" placeholder="Cari..." style="width:250px;">
                             <input type="date" class="form-control date" style="display: none; width:250px;" name="date" value="{{ ($projects['date']) }}">
+                            <!-- select warranty -->
                             <select class="form-select jaminan" name="select" id="" style="display: none; width:250px;" value="{{ ($projects['select']) }}">
                                 <option value="">Pilih</option>
                                 <option value="Garansi">Garansi</option>
                                 <option value="Non-Garansi">Non Garansi</option>
                             </select>
+                            <!-- select status -->
                             <select class="form-select status" name="status" id="" style="display: none; width:250px;" value="{{ ($projects['status']) }}">
                                 <option disabled>Pilih</option>
                                 <option value="Sudah Sampai">Sudah Sampai</option>
                                 <option value="Belum Sampai">Belum Sampai</option>
+                            </select>
+                            <!-- select teknisi -->
+                            <select class="form-select select-teknisi" name="select_teknisi" id="" style="display: none; width:250px;" value="{{ ($projects['select_teknisi']) }}">
+                                <option disabled selected option>Pilih</option>
+                                @foreach($teknisis as $teknisi)
+                                <option value="{{ $teknisi->nama_teknisi }}">{{ $teknisi->nama_teknisi }}</option>
+                                @endforeach
+                            </select>
+                            <!-- select produk -->
+                            <select class="form-select select-produk" name="select_produk" id="" style="display: none; width:250px;" value="{{ ($projects['select_produk']) }}">
+                                <option disabled selected option>Pilih</option>
+                                @foreach($product as $produk)
+                                <option value="{{ $produk->nama_produk }}">{{ $produk->nama_produk }}</option>
+                                @endforeach
+                            </select>
+                            <!-- select prioritas -->
+                            <select class="form-select select-prioritas" name="select_prioritas" id="" style="display: none; width:250px;" value="{{ ($projects['select_prioritas']) }}">
+                                <option disabled selected option>Pilih</option>
+                                @foreach($priorities as $priority)
+                                <option value="{{ $priority->nama_prioritas}}">{{ $priority->nama_prioritas}}</option>
+                                @endforeach
+                            </select>
+                            <!-- select status pekerjaan -->
+                            <select class="form-select select-status-pekerjaan" name="select_status_pekerjaan" id="" style="display: none; width:250px;" value="{{ ($projects['select_status_pekerjaan']) }}">
+                                <option disabled selected option>Pilih</option>
+                                @foreach($stattus as $status)
+                                <option value="{{ $status->nama_status }}">{{ $status->nama_status }}</option>
+                                @endforeach
+                            </select>
+                            <!-- select jobdesk -->
+                            <select class="form-select select-jobdesk" name="select_jobdesk" id="" style="display: none; width:250px;" value="{{ ($projects['select_jobdesk']) }}">
+                                <option disabled selected option>Pilih</option>
+                                @foreach($jobdesks as $jobdesk)
+                                <option value="{{ $jobdesk->nama_jobdesk }}">{{ $jobdesk->nama_jobdesk }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -608,9 +652,11 @@
                                 <a href="{{ url('project/download', $img->id) }}" class="btn btn-primary"><ion-icon name="download-outline"></ion-icon>Unduh</a>&emsp;
                                 @endif
                         @endforeach
+                        @if(!empty($img->id))
                             <div class="pull-left mt-2">
                                 <button class="btn btn-danger" onclick="return confirm('Yakin hapus foto?');"><ion-icon name="trash-outline"></ion-icon>Hapus</button>
                             </div>
+                            @endif
                         </form>
                 </div>
             </div>

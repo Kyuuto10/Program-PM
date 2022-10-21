@@ -6,15 +6,11 @@ use App\Models\{ Produk,Prioritas,Jobdesk,Status,Teknisi,Image,Comment,User };
 use App\Models\Data;
 use App\Exports\DataExport;
 use Carbon\Carbon;
-use http\Env\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class DataController extends Controller
 {
@@ -27,6 +23,11 @@ class DataController extends Controller
     {
         //$projects['nama_instansi'] = request('nama_instansi');
         $projects['filter'] = request('filter');
+        $projects['select_teknisi'] = $request->query('select_teknisi');
+        $projects['select_produk'] = $request->query('select_produk');
+        $projects['select_prioritas'] = $request->query('select_prioritas');
+        $projects['select_status_pekerjaan'] = $request->query('select_status_pekerjaan');
+        $projects['select_jobdesk'] = $request->query('select_jobdesk');
         $projects['date'] = $request->query('date');
         $projects['select'] = $request->query('select');
         $projects['status'] = $request->query('status');    
@@ -48,19 +49,19 @@ class DataController extends Controller
                         }else if($projects['filter'] == "nama_lokasi"){
                             $query->where('nama_lokasi','LIKE','%'.$projects['keyword'].'%');
                         }else if($projects['filter'] == "produk"){
-                            $query->where('nama_produk','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('nama_produk','=',$projects['select_produk']);
                         }else if($projects['filter'] == "teknisi"){
-                            $query->where('nama_teknisi','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('nama_teknisi','=',$projects['select_teknisi']);
                         }else if($projects['filter'] == "tanggal"){
                             $query->where('tanggal','LIKE','%'.$projects['date'].'%');
                         }else if($projects['filter'] == "warranty"){
                             $query->where('warranty','=',$projects['select']);
                         }else if($projects['filter'] == "prioritas"){
-                            $query->where('nama_prioritas','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('nama_prioritas','=',$projects['select_prioritas']);
                         }else if($projects['filter'] == "jobdesk"){
-                            $query->where('nama_jobdesk','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('nama_jobdesk','=',$projects['select_jobdesk']);
                         }else if($projects['filter'] == "status"){
-                            $query->where('nama_status','LIKE','%'.$projects['keyword'].'%');
+                            $query->where('nama_status','=',$projects['select_status_pekerjaan']);
                         }else if($projects['filter'] == "item"){
                             $query->where('item','LIKE','%'.$projects['keyword'].'%');
                         }else if($projects['filter'] == "tgl_pengiriman"){
