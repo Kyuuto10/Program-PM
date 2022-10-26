@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home.welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -44,8 +44,7 @@ Route::middleware(['preventBackHistory','auth','user-access:admin'])->group(func
 
     Route::delete('project/deleteImage/{id}',[DataController::class,'deleteImage']); 
     Route::get('project/download/{id}', [DataController::class,'download']);   
-    Route::get('/logout', [LoginController::class,'logout'])->name('logout');
-    Route::post('project/multiFilter', [DataController::class,'multiFilter'])->name('project.multiFilter');
+    Route::get('/logout', [LoginController::class,'logout'])->name('logout');    
     Route::get('project/export', 'App\Http\Controllers\DataController@export')->name('project.export');
     Route::get('project/add_comment/{id}', [DataController::class,'add_comment'])->name('project.add_comment');
     Route::post('project/uploadImage/{id}',[CommentController::class,'uploadImage'])->name('project.uploadImage');

@@ -133,44 +133,9 @@ class DataController extends Controller
 
     }
 
-    // public function multiFilter(Request $request)
-    // {
-    //     $projects = DB::table('data')->get();
-    //     $product = DB::table('produk')->get();
-    //     $priorities = DB::table('prioritas')->get();
-    //     $jobdesks = DB::table('jobdesk')->get();
-    //     $stattus = DB::table('status')->get();
-    //     $teknisis = DB::table('teknisi')->get();
-    //     $images = DB::table('images')->get();
-    //     $comments = DB::table('comment')->get();
-    //     $users = DB::table('users')->get();
-
-    //     if($request->nama_instansi)
-    //     {
-    //         $result = Data::where('nama_instansi','LIKE','%'.$request->nama_instansi.'%');
-    //     }
-    //     if($request->nama_produk)
-    //     {
-    //         $result = Produk::where('nama_instansi','LIKE','%'.$request->nama_produk.'%');
-    //     }
-
-    //     return view('project.index',compact('users','product','priorities','jobdesks','stattus','teknisis','projects','images','comments'));
-    // }
-
     public function export()
     {
         return Excel::download(new DataExport, 'Data.xlsx');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function create()
-    {
-
     }
 
     /**
@@ -260,28 +225,6 @@ class DataController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Data $project)
-    {
-    
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Data $project)
-    {
-        
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -336,28 +279,6 @@ class DataController extends Controller
 
     public function add_comment(Request $request, Data $project)
     {
-        //dd($request);
-        // $image = array();
-        // if($files = $request->file('image')) {
-        //     foreach($files as $file) {
-        //         $name = $project['nama_instansi'].'-image-'.time().rand(1,1000).'.'.$file->extension();
-        //         $file->move(public_path('images'),$name);
-        //         $image[] = $name;
-        //     }
-        // }
-
-        // $images = $request->file('image');
-        // if($request->hasFile('image')){
-        //     foreach($images as $img){                
-        //         $imageName = $project['nama_instansi'].'-'.$img->getClientOriginalName();
-        //         $img->move(base_path().'/images/',$imageName);
-        //         $arr[] = $imageName;
-        //     }
-        //     $image = implode(",", $arr);
-        // }else{
-        //     $image = '';
-        // }        
-
         Comment::create([
             'id_data' => $request->id_data,
             'komentar' => $request->komentar,              
@@ -370,15 +291,10 @@ class DataController extends Controller
         return redirect()->route('project.index',compact('project'));
     }
 
-    public function uploadImage(Request $request)
-    {
-
-    }
-
     public function download(Image $id)
     {
         $download = Image::all()->find($id);
-        return response()->download('images/'.$download->image); 
+        return response()->download('public/images/'.$download->image); 
     }
 
     /**

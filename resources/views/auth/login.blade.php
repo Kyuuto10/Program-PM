@@ -45,7 +45,7 @@
         <div class="col-md-7 col-lg-5 col-xl-5">
             <div class="">
 
-            <center><img src="{{url('template/images/nts.png')}}"class="img-fluid" alt="Phone image"width="125px" style="border-radius:50%;"></center>
+            <center><img src="{{url('public/template/images/nts.png')}}"class="img-fluid" alt="Phone image"width="125px" style="border-radius:50%;"></center>
             <br>
                 <div class="card">
                     <div class="card-body">

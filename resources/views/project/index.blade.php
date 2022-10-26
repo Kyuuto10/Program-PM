@@ -7,7 +7,7 @@
 
 <script>
     var host = window.location.protocol + "//" + window.location.host;
-    window.history.pushState('', '', host+"/project");
+    window.history.pushState('', '', host+"Program-PM/project");
 
     var input = document.getElementById("input"),
         selectBox = document.getElementById("selectBox");
@@ -650,7 +650,7 @@
                                 @if($img->data_id == $project->id)
                                 <?php $foto = 1; ?>
                                 <input type="checkbox" name="multi_delete[]" value="{{ $img->id }}">
-                                <img src="/images/{{ $img->image }}" class="rounded float-left" style="width:145px;">
+                                <img src="{{ asset('public/images/'.$img->image) }}" class="rounded float-left" style="width:145px;">
                                 <a href="{{ url('project/download', $img->id) }}" class="btn btn-primary"><ion-icon name="download-outline"></ion-icon>Unduh</a>&emsp;
                                 @endif
                         @endforeach
@@ -739,7 +739,7 @@
                                             @foreach($comments as $komen)
                                                 @if($komen->id_data == $project->id)
                                                 <div style="max-height: 100%;">                                               
-                                                    {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }}: &nbsp;&nbsp; {{ $komen->komentar }} &nbsp;&nbsp; @foreach($images as $img) @if($komen->id == $img->comment_id)<img src="{{ asset('images/'.$img->image) }}" style="width:7%; height:7%;"> @endif @endforeach &nbsp;&nbsp; <br>
+                                                    {{ $komen->created_at }} &nbsp;&nbsp; {{ $komen->name }}: &nbsp;&nbsp; {{ $komen->komentar }} &nbsp;&nbsp; @foreach($images as $img) @if($komen->id == $img->comment_id)<img src="{{ asset('public/images/'.$img->image) }}" style="width:7%; height:7%;"> @endif @endforeach &nbsp;&nbsp; <br>
                                                     </div>  
                                                 @endif
                                             @endforeach
@@ -748,7 +748,7 @@
                                             <br>
                                             @foreach($images as $img)
                                                 @if($img->data_id == $project->id)
-                                                <img src="/images/{{ $img->image }}" style="width:15%; height:15%;"> &nbsp;&nbsp;
+                                                <img src="{{ asset('public/images/'.$img->image) }}" style="width:15%; height:15%;"> &nbsp;&nbsp;
                                                 @endif
                                             @endforeach
                                         </li>

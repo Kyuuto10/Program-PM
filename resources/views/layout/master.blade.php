@@ -31,25 +31,26 @@
     <!-- end icon -->
 
     <!-- My Style -->
-    <link rel="stylesheet" href="{{url('css/style.css')}}">
+    <link rel="stylesheet" href="{{url('public/css/style.css')}}">
     <!-- end my style -->
 
     <!-- base:css -->
-    <link rel="stylesheet" href="{{url('template/vendors/mdi/css/materialdesignicons.min.css')}}">
-    <link rel="stylesheet" href="{{url('template/vendors/base/vendor.bundle.base.css')}}">
+    <link rel="stylesheet" href="{{url('public/template/vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{url('public/template/vendors/base/vendor.bundle.base.css')}}">
     <!-- endinject -->
     
     <!-- plugin css for this page -->
     <!-- End plugin css for this page -->
 
     <!-- inject:css -->
-    <link rel="stylesheet" href="{{url('template/css/style.css')}}">
+    <link rel="stylesheet" href="{{url('public/template/css/style.css')}}">
     <!-- endinject -->
     <!-- Sweet Alert -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" rel="stylesheet">
+    <script src="public/sweetalert2.all.js"></script>
     <!-- End Sweet Alert -->
     <!-- icon nts -->
-    <link rel="shortcut icon" href="{{url('template/images/nts.png')}}" />
+    <link rel="shortcut icon" href="{{url('public/template/images/nts.png')}}" />
     <!-- end icon -->
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -58,8 +59,8 @@
     </script>
 
     <!-- Ekspor Data -->
-    <script src="{{url('template/js/jquery.min.js')}}"></script>
-    <script src="{{url('template/js/jquery.table2excel.min.js')}}"></script>
+    <script src="{{url('public/template/js/jquery.min.js')}}"></script>
+    <script src="{{url('public/template/js/jquery.table2excel.min.js')}}"></script>
   
     <!-- Script -->
     @vite(['resources/sass/app.css','resources/js/app.js'])
